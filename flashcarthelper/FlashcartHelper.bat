@@ -1,4 +1,9 @@
 @echo off
+IF "%cd%" EQU "%userprofile%\Desktop" goto invpath
+IF "%cd%" EQU "%userprofile%" goto invpath
+IF "%cd%" EQU "%windir%\*" goto invpath
+IF "%cd%" EQU "C:" goto invpath
+IF "%cd%" EQU "%userprofile%\Documents" goto invpath
 rd Put_This_In_SD_Card /S /Q 2> nul
 mkdir Put_This_In_SD_Card 2>nul
 ::To translators
@@ -9,11 +14,11 @@ mkdir Put_This_In_SD_Card 2>nul
 ::The license is GNU GPL v3.0
 
 ::date of compilation
-set compiledate=9/20/2011
+set compiledate=11/15/2011
 del guide.fhg 2> nul
 del *.txt 2> nul
 ::currentver is version number
-set currentver=0.8
+set currentver=0.8.3
 :uptest
 IF EXIST FHup.bat. (
 goto begin
@@ -24,7 +29,7 @@ goto gpl
 ::GPL notice
 cls
 title FlashcartHelper %currentver% version: GPL notice
-echo FlashcartHelper %currentver% Copyright (C) 2011  ron975
+echo FlashcartHelper %currentver% Copyright (C) 2011  Punyman
 echo    This program comes with ABSOLUTELY NO WARRANTY; neither express not implied
 echo    This is free software, and you are welcome to redistribute it
 echo    under certain conditions;read the license for details.
@@ -1356,7 +1361,7 @@ goto start
 cls
 echo This option is for updating your flashcart for the latest 3DS/DSi firmware
 echo The latest DSi firmware is 1.4.3, 1.4.4C
-echo The latest 3DS firmware is 2.1.0-4
+echo The latest 3DS firmware is 2.2-04
 echo This option is up to date as of August 29th 2011
 echo.
 echo FlashcartHelper is not responsible for bricked flashcarts resulting from 
@@ -1364,6 +1369,8 @@ echo improper use of this option.
 echo.
 echo DSi Firmware fixes are availible for...
 echo [1] Supercard DSTWO
+
+echo The following patches are only compatible up to 3DS firmware 2.1-04
 echo [2] Acekard 2i
 echo [3] R4i Gold (Non 3DS version) (r4ids.cn)
 echo [4] R4i Gold (3DS version) (r4ids.cn)
@@ -1402,11 +1409,11 @@ echo (y/n)
 set /p firmdstwo=
 IF "%firmdstwo%" == "n" goto exit
 
-start /wait wget http://down.supercard.sc/download/dstwo/Firmware/Firmware_v1.12_eng.zip
+start /wait wget http://down.supercard.sc/download/dstwo/Firmware/Firmware_v1.13_eng.zip
 start /wait 7za x *.zip 
 del *.zip
 rmdir Put_This_In_SD_Card /S /Q
-ren eng Put_This_In_SD_Card
+ren en Put_This_In_SD_Card
 cls
 echo.
 echo Please put the file dstwoupdate.dat in the ROOT of your SD card
@@ -1875,7 +1882,13 @@ goto bakstart
 exit
  
 
-
-
+:invpath
+echo Error 102
+echo Invalid Path
+echo Please do not run FlashcartHelper in your User Profile folder, Documents folder, or Desktop
+echo Please do not run FlashcartHelper in a system folder.
+echo Please do not run FlashcartHelper in your Hard Drive Root.
+pause
+exit
 
 

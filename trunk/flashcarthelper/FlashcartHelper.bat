@@ -1,20 +1,28 @@
 @echo off
+rd Put_This_In_SD_Card /S /Q 2> nul
+mkdir Put_This_In_SD_Card 2>nul
 ::To translators
-::Please do not change commented lines, (lines with :: in fron of it)
+::Please do not change commented lines, (lines with :: in front of it)
 ::Also, only change lines with echo infront of it.
 ::Also, you may replace the GPL notice with translated versions from
 ::http://www.gnu.org/licenses/licenses.html#translations
 ::The license is GNU GPL v3.0
 
 ::date of compilation
-set compiledate=9/1/2011
+set compiledate=9/20/2011
 del guide.fhg 2> nul
 del *.txt 2> nul
 ::currentver is version number
-set currentver=v0.7
-::required for auto update check DO NOT CHANGE IF YOU WILL NOT REMOVE :fhtest
-::IF %errorlevel% EQU 1 goto begin 
+set currentver=0.8
+:uptest
+IF EXIST FHup.bat. (
+goto begin
+) ELSE (
+goto gpl
+)
+:gpl
 ::GPL notice
+cls
 title FlashcartHelper %currentver% version: GPL notice
 echo FlashcartHelper %currentver% Copyright (C) 2011  ron975
 echo    This program comes with ABSOLUTELY NO WARRANTY; neither express not implied
@@ -49,7 +57,7 @@ start /wait wget http://flashcart-helper.googlecode.com/files/UnRAR.exe
 
 :7ztest
 IF EXIST 7za.exe. (
-goto begin
+goto uptest
 ) ELSE (
 echo 7za.exe not found
 echo Press any key to download.
@@ -59,8 +67,22 @@ start /wait wget http://flashcart-helper.googlecode.com/files/7za.exe
 
 
 set workdir=%cd%
+:uptest
+IF EXIST FHup.bat. (
+goto begin
+) ELSE (
+goto up
+)
+
+:up
+::Fetch Update File
+wget -q http://flashcart-helper.googlecode.com/files/fhup.bat >nul
+call fhup.bat
+
 :begin
-del fhupdater.bat 2> nul
+del FHup.bat 2> nul
+set FC=
+set menuguide=
 del *.zip 2> nul
 del *.7z 2> nul
 del *.rar 2> nul
@@ -71,11 +93,11 @@ cls
 set error=1
 :start2
 cls
-mode con lines=35
+mode con lines=40
 IF %error% NEQ 1 echo Invalid Choice
 title FlashcartHelper %currentver%
 echo.
-echo                          Welcome to FlashcartHelper.          %currentver%
+echo                          Welcome to FlashcartHelper.          v%currentver%
 echo                           What do you wish to do?
 echo                     __________________________________
 color F0
@@ -94,6 +116,10 @@ echo.
 echo [7]Download DSi Firmware Fixes (Use this option at your own risk)
 echo.
 echo [8]Download DS-Scene Rom Helper (Download latest CMP cheat DB)
+echo.
+echo [9]Install MENUdo (ClouDS) for my Flashcart
+echo.
+echo [B]Backup/Restore MicroSD card
 echo.
 echo [R]Readme
 echo.
@@ -126,6 +152,9 @@ IF "%selection%" == "r" goto readmii
 IF "%selection%" == "l" goto license
 IF "%selection%" == "7" goto dsi
 IF "%selection%" == "8" goto cmp
+IF "%selection%" == "9" goto menudo
+IF "%selection%" == "b" goto bak
+IF "%selection%" == "B" goto bak
 set error=0
 goto start2
 :setups
@@ -174,6 +203,10 @@ echo [16] Supercard DSonei
 echo.
 echo [17] iSmart Premuim
 echo.
+echo [18] EDGE
+echo.
+echo [19] iEDGE
+echo.
 echo [B] Go back
 echo Please input your choice
 
@@ -197,7 +230,8 @@ IF "%FC%" == "14" goto ds1
 IF "%FC%" == "15" goto ds1sdhc
 IF "%FC%" == "16" goto ds1i
 IF "%FC%" == "17" goto ispp
-IF
+IF "%FC%" == "18" goto edge
+IF "%FC%" == "19" goto iedge
 set ind=0
 goto setup
 :ds2
@@ -337,9 +371,8 @@ pause
 del guide.txt 2> nul
 ren *.guide.txt guide.fhg 2> nul
 start notepad guide.fhg
-start explorer %cd%\Put_This_In_SD_card\
+start explorer.exe Put_This_In_SD_card
 exit
-
 
 :r4
 cls
@@ -351,18 +384,18 @@ IF "%r4yn%" == "n" goto start
 echo Downloading latest Wood R4
 start /wait wget http://filetrip.net/h25123666-Wood-R4.html
 start /wait 7za x *.7z
-set za=%cd%\7za.exe
+set za="%cd%"\7za.exe
 cd "Wood_R4_v*.*"
 set wooddir=%cd%
-start /wait %za% a -tzip wood.zip _DS_MENU.DAT 
-start /wait %za% u -tzip wood.zip "__rpg"
+%za% a -tzip wood.zip _DS_MENU.DAT 
+%za% u -tzip wood.zip "__rpg"
 cd ..
-move %wooddir%\wood.zip %cd%
+move "%wooddir%\wood.zip" "%cd%"
 start /wait 7za x wood.zip -oPut_This_In_SD_Card 
-rmdir %wooddir% /s /q
+rmdir "%wooddir%" /s /q
 pause
 start /wait wget http://flashcart-helper.googlecode.com/svn-history/r17/data/guides/r4.guide.txt
-del *.7z
+::del *.7z
 echo Download Moonshell?
 echo (y/n)
 set /p mshl=
@@ -402,6 +435,7 @@ ren "DSTT_DSTTi YSmenu" "Put_This_In_SD_Card"
 echo Downloading RetroGameFan's latest DAT updates
 start /wait wget http://filetrip.net/h35132218-RetroGameFan-DAT-Update.html
 start /wait unrar x *.rar  Put_This_In_SD_Card\TTMenu -y
+start /wait wget http://flashcart-helper.googlecode.com/svn/data/guides/tt.guide.txt
 del *.zip
 del *.rar
 echo Download Moonshell?
@@ -426,6 +460,7 @@ ren "DSTT_DSTTi TTmenu" "Put_This_In_SD_Card"
 echo Downloading RetroGameFan's latest DAT updates
 start /wait wget http://filetrip.net/h35132218-RetroGameFan-DAT-Update.html
 start /wait unrar x *.rar  Put_This_In_SD_Card\TTMenu -y
+start /wair wget http://flashcart-helper.googlecode.com/svn/data/guides/tt.guide.txt
 del *.zip
 del *.rar
 echo Download Moonshell?
@@ -696,6 +731,51 @@ set /p m3msh=
 IF "%m3msh%" == "y" goto mshl
 IF "%m3msh%" == "n" goto end
 
+:edge
+cls
+echo You chose EDGE
+echo Is this correct?
+echo (y/n)
+set /p edge=
+IF "%edge%" == "n" goto start
+echo Downloading latest EDGE OS
+start /wait wget http://filetrip.net/h35129830-EDGE-OS.html
+start /wait 7za x *.zip -oPut_This_In_SD_Card
+ren Put_This_In_SD_Card\IEDGE.dat EDGE.dat
+start /wait wget http://flashcart-helper.googlecode.com/svn/data/guides/edge.guide.txt
+echo Download Moonshell?
+echo (y/n)
+set /p edgemsh=
+IF "%edgemsh%" == "y" goto mshl
+IF "%edgemsh%" == "n" goto end
+:iedge
+cls
+echo You chose iEDGE
+echo Is this correct?
+echo (y/n)
+set /p iedge=
+IF "%iedge%" == "n" goto start
+echo Downnloading guide
+start /wait wget http://flashcart-helper.googlecode.com/svn/data/guides/iedge.guide.txt
+echo Downloading latest iEDGE OS
+start /wait wget http://filetrip.net/h35129832-iEDGE-OS.html
+start /wait 7za x *.zip -oPut_This_In_SD_card
+cls
+del *.zip
+echo Do you need to flash your iEDGE
+echo (Choose Yes if you have not used your iEDGE before)
+echo (y/n)
+set /p iedgeflash=
+IF "%iedgeflash%" == "n" goto mshl
+echo Downloading iEDGE Boot Update
+start /wait wget http://filetrip.net/d26407-BootStrap-File-for-iEDGE-4.html
+start /wait 7za x *.zip -oPut_This_In_SD_Card
+echo Download Moonshell?
+echo (y/n)
+set /p iedgemshl=
+IF "%iedgemshl%" == "y" goto mshl
+IF "%iedgemshl%" == "n" goto end
+
 :clone
 cls
 mode con lines=50
@@ -705,7 +785,8 @@ echo This list is sorted by
 echo (Name of cart) - (website)
 :group1
 echo.
-echo A Guide for R4 clones is not availible at this time. Sorry for the inconvenience. > guide.txt
+echo A Guide for R4 clones is not availible at this time. Sorry for the inconvenience. > guide.fhg
+echo Just put everything in the folder that pops up into your microSD. >> guide.fhg
 echo    ----------------
 echo [1]    Group 1 
 echo Group 1 includes
@@ -745,7 +826,9 @@ echo.
 echo   -----------------
 echo [8]   Group 8
 echo R4SDHC v1.34 - www.r4sdhc.com
-
+echo   -----------------
+echo [9]   Group 9
+echo Other flashcarts. Press "9" to see list.
 set /p group1=
 IF "%group1%" == "1" goto g1
 IF "%group1%" == "2" goto g2
@@ -755,6 +838,7 @@ IF "%group1%" == "5" goto g5
 IF "%group1%" == "6" goto g6
 IF "%group1%" == "7" goto g7
 IF "%group1%" == "8" goto g8
+IF "%group1%" == "9" goto g9
 goto start
 :g1
 cls
@@ -957,6 +1041,90 @@ IF "%g8mshl%" == "n" goto end
 IF "%g8mshl%" == "y" goto mshl
 exit
 
+:g9
+echo Group 9
+echo Other R4 Clone cards.
+echo [9A] Group 9-A
+echo ---------------------
+echo [9A1] N5 Revoloution (dsn5.com)
+echo [9A2] N5i Revoloution (dsn5.com)
+echo [9A3] R4-III Revolution Upgrade (r4dsl.net)
+echo [9A4] R4-III Revolutoin Upgrade (r4iiinew.com)
+echo [9A5] R4iNDSiXL (r4i-ndsill.com)
+echo [9A6] R4-SDHC Revolution (r4-pro.com)
+set /p g9sel=
+IF "%g9sel%" == "9A1" goto 9A
+IF "%g9sel%" == "9A2" goto 9A
+IF "%g9sel%" == "9A3" goto 9A
+IF "%g9sel%" == "9A4" goto 9A
+IF "%g9sel%" == "9A5" goto 9A
+IF "%g9sel%" == "9A6" goto 9A
+IF "%g9sel%" == "9a1" goto 9A
+IF "%g9sel%" == "9a2" goto 9A
+IF "%g9sel%" == "9a3" goto 9A
+IF "%g9sel%" == "9a4" goto 9A
+IF "%g9sel%" == "9a5" goto 9A
+IF "%g9sel%" == "9a6" goto 9A
+goto start
+
+:9A
+cls
+echo Setting up your cart, please wait.
+echo Downloading RetroGameFan's DSTT Updates (TTMenu)
+start /wait wget http://filetrip.net/h25123605-RetroGameFan-Multi-Cart-Update.html
+start /wait unrar x *.rar -y
+del *.rar
+start /wait 7za a -tzip ystt.zip "R4_Orginal_R4_Clone YSMenu"
+For /D %%a in ("%cd%\*") do RD /S/Q "%%a"
+start /wait 7za x ystt.zip 
+ren "R4_Orginal_R4_Clone YSMenu" "Put_This_In_SD_Card"
+echo Downloading RetroGameFan's latest DAT updates
+start /wait wget http://filetrip.net/h35132218-RetroGameFan-DAT-Update.html
+start /wait unrar x *.rar  Put_This_In_SD_Card\TTMenu -y
+del *.zip
+del *.rar
+IF "%g9sel%" == "9A1" goto 9A1
+IF "%g9sel%" == "9A2" goto 9A2
+IF "%g9sel%" == "9A3" goto 9A3
+IF "%g9sel%" == "9A4" goto 9A4
+IF "%g9sel%" == "9A5" goto 9A5
+IF "%g9sel%" == "9A6" goto 9A6
+IF "%g9sel%" == "9a1" goto 9A1
+IF "%g9sel%" == "9a2" goto 9A2
+IF "%g9sel%" == "9a3" goto 9A3
+IF "%g9sel%" == "9a4" goto 9A4
+IF "%g9sel%" == "9a5" goto 9A5
+IF "%g9sel%" == "9a6" goto 9A6
+:9A1
+start /wait wget http://filetrip.net/d26367-N5-Firmware-1-32.html
+start /wait 7za x *.zip -oPut_This_In_SD_Card -y
+goto 9ms
+:9A2
+start /wait wget http://filetrip.net/d26383-N5i-2-03-ENG-LTE.html
+start /wait 7za x *.zip -oPut_This_In_SD_Card -y
+goto 9ms
+:9A3
+start /wait wget http://goo.gl/riOs0
+start /wait 7za x *.zip -oPut_This_In_SD_Card -y
+goto 9ms
+:9A4
+start /wait wget http://goo.gl/5W3w1
+start /wait 7za *.zip -oPut_This_In_SD_Card -y
+goto 9ms
+:9A5
+start /wait wget http://goo.gl/RQUxo
+start /wait 7za *.zip -oPut_This_In_SD_Card -y
+goto 9ms
+:9A6
+start /wait wget http://goo.gl/Fx22Q
+start /wait 7za *.zip -oPut_This_In_SD_Card -y
+goto 9ms
+:9ms
+echo Download Moonshell?
+echo (y/n)
+set /p mshl=
+IF "%mshl%" == "n" goto end
+IF "%mshl%" == "y" goto mshl
 :ds1
 ::DSone
 cls 
@@ -1076,7 +1244,12 @@ IF "%ipmshl%" == "n" goto end
 IF "%ipmshl%" == "y" goto mshl
 
 :hb
-start http://filetrip.net/
+mode con lines=10
+echo.
+echo Search Query? (No Spaces)
+set /p ftq=
+start http://filetrip.net/%ftq%^&id=75
+goto start
 
 :redown
 echo Redownloading start /wait unrar and 7z.exe
@@ -1198,6 +1371,7 @@ echo [5] R4iDSN (Non 3DS version) (r4idsn.com)
 echo [6] R4iDSN (3DS version) (r4idsn.com)
 echo [7] EZ5i
 echo [8] Supercard DSonei
+echo [9] DSTTi
 echo.
 echo All other carts do not have a DSi 1.4.3 compatible patch.
 
@@ -1206,7 +1380,7 @@ echo The following patches are only compatible to up to DSi firmware 1.4.2
 echo and/or 3DS 2.1.0-4
 echo.
 echo [10] M3i Zero
-echo [11] DSTTi
+
 echo [B] Go back to the main menu
 set /p dsifirm=
 IF "%dsifirm%" == "1" goto firmdstwo
@@ -1218,7 +1392,7 @@ IF "%dsifirm%" == "6" goto firmr4idsn3ds
 IF "%dsifirm%" == "7" goto firmez5i
 IF "%dsifirm%" == "8" goto firmds1
 IF "%dsifirm%" == "10" goto firmm30
-IF "%dsifirm%" == "11" goto firmtti
+IF "%dsifirm%" == "9" goto firmtti
 IF "%dsifirm%" == "B" goto start
 :firmdstwo
 cls
@@ -1424,7 +1598,7 @@ echo (y/n)
 set /p firmdst=
 IF "%firmdst%" == "n" goto exit
 cls
-start /wait wget http://goo.gl/qW9Pt
+start /wait wget http://filetrip.net/d26365-DSTT-Core-Firmware-Update-DSi-1---1.html
 start /wait wget http://www.ndstt.com/download/os/v1.17/ttmenu_en.zip
 start /wait 7za x *.zip -oPut_This_In_SD_Card
 echo First, BACK UP YOUR SD CARD
@@ -1439,9 +1613,11 @@ echo Including..
 echo rom_pcb0.dat
 echo rom_pcb1.dat
 echo rom_pcb2.dat
-echo TTi142UPGRADE.nds
+echo TTi143UPGRADE.nds
 echo to the ROOT of your SD Card
-echo Then run TTi142UPGRADE.nds
+echo Check if your DSTTi is real with TTiCheck5.0.nds
+echo If not, DO NOT RUN PATCH.
+echo If it is real, run TTi142UPGRADE.nds
 echo FlashcartHelper is not responsible for bricked flashcarts resulting from improper use of this option.
 echo Make sure your DS is plugged in before you attempt to update
 pause
@@ -1466,7 +1642,7 @@ pause
 start explorer.exe %cd%\Put_This_In_SD_Card
 goto start
 :cmp
-IF EXIST %cd%\DS-Scene\DS-SCE~1.exe. (
+IF EXIST "%cd%\DS-Scene\DS-SCE~1.exe." (
 goto cmpstart
 ) ELSE (
 del *.rar 2> nul
@@ -1488,7 +1664,7 @@ echo (y/n)
 set /p cmpguide=
 IF "%cmpguide%" == "y" goto cmpguide
 :cmpb
-start %cd%\DS-Scene\DS-SCE~1.exe
+start explorer.exe %cd%\DS-Scene\DS-SCE~1.exe
 goto begin 
 :cmpguide
 start /wait wget http://flashcart-helper.googlecode.com/svn/data/guides/dsc.guide.txt
@@ -1496,6 +1672,205 @@ ren *.guide.txt guide.fhg
 start notepad guide.fhg
 goto cmpb
 
+:menudo
+cls
+echo                                  ~~MENUdo~~
+echo MENUdo with ROMLoading is supported on these flashcarts
+echo There are more, but FlashcartHelper cannot install those at this time.
+echo [1] Acekard 2i/2.1
+echo [2] R4 Revoloution
+echo [3] DSTT
+echo [4] Goto MENUdo download page (Manual Install)
+echo You can run MENUdo in any other flashcart, but their will be no ROMLoading.
+echo If the above options do not load roms for you, on that flashcart,
+echo Try the generic install. It may just load roms for your cart, maybe, maybe not.
+echo [5] Generic flashcart (No ROMLoading!)
+set /p menuchs=
+
+IF "%menuchs%" == "1" goto mak2
+IF "%menuchs%" == "2" goto mr4
+IF "%menuchs%" == "3" goto mtt
+IF "%menuchs%" == "4" goto mweb
+IF "%menuchs%" == "5" goto mgen
+:mak2
+echo Installing MENUdo for Acekard 2i/2.1
+start /wait wget http://menudo.yolasite.com/resources/menudo-files/localizations/12311/acekard.zip
+start /wait 7za x acekard.zip
+rd Put_This_In_SD_Card
+ren acekard Put_This_In_SD_Card
+rd Put_This_In_SD_Card\__aio /s /q
+del Put_This_In_SD_Card\*.dat
+del Put_This_In_SD_Card\akaio.nds
+del Put_This_In_SD_Card\akmenu4.nds
+start /wait wget http://flashcart-helper.googlecode.com/files/ak.nds.ini
+del Put_This_In_SD_Card\_menudo\donors\nds.ini
+copy ak.nds.ini Put_This_In_SD_Card\_menudo\donors\nds.ini
+goto menuend
+:mr4
+echo Install MENUdo for R4 Revoloution 
+start /wait wget http://menudo.yolasite.com/resources/menudo-files/localizations/12311/r4.zip
+start /wait wget http://filetrip.net/h25123666-Wood-R4.html
+start /wait 7za x *.7z
+set za=%cd%\7za.exe
+cd "Wood_R4_v*.*"
+set wooddir=%cd%
+start /wait %za% a -tzip wood.zip _DS_MENU.DAT 
+start /wait %za% u -tzip wood.zip "__rpg"
+cd ..
+move %wooddir%\wood.zip %cd%
+start /wait 7za x wood.zip -oPut_This_In_SD_Card 
+copy Put_This_In_SD_Card\_DS_MENU.DAT Put_This_In_SD_Card\__rpg\woodr4.nds
+rmdir %wooddir% /s /q
+start /wait 7za x r4.zip -aos
+rd Put_This_In_SD_Card
+ren r4 Put_This_In_SD_Card
+del Put_This_In_SD_Card\_menudo\donors\nds.ini
+set donorpath=Put_This_In_SD_Card\_menudo\donors
+start /wait wget http://flashcart-helper.googlecode.com/files/wood.nds.ini
+copy wood.nds.ini Put_This_In_SD_Card\_menudo\donors\nds.ini
+goto menuend
+
+:mtt
+echo Installing MENUdo for DSTT
+start /wait wget http://menudo.yolasite.com/resources/menudo-files/localizations/12311/dstt.zip
+start /wait 7za x dstt.zip
+rd Put_This_In_SD_Card
+ren dstt Put_This_In_SD_Card
+rd Put_This_In_SD_Card\TTMENU /s /q
+del Put_This_In_SD_Card\*.dat 2>nul
+del Put_This_In_SD_Card\akaio.nds >nul
+del Put_This_In_SD_Card\akmenu4.nds >nul
+
+goto menuend
+
+:mweb
+start http://menudo.yolasite.com/download.php
+goto start
+
+:mgen
+echo Installing MENUdo
+echo This will load Homebrew as long as your cart supports auto-DLDI. 
+start /wait wget http://menudo.yolasite.com/resources/menudo-files/localizations/12311/generic.zip
+start /wait 7za x generic.zip
+rd Put_This_In_SD_Card
+ren generic Put_This_In_SD_Card
+del Put_This_In_SD_Card\*.dat
+del Put_This_In_SD_Card\akmenu4.nds
+goto menuend
+:menuend
+echo MenuDO Installed successfully.
+start /wait wget http://flashcart-helper.googlecode.com/svn/data/guides/menudo.guide.txt
+ren *.guide.txt guide.fhg
+start notepad guide.fhg
+pause
+exit
+:bak
+cls
+set bakdrv=c
+IF EXIST c:\flashcartbak\. (
+goto bakstart
+) ELSE (
+mkdir c:\flashcartbak\
+)
+:bakstart
+cls
+echo                          ~~FlashcartHelper Backup/Restore~~
+echo FlashcartHelper Backup/Restore wizard.
+echo Backups will be saved in %bakdrv%:\flashcartbak\
+echo [1] Backup my MicroSD
+echo [2] Restore my backup
+echo [3] Remove all backups
+echo [4] Change backup location
+set /p backop=
+IF "%backop%" == "1" goto backup
+IF "%backop%" == "2" goto restore
+IF "%backop%" == "3" goto rembak
+IF "%backop%" == "4" goto chngbak
+exit
+:backup
+echo Which drive letter is your MicroSD? 
+echo DO NOT ENTER THE COLON (:)
+set /p drvlet=
+dir %bakdrv%:\flashcartbak\ /a:-d
+echo Which slot do you want this backup to occupy?
+echo 1-9001 (Will overwrite if exists)
+set /p slot=
+IF EXIST %bakdrv%:\flashcartbak\%slot%.flashcarthelperbak.fhbak. (
+echo File Exists, Are you sure you want to overwrite backup in
+echo Slot %slot%?
+echo {y/n}
+set /p backow=
+IF "%backow%" == "y" goto backupcon
+IF "%backow%" == "n" goto bakstart
+) ELSE (
+goto backupcon
+)
+:backupcon
+echo Backing up your MicroSD. This will take a while.
+start /wait 7za a -tzip %bakdrv%:\flashcartbak\%slot%.flashcarthelperbak.fhbak %drvlet%: -o%bakdrv%:\flashcartbak\ -y
+cls
+echo Backup Complete
+pause
+goto start
+
+:restore
+echo Scanning backup location for backups
+IF EXIST %bakdrv%:\flashcartbak\*.fhbak (
+goto rescontd
+) ELSE (
+echo No backups found
+pause
+goto bakstart
+)
+goto bakstart
+:rescontd
+dir %bakdrv%:\flashcartbak\ /a:-d
+echo Which slot do you want to restore?
+echo (The number beside the backup file)
+set /p reslot=
+echo.
+echo Which drive letter is your MicroSD? 
+echo DO NOT ENTER THE COLON (:)
+set /p drvlet=
+echo Are you sure you want to restore? You may loose data.
+echo FlashcartHelper will not delete/format your card.
+echo If you restore from backup without removing files from your cart
+echo you make get duplicates.
+echo If you want to restore, type "restore" without the quotes.
+set /p restorecon=
+IF %restorecon% NEQ restore goto start
+IF %restorecon% EQU restore goto restorcont
+exit
+:restorcont
+echo FlashcartHelper will now restore your flashcart with your 
+echo selected backup.
+echo.
+echo This may take a while
+7za x %bakdrv%:\flashcartbak\%reslot%.flashcarthelperbak.fhbak -o%drvlet%:\
+rd %drvlet%:\flashcartbak\
+echo Restore Complete
+pause
+goto start
+
+:rembak
+echo Are you sure you want to delete all backups?
+echo If you want to delete all backups, type "delete" without the quotes.
+set /p delbak=
+IF %delbak% NEQ delete goto start
+IF %delbak% EQU delete goto rembakcont
+goto start
+:rembakcont
+rd %bakdrv%:\flashcartbak\ /s /q
+echo Removed all backups
+pause
+goto start
+
+:chngbak
+echo Change backup location's drive to?
+echo Default is C
+echo DO NOT ENTER THE COLON (:)
+set /p bakdrv=
+goto bakstart
 :exit
 exit
  

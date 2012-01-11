@@ -1,0 +1,21 @@
+FlashcartHelper DSone guide text file
+rev 1 20110906
+
+Setup Guide for DSone/DSonei 
+If you are seeing this and you have not used FlashcartHelper to help set up your DSOne or DSonei, disregard this information.
+This guide was made by ron975.
+
+i)Make sure your DSOnei is flashed, to flash your DSonei, you must tell FlashcartHelper that your DSonei has NOT been flashed during the setup of the DSonei. 
+1)Drag everything in the "Put_In_SD_Card" (it should be open right now) into the ROOT of your MicroSD card.
+2)Games and Homebrew can be anywhere you want in your MicroSD unless specified
+3)Put your MicroSD card into your DSOne(i)
+ii)Only follow this step if you need to flash your DSonei. Once you have copied everything to your MicroSD, plug your DSonei into the DSonei Flasher into your computer, then wait till the light turns GREEN. It will take about 8 minutes. Please goto this link for more info on flashing your DSonei: http://eng.supercard.sc/manual/dsone/evolution/znsj.htm
+4)Insert your DSOnei into your DSi/DSlite/DSPhat
+5)When you start your DSOnei, a filebrowser should show. You can launch your game directly through this filebrowser, called EOS
+6)When launching games through EOS, press A+B+X+Y+L+R to access the real-time menu
+7)If a game doesn't work, try using RetroGameFan's Updates to launch your game
+
+Note: You cannot download commercial GBA/SNES/NDS roms through FlashcartHelper
+
+
+

@@ -1,0 +1,19 @@
+FlashcartHelper iEDGE guide text file
+rev 1 20111009
+
+Setup Guide for iEDGE 
+If you are seeing this and you have not used FlashcartHelper to help set up your iEDGE, disregard this information.
+This guide was made by ron975.
+
+1)Drag everything in the "Put_In_SD_Card" (it should be open right now) into the ROOT of your MicroSD card.
+2)Games and Homebrew can be anywhere you want in your MicroSD unless specified
+3)Put your MicroSD card into your EDGE
+4)Insert your iEDGE into your DSi/DSlite/DSPhat
+5)If you have not flashed your iEDGE, and told FlashcartHelper that your iEDGE has not been flashed, the on board LED should start flashing. DO NOT POWER OFF YOUR DS(i). It is updating the bootstrap. When the LED is done flashing, your iEDGE is ready to use. Reboot your DS, and start your iEDGE
+6)When you start your iEDGE, a menu should show. Choose the right icon to play games.
+7)Choose the "Media" icon to launch Moonshell, if installed.
+8)Choose the left icon for settings.
+9)Enjoy!
+
+Note: You cannot download commercial GBA/SNES/NDS roms through FlashcartHelper
+

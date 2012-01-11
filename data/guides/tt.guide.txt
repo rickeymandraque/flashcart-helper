@@ -1,0 +1,107 @@
+FlashcartHelper DSTT(i) guide text file
+rev 1 20110824
+
+Setup Guide for DSTT/DSTTi
+If you are seeing this and you have not used FlashcartHelper to help set up your DSTT or DSTTi, disregard this information.
+This guide was made by ron975.
+
+1)Drag everything in the "Put_In_SD_Card" (it should be open right now) into the ROOT of your MicroSD card.
+2)Games and Homebrew can be anywhere you want in your MicroSD unless specified
+3)Put your MicroSD card into your DSTTi
+4)Insert your DSTTi into your DSi/DSlite/DSPhat
+5)When you start your DSTTi, a filebrowser should show. Choose where you put your games, and star your game
+6)Some games will not work on your DSTT/DSTTi
+Here is a list of games that will not work whatsoever on your DSTT/DSTTi, credits to RetroGameFan
+
+DS-Normal:
+4784 - CWBP - Tracy Beaker: The Game (E)
+5213 - YLUP - Last Window The Secret of Cape West (E) (use patch in Extras FOlder)
+5669 - UZPJ - Battle & Get Pokémon Typing DS (J) (doesn't save)
+
+
+DSi-Enhanced :
+5225 - VIDV - Imagine Dream Resort (E)
+5759 - VIDE - Imagine Resort Owner (U)
+
+7)Some games will need to be patched before you can play them. Here is a list of games that you need to patch, Credits to RetroGameFan
+
+The following games must be PATCHED to work on a DSTT :
+
+5213 - YLUP - Last Window The Secret of Cape West (E)
+
+
+The following games have ONLY been released PATCHED :
+
+5067 - BPQE - Pet Pals New Leash on Life (U)(SUXXORS)
+5099 - BS5E - Satisfashion Rock the Runway (U)(SUXXORS)
+5130 - B2FE - Florist Shop (U)(SUXXORS)
+5178 - CB9E - Harvest Moon DS Grand Bazaar (U)(VENOM)
+
+8)Some games need to be decrypted. To do this, select the "eNDrypt advance" option from FlashcartHelper. 
+Here is a list of games that only work if decrypted, credits to RetroGameFan
+The following games must be decrypted before they can work at all on a DSTT. You only need to decrypt them once with eNDryptS Advanced 1.2. CRCs included are DECRYPTED CRCs.
+
+
+4798 - Alice in Wonderland (E)(RFTD) CRC DA04EEA3
+4799 - Sonic Classic Collection (E)(RFTD) CRC F1FA5159
+4837 - SpongeBob's Boating Bash (E)(RFTD) CRC 1721CADB
+5016 - Shrek Forever After (E)(RFTD) CRC AFA58728
+5017 - Toy Story 3 (E)(RFTD) CRC 36C869D4
+5214 - Grease The Official Video Game (E)(RFTD) CRC A7BA8A8E
+5225 - Imagine Dream Resort (E)(RFTD) CRC 991806A4 (not working yet)
+5228 - The Last Airbender (E)(RFTD) CRC 2D5D467B
+5291 - The Sims 3 (E)(RFTD) CRC 73CB88D4
+5312 - Zhu Zhu Pets 2 Featuring The Wild Bunch (E)(RFTD) CRC 85EC2E5B
+5316 - New Carnival Games (E)(RFTD) CRC FDB0959C
+5337 - New Carnival Games (U)(RFTD) CRC 50A122A1
+5338 - The Penguins of Madagascar (E)(RFTD) CRC 99266881
+5339 - iCarly 2 iJoin The Click (E)(RFTD) CRC 0CC3D8C3
+5364 - Tron (E)(RFTD) CRC F44F637C
+5394 - Camp Rock The Final Jam (E)(RFTD) CRC E86A1B97
+5395 - Imagine Fashion Paradise (E)(RFTD) CRC 08905B1F
+5396 - Phineas and Ferb Ride Again (E)(RFTD) CRC 43874F82
+5408 - TouchMaster 4 Connect (E)(RFTD) CRC 64EE7F6D
+5547 - Mario vs. Donkey Kong - Mini-Land Mayhem! (E)(RFTD) CRC 2A7B3F7F
+
+How to use eNDryptS Advanced 1.2 :
+1. Copy game that needs to be decrypted to eNDryptS Advanced 1.2 folder
+2. Open eNDryptS Advanced 1.2 (Vista and Windows 7 users need to 'Run as Administrator')
+3. Press 1
+4. Look to see if your rom has been encrypted or decrypted
+5. Press any key to go back to Menu
+6. Press 0 to exit
+7. Make an archive of the newly decrypted game so you don't need to redo
+
+
+9)The following games do not work whatsoever on your DSTT, credits to RetroGameFan for the list.
+DS-Normal:
+4784 - CWBP - Tracy Beaker: The Game (E)
+5213 - YLUP - Last Window The Secret of Cape West (E) (use patch in Extras FOlder)
+5669 - UZPJ - Battle & Get Pokémon Typing DS (J) (doesn't save)
+
+
+DSi-Enhanced :
+5225 - VIDV - Imagine Dream Resort (E)
+5759 - VIDE - Imagine Resort Owner (U)
+
+10)Some games do not work at all with YSmenu on your DSTT. Use TTmenu to play these games. List credits to RetroGameFan
+The following CLEAN UNTRIMMED roms currently ONLY work properly in TTMenu :
+
+AQRP - 0414 - My Pet Hotel[E] - E31C07E4
+
+
+11)If you get an error code, here is what they mean, credits to RetroGameFan
+errcode=-4 : Caused by not having the required loading data for that particular DS Normal game in infolib.
+errcode=-5 : Caused by not having the required loading data for that particular DSi-Enhanced game in infolib and also caused by not having the 
+             latest ttpatch.dat/r4patch.dat/m3patch.dat in the TTMenu folder (file depends on which cart you are using).
+errcode=81 : File fragmentation on your microSD. Backup microSD to PC, then Full format with the Panasonic SD Formatter to rectify.
+errcode=83 : Save file fragmentation on your microSD. Backup microSD to PC, then Full format with the Panasonic SD Formatter to rectify.
+12)Please do not beg RetroGameFan on what game works and what game doesn't. He knows already.
+
+
+
+
+Note: You cannot download commercial GBA/SNES/NDS roms through FlashcartHelper
+
+
+

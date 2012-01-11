@@ -1,0 +1,17 @@
+FlashcartHelper EZ-Flash 5 guide text file
+rev 1 20110830
+
+Setup Guide for EZ-Flash 5
+If you are seeing this and you have not used FlashcartHelper to help set up your EZ-Flash 5, disregard this information.
+This guide was made by ron975.
+
+1)Drag everything in the "Put_In_SD_Card" (it should be open right now) into the ROOT of your MicroSD card.
+2)Games and Homebrew can be anywhere you want in your MicroSD unless specified
+3)Put your MicroSD card into your EZ-Flash 5
+4)Insert your EZ-Flash 5 into your DSi/DSlite/DSPhat
+4i)You need a game in your microSD card to start your EZ5
+5)If you are using an EZ-Flash Vi, you may need to update your firmware. Plug in your DS, and run ez5firmwreUP_V101.nds. Make sure ez5isys.bin is also in your SD card before running ez5firmwreUP_V101.nds. If it says no need to update, shut down your DS immediatley, and delete ez5firmwreUP_V101.nds
+6)Enjoy!
+
+Note: You cannot download commercial GBA/SNES/NDS roms through FlashcartHelper
+

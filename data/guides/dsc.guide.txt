@@ -1,0 +1,15 @@
+FlashcartHelper DS-Scene Rom tool
+rev 1 20110906
+
+Guide for DS-Scene Rom tool
+This guide was made by ron975.
+
+1)Start DS-Scene Rom tool from the DS-Scene folder, or through FlashcartHelper
+2)If it prompts you to update, click "Install Update". 
+3)If it prompts you to update your "CMP Database" click "Install Update" This is the cheat database. If you have a CycloDS or iEdge, select it, otherwise, just select "USRCheat.dat"
+4)Once it's done updating, click "Databases" from the top menu, then click "Install to media" and then select the  most appropiate option. If you have a CycloDS or an iEdge, select the option for your flashcart, for anyone else select the "USRCheat" option. The text should be similar to this : "USRCheat [2011-08-21]" Then select where you want the cheat database on your flashcart's MicroSD. This varies from flashcart to flashcart
+5)You can also load a rom into the DS-Scene Rom Tool, and see its info, including whether it has anti-piracy, which it will patch if it can.
+
+
+Note: You cannot download commercial GBA/SNES/NDS roms through FlashcartHelper
+

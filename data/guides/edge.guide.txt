@@ -1,0 +1,18 @@
+FlashcartHelper EDGE guide text file
+rev 1 20111009
+
+Setup Guide for EDGE 
+If you are seeing this and you have not used FlashcartHelper to help set up your EDGE, disregard this information.
+This guide was made by ron975.
+
+1)Drag everything in the "Put_In_SD_Card" (it should be open right now) into the ROOT of your MicroSD card.
+2)Games and Homebrew can be anywhere you want in your MicroSD unless specified
+3)Put your MicroSD card into your EDGE
+4)Insert your EDGE into your DSi/DSlite/DSPhat
+5)When you start your EDGE, a menu should show. Choose the right icon to play games.
+7)Choose the "Media" icon to launch Moonshell, if installed.
+8)Choose the left icon for settings.
+6)Enjoy!
+
+Note: You cannot download commercial GBA/SNES/NDS roms through FlashcartHelper
+

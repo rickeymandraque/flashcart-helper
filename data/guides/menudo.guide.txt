@@ -1,0 +1,17 @@
+FlashcartHelper Menudo Guide text file
+rev 1 20111004
+
+Setup Guide for Menudo
+If you are seeing this and you have not used FlashcartHelper to help set up Menudo, disregard this information.
+This guide was made by ron975.
+
+1)Drag everything in the "Put_In_SD_Card" (it should be open right now) into the ROOT of your MicroSD card.
+2)Games and Homebrew are put the the Games folder.
+3)Put your MicroSD card into your flashcart
+4)Insert your flashcart into your DSi/DSlite/DSPhat
+5)Run Menudo.nds to start Menudo.
+6)An XMB like interface will appear. Go to "Games" to play games. You can sort your roms using folders.
+7)You can also go to "Utilities" and run the Menudo filebrowser or other utilities, such as cIRC.
+
+
+Note: You cannot download commercial GBA/SNES/NDS roms through FlashcartHelper

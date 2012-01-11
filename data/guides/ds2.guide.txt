@@ -1,0 +1,17 @@
+FlashcartHelper DSTWO guide text file
+rev 1 20110824
+
+Setup Guide for SuperCard DSTWO
+If you are seeing this and you have not used FlashcartHelper to help set up your DSTWO, disregard this information.
+This guide was made by ron975.
+
+1)Drag everything in the "Put_In_SD_Card" (it should be open right now) into the ROOT of your MicroSD card.
+2)Games and Homebrew can be anywhere you want in your MicroSD unless specified
+3)Put your MicroSD card into your Supercard DSTWO
+4)Insert your DSTWO into your DSi/DSlite/DSPhat
+5)If you haven't flashed your DSTWO yet, no icon should show up. Leave your DSi/DSlite/DSPhat ON until an icon shows up. THIS IS EXTREMLY IMPORTANT!
+6)Once an icon shows up, start your DSTWO
+7)To play NDS files, start DS_Game from the menu you are at now
+8)To play GBA games or SNES games, start NDSGBA or CATSFC, respectively
+
+Note: You cannot download commercial GBA/SNES/NDS roms through FlashcartHelper

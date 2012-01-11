@@ -1,0 +1,16 @@
+FlashcartHelper iSmart Premuim guide text file
+rev 1 20110908
+
+Setup Guide for iSmart Premuim
+If you are seeing this and you have not used FlashcartHelper to help set up your iSmart Premuim, disregard this information.
+This guide was made by ron975.
+
+1)Drag everything in the "Put_In_SD_Card" (it should be open right now) into the ROOT of your MicroSD card.
+2)Games and Homebrew can be anywhere you want in your MicroSD unless specified
+3)Put your MicroSD card into your iSmart Premuim
+4)Insert your iSmart Premuim into your DSi/DSlite/DSPhat
+5)When you start your R4 Revolution, a menu filebrowser should show, choose your game
+6)Enjoy!
+
+Note: You cannot download commercial GBA/SNES/NDS roms through FlashcartHelper
+

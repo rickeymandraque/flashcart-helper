@@ -1,0 +1,40 @@
+FlashcartHelper eNDryptS advance guide text file
+rev 1 20110824
+
+Guide for eNDryptS
+If you are seeing this and you have not used FlashcartHelper to download eNDecryptS, disregard this information.
+This guide was made by ron975.
+
+i)Only TTmenu or YSMenu users need to decrypt some roms.
+
+1)Go into the eNDcryptS folder
+2)Put games in the eNDcryptS folder
+3)If you are on Windows Vista or Windows 7, Start eNDecryptS as administrator 
+4)Press 1 to Encrypt/Decrypt roms
+5)Check to see if your rom is decrypted
+6)Press any key to go back to the main menu
+7)Press 0 to exit
+8)Roms are now decrypted
+
+Here is a list of all games that have to be decrypted, credits to RetroGameFan
+4798 - Alice in Wonderland (E)(RFTD) CRC DA04EEA3
+4799 - Sonic Classic Collection (E)(RFTD) CRC F1FA5159
+4837 - SpongeBob's Boating Bash (E)(RFTD) CRC 1721CADB
+5016 - Shrek Forever After (E)(RFTD) CRC AFA58728
+5017 - Toy Story 3 (E)(RFTD) CRC 36C869D4
+5214 - Grease The Official Video Game (E)(RFTD) CRC A7BA8A8E
+5225 - Imagine Dream Resort (E)(RFTD) CRC 991806A4 (not working yet)
+5228 - The Last Airbender (E)(RFTD) CRC 2D5D467B
+5291 - The Sims 3 (E)(RFTD) CRC 73CB88D4
+5312 - Zhu Zhu Pets 2 Featuring The Wild Bunch (E)(RFTD) CRC 85EC2E5B
+5316 - New Carnival Games (E)(RFTD) CRC FDB0959C
+5337 - New Carnival Games (U)(RFTD) CRC 50A122A1
+5338 - The Penguins of Madagascar (E)(RFTD) CRC 99266881
+5339 - iCarly 2 iJoin The Click (E)(RFTD) CRC 0CC3D8C3
+5364 - Tron (E)(RFTD) CRC F44F637C
+5394 - Camp Rock The Final Jam (E)(RFTD) CRC E86A1B97
+5395 - Imagine Fashion Paradise (E)(RFTD) CRC 08905B1F
+5396 - Phineas and Ferb Ride Again (E)(RFTD) CRC 43874F82
+5408 - TouchMaster 4 Connect (E)(RFTD) CRC 64EE7F6D
+5547 - Mario vs. Donkey Kong - Mini-Land Mayhem! (E)(RFTD) CRC 2A7B3F7F
+Note: You cannot download commercial GBA/SNES/NDS roms through FlashcartHelper

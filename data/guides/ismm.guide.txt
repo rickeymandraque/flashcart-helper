@@ -1,0 +1,17 @@
+FlashcartHelper iSmartMM guide text file
+rev 1 20110826
+
+Setup Guide for iSmartMM
+If you are seeing this and you have not used FlashcartHelper to help set up your iSmartMM, disregard this information.
+This guide was made by ron975.
+
+1)Drag everything in the "Put_In_SD_Card" folder (it should be open right now) into the ROOT of your MicroSD card.
+2)Games and Homebrew can be anywhere you want in your MicroSD unless specified
+3)Put your MicroSD card into your Supercard iSmartMM
+4)Insert your iSmartMM into your DSi/DSlite/DSPhat
+5)Start your iSmartMM
+6)To play NDS files, start DS_Game from the menu you are at now
+7)To play GBA games, start NDSGBA 
+
+
+Note: You cannot download commercial GBA/SNES/NDS roms through FlashcartHelper

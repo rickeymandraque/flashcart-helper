@@ -1,0 +1,18 @@
+FlashcartHelper CycloDS iEvoloution guide text file
+rev 1 20110824
+
+Setup Guide for CycloDS iEvoloution
+If you are seeing this and you have not used FlashcartHelper to help set up your CycloDS iEvoloution, disregard this information.
+This guide was made by ron975.
+
+i)MAKE SURE YOUR CYCLODS iEVOLOUTION IS FLASHED!!! IF NOT, RUN FlashcartHelper AGAIN and SET UP Your CycloDS iEVO AGAIN!
+1)Drag everything in the "Put_In_SD_Card" (it should be open right now) into the ROOT of your MicroSD card.
+2)Games and Homebrew can be anywhere you want in your MicroSD unless specified
+3)Put your MicroSD card into your CycloDS Evoloution
+4)Insert your CycloDS iEvoloution into your DSi/DSlite/DSPhat
+5)When you boot your CycloDS, it asks you to update, choose yes.
+6)Choose Game/Homebrew for Games and Homebrew, and Media for Moonshell
+7)To switch between DS and DSi mode,
+
+Note: You cannot download commercial GBA/SNES/NDS roms through FlashcartHelper
+

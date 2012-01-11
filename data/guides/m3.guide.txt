@@ -1,0 +1,18 @@
+FlashcartHelper M3 guide text file
+rev 1 20110830
+
+Setup Guide for M3 Quad-Boot
+If you are seeing this and you have not used FlashcartHelper to help set up your M3 Simply/M3 Real/M3i Zero, disregard this information.
+This guide was made by ron975, 
+
+1)Drag everything in the "Put_In_SD_Card" (it should be open right now) into the ROOT of your MicroSD card.
+2)Games and Homebrew can be anywhere you want in your MicroSD unless specified
+3)Put your MicroSD card into your M3
+4)Insert your M3 into your DSi/DSlite/DSPhat
+5)When you start your M3, you will boot into Sakura. Choose YSM3.nds to boot into YSMenu, Choose R4iRTS.nds to boot into R4iRTS. This may take a while. To boot into M3 Wood, choose wood_r4_m3.nds. Remember to go into the "start" menu, then settings, then change the save extension to .sav.
+6)I recommened you to use YSM3, it has the best compatibility.
+7)To boot moonshell in the R4iRTS menu, you have to rename moonshl2.nds to _DS_MSHL.NDS
+
+M3 Quad Boot by A Gay Little Catboy
+Note: You cannot download commercial GBA/SNES/NDS roms through FlashcartHelper
+

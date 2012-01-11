@@ -1,15 +1,20 @@
 @echo off
+::To translators
+::Please do not change commented lines, (lines with :: in fron of it)
+::Also, only change lines with echo infront of it.
+::Also, you may replace the GPL notice with translated versions from
+::http://www.gnu.org/licenses/licenses.html#translations
+::The license is GNU GPL v3.0
 color 0f
 cls
 ::date of compilation
-set compiledate=8/27/2011
-set sdfolder=Put_This_In_SD_Card
+set compiledate=9/1/2011
 ::copyver is whether FlashcartHelper uses xcopy or Robocopy 
 set copyver=xcopy
 ::currentver is version number
-set currentver=v0.5.6
+set currentver=v0.6
 ::required for auto update check DO NOT CHANGE IF YOU WILL NOT REMOVE :fhtest
-IF %errorlevel% EQU 1 goto begin 
+::IF %errorlevel% EQU 1 goto begin 
 ::GPL notice
 title FlashcartHelper %currentver% %copyver% version: GPL notice
 echo  FlashcartHelper %currentver% Copyright (C) 2011  ron975
@@ -20,16 +25,16 @@ echo    This software comes with ABSOLUTELY NO WARRANTY; either express nor impl
 echo    FlashcartHelper is not responsible for any data loss resulting from
 echo    improper use of this utility. FlashcartHelper is distributed in the hope that
 echo    it will be useful, but this does not guarantee that it will be.
-echo    By continueing, it is assumed that you agree to the following terms
+echo    By continuing, it is assumed that you agree to the following terms
 pause
 cls
 title FlashcartHelper %currentver% %copyver% version
 echo This is the %copyver% compliant version
 echo This version will not work on Windows 7 or above
-echo If you are on Windows 7 or above, type "Win 7" (Exactly like that), otherwise, 
+echo If you are on Windows 7 or above, type "Win7" (Exactly like that), otherwise, 
 echo press enter to continue
 set /p xptest=
-if "%xptest%" == "Win 7" call FlashcartHelperRobocopy
+if "%xptest%" == "Win7" goto FlashcartHelperRobocopy
 :wgettest
 IF EXIST wget.exe. (
 goto unrartest
@@ -60,13 +65,13 @@ start /wait wget http://flashcart-helper.googlecode.com/files/7za.exe
 )
 
 :fhtest
-echo Loading..
-del fhupdater.bat 2> nul
-start /wait wget http://flashcart-helper.googlecode.com/files/FHupdater.bat
-call fhupdater.bat
+::echo Loading..
+::start /wait wget http://flashcart-helper.googlecode.com/files/FHupdater.bat
+::call fhupdater.bat
 ::----tests end---
 :begin
-mode con lines=30
+del fhupdater.bat 2> nul
+mode con lines=40
 del *.zip 2> nul
 del *.7z 2> nul
 del *.rar 2> nul
@@ -74,10 +79,11 @@ rmdir %cd%\Put_This_In_SD_Card\ /S /Q 2> nul
 mkdir Put_This_In_SD_Card 2>nul
 :start
 cls
-set errorlevel=1
+set error=1
 :start2
 cls
-IF %errorlevel% NEQ 1 echo Invalid Choice
+IF %error% NEQ 1 echo Invalid Choice
+title FlashcartHelper %currentver% %copyver% version
 echo.
 echo                          Welcome to FlashcartHelper.          %currentver% %copyver%
 echo                           What do you wish to do?
@@ -95,11 +101,15 @@ echo [5]eNDryptS Advance (Decrypt Roms)
 echo.
 echo [6]NDSTokyoTrim  (Trim Roms)
 echo.
+echo [7]Download DSi Firmware Fixes (Use this option at your own risk)
+echo.
 echo [R]Readme
 echo.
 echo [A]About FlashcartHelper
 echo.
 echo [L]Read License
+echo.
+echo [U]Update FlashcartHelper
 echo.
 echo [E]Exit
 echo.
@@ -112,6 +122,8 @@ IF "%selection%" == "3" goto hb
 IF "%selection%" == "4" goto redown
 IF "%selection%" == "5" goto encrypt
 IF "%selection%" == "6" goto trim
+IF "%selection%" == "U" goto update
+IF "%selection%" == "u" goto update
 IF "%selection%" == "A" goto about
 IF "%selection%" == "E" goto exit
 IF "%selection%" == "R" goto readmii
@@ -120,16 +132,17 @@ IF "%selection%" == "a" goto about
 IF "%selection%" == "e" goto exit
 IF "%selection%" == "r" goto readmii
 IF "%selection%" == "l" goto license
-set errorlevel=0
+IF "%selection%" == "7" goto dsi
+set error=0
 goto start2
 :setups
 cls
 del guide.txt 2> nul
-set errorlevel=1
+set ind=1
 :setup
 ::Displays invalid choice if invalid choice
 cls
-IF %errorlevel% NEQ 1 echo Invalid Choice
+IF %ind% NEQ 1 echo Invalid Choice
 echo.
 echo                                  ~~Setup~~
 echo What is your flashcart?
@@ -152,6 +165,14 @@ echo [8] CycloDS iEVO
 echo.
 echo [9] iSmartMM
 echo.
+echo [10] EZ Flash 5
+echo.
+echo [11] EZ Flash 5i
+echo.
+echo [12] M3 Real/M3 Simply/M3i Zero
+echo.
+echo [13] R4 Clones
+echo.
 echo [B] Go back
 echo Please input your choice
 
@@ -165,9 +186,13 @@ IF "%FC%" == "6" goto r4dsn
 IF "%FC%" == "7" goto cyclo
 IF "%FC%" == "8" goto iEVO
 IF "%FC%" == "9" goto mm
+IF "%FC%" == "10" goto ez5
+IF "%FC%" == "11" goto ez5i
+IF "%FC%" == "12" goto m3
+IF "%FC%" == "13" goto clone
 IF "%FC%" == "B" goto start2
 IF "%FC%" == "b" goto start2
-set errorlevel=0
+set ind=0
 goto setup
 :ds2
 cls
@@ -300,6 +325,7 @@ copy moonshl2.ini %cd%\Put_This_In_SD_card\moonshl2\moonshl2.ini
 del moonshl2.ini
 :end
 cls
+del *.dat 2> nul
 del *.zip 2> nul
 del *.7z 2> nul
 del *.rar 2> nul
@@ -327,7 +353,7 @@ start /wait 7za x *.7z
 rmdir %cd%\Put_This_In_SD_Card\ /S /Q 2> nul
 for /D %%j in (%cd%\*) do move %%j %%~dpj\Put_This_In_SD_Card
 echo Downloading guide
-start /wait wget http://flashcart-helper.googlecode.com/svn-history/r9/data/guides/r4.guide.txt
+start /wait wget http://flashcart-helper.googlecode.com/svn-history/r17/data/guides/r4.guide.txt
 del *.7z
 echo Download Moonshell?
 echo (y/n)
@@ -419,13 +445,13 @@ IF "%mshl%" == "y" goto mshl
 
 :r4dsn
 cls
-echo You chose R4iDSN (r4ids.cn)
+echo You chose R4iDSN (r4idsn.com)
 echo Is this correct?
 echo (y/n)
 set /p r4dyn=
 IF "%r4dyn%" == "n" goto start
 echo Downloading guide
-start /wait wget http://flashcart-helper.googlecode.com/svn-history/r9/data/guides/dsn.guide.txt
+start /wait wget http://flashcart-helper.googlecode.com/svn-history/r17/data/guides/dsn.guide.txt
 echo Downloading latest Wood R4iDSN
 start /wait wget http://filetrip.net/h35130793-Wood-R4iDSN.html
 start /wait 7za x *.7z 
@@ -561,14 +587,9 @@ start %cd%\formatter\SDformatter.exe
 pause
 goto start
 
-:up
-echo Redownload FlashcartHelper?
-echo (y/n)
-set /p up=
-IF "%up%" == "n" goto start
-wget 
-FHupdater.bat
-exit
+:update 
+start /wait wget http://flashcart-helper.googlecode.com/files/FHupdater.bat
+call FHupdater.bat
 
 :mm
 cls
@@ -604,6 +625,326 @@ echo icon=fat1:/ismartplug/moonshell.bmp >> %cd%\Put_This_In_SD_card\ismartplug\
 echo name=Moonshell >> %cd%\Put_This_In_SD_card\ismartplug\moonshell.ini
 goto end
 
+:ez5
+cls
+echo You chose EZ Flash 5
+echo If you meant EZ Flash 5i, please go back and select the EZ5i option.
+echo Is this correct?
+echo (y/n)
+set /p ez5=
+IF "%ez5%" == "n" goto start
+echo Downloading latest EZ5 kernel
+start /wait wget http://filetrip.net/h25124137-EZ5-Kernel.html
+start /wait 7za x *.zip -oPut_This_In_SD_Card
+start /wait wget http://flashcart-helper.googlecode.com/svn/data/guides/ez5.guide.txt
+echo You need atleast 1 .NDS file to load your EZ Flash 5
+echo Download Moonshell?
+echo (y/n)
+set /p mshez5=
+IF "%mshez5%" == "y" goto mshl
+IF "%mshez5%" == "n" goto end
+goto end
+
+:ez5i
+cls
+echo You chose EZ Flash 5i
+echo If you meant EZ Flash 5, please go back and select the EZ5 option.
+echo Is this correct?
+echo (y/n)
+set /p ez5i=
+IF "%ez5i%" == "n" goto start
+echo Downloading latest EZ5i kernel
+start /wait wget http://filetrip.net/h25124710-EZ5i-Kernel.html
+start /wait unrar x *.rar Put_This_In_SD_Card
+start /wait wget http://flashcart-helper.googlecode.com/svn/data/guides/ez5.guide.txt
+echo If you have not yet updated your EZ5i to v101, please run ez5firmwreUP_V101.nds
+echo If your cart says "No need to update" you do not need to update to v101.
+echo You need atleast 1 .NDS file to load your EZ Flash 5
+del %cd%\Put_This_In_SD_Card\ez5firmwreUP_V103.nds 2> nul
+echo Download Moonshell?
+echo (y/n)
+set /p mshez5i=
+IF "%mshez5i%" == "y" goto mshl
+IF "%mshez5i%" == "n" goto end
+exit
+
+:m3
+cls
+echo You chose M3 Real/M3 Simply/M3i Zero
+echo This will not work with the M3i Zero gmp-z003
+echo Is this correct?
+echo (y/n)
+set /p m3=
+IF "%m3%" == "n" goto start
+echo Downloading latest M3 Quad-Boot
+start /wait wget http://filetrip.net/h25123141-The-M3-Quad-Boot.html
+start /wait 7za x *.7z -oPut_This_In_SD_Card
+start /wait wget http://flashcart-helper.googlecode.com/svn-history/r17/data/guides/m3.guide.txt
+echo Download Moonshell?
+echo (y/n)
+set /p m3msh=
+IF "%m3msh%" == "y" goto mshl
+IF "%m3msh%" == "n" goto end
+
+:clone
+cls
+mode con lines=50
+echo R4 Clones are separated into groups. 
+echo Please select the group your clone belongs to.
+echo This list is sorted by
+echo (Name of cart) - (website)
+:group1
+echo.
+echo A Guide for R4 clones is not availible at this time. Sorry for the inconvenience. > guide.txt
+echo    ----------------
+echo [1]    Group 1 
+echo Group 1 includes
+echo DSTTi Gold - www.ndstti.cn
+echo DSTT-Advance - www.dsttadv.com
+echo R4Top Revolution - www.r4top.com 
+echo R4i-SDHC v3.07 www.r4ll-net.com
+echo.
+echo   -----------------
+echo [2]   Group 2
+echo R4iTT - www.r4itt.net
+echo R4IIISDHC v3.07 www.r4iiisdhc.com
+echo.
+echo   -----------------
+echo [3]   Group 3
+echo R4i V1.45 Revolution - www.ndsiLL.net 
+echo R4i SDHC Upgrade Revolution - r4i-sdhc.com.tw
+echo R4i Gold Upgrade Revolution v1.4.1 - www.r4igold.cn
+echo.
+echo   -----------------
+echo [4]   Group 4
+echo R4i DSi XL - www.r4i-ndsill.com 
+echo R4V-R4i v2.2 and v2.5 - www.r4-v.com
+echo.
+echo   -----------------
+echo [5]   Group 5
+echo R4i Gold Upgrade Revolution v1.14b - www.r4igold.cn
+echo.
+echo   -----------------
+echo [6]   Group 6
+echo R4i SDHC Upgrade Revolution - r4i-dshc.com 
+echo.
+echo   -----------------
+echo [7]   Group 7
+echo R4i King LL - www.r4-king.com 
+echo.
+echo   -----------------
+echo [8]   Group 8
+echo R4SDHC v1.34 - www.r4sdhc.com
+
+set /p group1=
+IF "%group1%" == "1" goto g1
+IF "%group1%" == "2" goto g2
+IF "%group1%" == "3" goto g3
+IF "%group1%" == "4" goto g4
+IF "%group1%" == "5" goto g5
+IF "%group1%" == "6" goto g6
+IF "%group1%" == "7" goto g7
+IF "%group1%" == "8" goto g8
+goto start
+:g1
+cls
+echo You chose Group 1
+echo Is this correct? (y/n)
+set /p g1=
+IF "%g1%" == "n" goto start
+echo Downloading RetroGameFan's DSTT Updates (YSmenu)
+start /wait wget http://filetrip.net/h25123605-RetroGameFan-Multi-Cart-Update.html
+start /wait unrar x *.rar -y
+del *.rar
+start /wait 7za a -tzip ystt.zip "DSTT_DSTTi YSMenu"
+For /D %%a in ("%cd%\*") do RD /S/Q "%%a"
+start /wait 7za x ystt.zip 
+ren "DSTT_DSTTi YSmenu" "Put_This_In_SD_Card"
+echo Downloading RetroGameFan's latest DAT updates
+start /wait wget http://filetrip.net/h35132218-RetroGameFan-DAT-Update.html
+start /wait unrar x *.rar  Put_This_In_SD_Card\TTMenu -y
+del *.zip
+del *.rar
+echo Download Moonshell?
+echo (y/n)
+set /p gmshl=
+IF "%gmshl%" == "n" goto end
+IF "%gmshl%" == "y" goto mshl
+
+:g2
+echo You chose Group 2
+echo Is this correct? (y/n)
+set /p g2=
+IF "%g2%" == "n" goto start
+echo Downloading RetroGameFan's DSTT Updates (YSmenu)
+start /wait wget http://filetrip.net/h25123605-RetroGameFan-Multi-Cart-Update.html
+start /wait unrar x *.rar -y
+del *.rar
+start /wait 7za a -tzip ystt.zip "DSTT_DSTTi YSMenu"
+For /D %%a in ("%cd%\*") do RD /S/Q "%%a"
+start /wait 7za x ystt.zip 
+ren "DSTT_DSTTi YSmenu" "Put_This_In_SD_Card"
+echo Downloading RetroGameFan's latest DAT updates
+start /wait wget http://filetrip.net/h35132218-RetroGameFan-DAT-Update.html
+start /wait unrar x *.rar  Put_This_In_SD_Card\TTMenu -y
+ren Put_This_In_SD_card\TTmenu.dat R4.dat
+del *.zip
+del *.rar
+echo Download Moonshell?
+echo (y/n)
+set /p g2mshl=
+IF "%g2mshl%" == "n" goto end
+IF "%g2mshl%" == "y" goto mshl
+
+:g3
+echo You chose Group 3
+echo Is this correct? (y/n)
+set /p g3=
+IF "%g3%" == "n" goto start
+echo Downloading RetroGameFan's DSTT Updates (YSmenu)
+start /wait wget http://filetrip.net/h25123605-RetroGameFan-Multi-Cart-Update.html
+start /wait unrar x *.rar -y
+del *.rar
+start /wait 7za a -tzip ystt.zip "DSTT_DSTTi YSMenu"
+For /D %%a in ("%cd%\*") do RD /S/Q "%%a"
+start /wait 7za x ystt.zip 
+ren "DSTT_DSTTi YSmenu" "Put_This_In_SD_Card"
+echo Downloading RetroGameFan's latest DAT updates
+start /wait wget http://filetrip.net/h35132218-RetroGameFan-DAT-Update.html
+start /wait unrar x *.rar  Put_This_In_SD_Card\TTMenu -y
+ren Put_This_In_SD_card\TTmenu.dat iLL.iL
+del *.zip
+del *.rar
+echo Download Moonshell?
+echo (y/n)
+set /p g3mshl=
+IF "%g3mshl%" == "n" goto end
+IF "%g3mshl%" == "y" goto mshl
+
+:g4
+echo You chose Group 4
+echo Is this correct? (y/n)
+set /p g4=
+IF "%g4%" == "n" goto start
+echo Downloading RetroGameFan's DSTT Updates (YSmenu)
+start /wait wget http://filetrip.net/h25123605-RetroGameFan-Multi-Cart-Update.html
+start /wait unrar x *.rar -y
+del *.rar
+start /wait 7za a -tzip ystt.zip "DSTT_DSTTi YSMenu"
+For /D %%a in ("%cd%\*") do RD /S/Q "%%a"
+start /wait 7za x ystt.zip 
+ren "DSTT_DSTTi YSmenu" "Put_This_In_SD_Card"
+echo Downloading RetroGameFan's latest DAT updates
+start /wait wget http://filetrip.net/h35132218-RetroGameFan-DAT-Update.html
+start /wait unrar x *.rar  Put_This_In_SD_Card\TTMenu -y
+copy Put_This_In_SD_card\TTmenu.dat Put_This_In_SD_card\iLL.iL
+ren Put_This_In_SD_card\TTmenu.dat R4i.TP
+del *.zip
+del *.rar
+echo Download Moonshell?
+echo (y/n)
+set /p g4mshl=
+IF "%g4mshl%" == "n" goto end
+IF "%g4mshl%" == "y" goto mshl
+
+:g5
+echo You chose Group 5
+echo Is this correct? (y/n)
+set /p g5=
+IF "%g5%" == "n" goto start
+echo Downloading RetroGameFan's DSTT Updates (YSmenu)
+start /wait wget http://filetrip.net/h25123605-RetroGameFan-Multi-Cart-Update.html
+start /wait unrar x *.rar -y
+del *.rar
+start /wait 7za a -tzip ystt.zip "DSTT_DSTTi YSMenu"
+For /D %%a in ("%cd%\*") do RD /S/Q "%%a"
+start /wait 7za x ystt.zip 
+ren "DSTT_DSTTi YSmenu" "Put_This_In_SD_Card"
+echo Downloading RetroGameFan's latest DAT updates
+start /wait wget http://filetrip.net/h35132218-RetroGameFan-DAT-Update.html
+start /wait unrar x *.rar  Put_This_In_SD_Card\TTMenu -y
+copy Put_This_In_SD_card\TTmenu.dat Put_This_In_SD_card\R4i.dat
+del *.zip
+del *.rar
+echo Download Moonshell?
+echo (y/n)
+set /p g5mshl=
+IF "%g5mshl%" == "n" goto end
+IF "%g5mshl%" == "y" goto mshl
+
+:g6
+echo You chose Group 6
+echo Is this correct? (y/n)
+set /p g6=
+IF "%g6%" == "n" goto start
+echo Downloading RetroGameFan's DSTT Updates (YSmenu)
+start /wait wget http://filetrip.net/h25123605-RetroGameFan-Multi-Cart-Update.html
+start /wait unrar x *.rar -y
+del *.rar
+start /wait 7za a -tzip ystt.zip "DSTT_DSTTi YSMenu"
+For /D %%a in ("%cd%\*") do RD /S/Q "%%a"
+start /wait 7za x ystt.zip 
+ren "DSTT_DSTTi YSmenu" "Put_This_In_SD_Card"
+echo Downloading RetroGameFan's latest DAT updates
+start /wait wget http://filetrip.net/h35132218-RetroGameFan-DAT-Update.html
+start /wait unrar x *.rar  Put_This_In_SD_Card\TTMenu -y
+ren Put_This_In_SD_card\TTmenu.dat R4i.TP
+del *.zip
+del *.rar
+echo Download Moonshell?
+echo (y/n)
+set /p g6mshl=
+IF "%g6mshl%" == "n" goto end
+IF "%g6mshl%" == "y" goto mshl
+
+:g7
+echo You chose Group 7
+echo Is this correct? (y/n)
+set /p g7=
+IF "%g7%" == "n" goto start
+echo Downloading RetroGameFan's DSTT Updates (YSmenu)
+start /wait wget http://filetrip.net/h25123605-RetroGameFan-Multi-Cart-Update.html
+start /wait unrar x *.rar -y
+del *.rar
+start /wait 7za a -tzip ystt.zip "DSTT_DSTTi YSMenu"
+For /D %%a in ("%cd%\*") do RD /S/Q "%%a"
+start /wait 7za x ystt.zip 
+ren "DSTT_DSTTi YSmenu" "Put_This_In_SD_Card"
+echo Downloading RetroGameFan's latest DAT updates
+start /wait wget http://filetrip.net/h35132218-RetroGameFan-DAT-Update.html
+start /wait unrar x *.rar  Put_This_In_SD_Card\TTMenu -y
+ren Put_This_In_SD_card\TTmenu.dat R4KING
+del *.zip
+del *.rar
+echo Download Moonshell?
+echo (y/n)
+set /p g7mshl=
+IF "%g7mshl%" == "n" goto end
+IF "%g7mshl%" == "y" goto mshl
+
+:g8
+echo You chose Group 8
+echo Is this correct? (y/n)
+set /p g8=
+IF "%g8%" == "n" goto start
+echo Downloading RetroGameFan's DSTT Updates (YSmenu)
+start /wait wget http://filetrip.net/h25123605-RetroGameFan-Multi-Cart-Update.html
+start /wait unrar x *.rar -y
+del *.rar
+start /wait 7za a -tzip ystt.zip "R4SDHC"
+For /D %%a in ("%cd%\*") do RD /S/Q "%%a"
+start /wait 7za x ystt.zip 
+ren "R4SDHC" "Put_This_In_SD_Card"
+echo Downloading RetroGameFan's latest DAT updates
+start /wait wget http://filetrip.net/h35132218-RetroGameFan-DAT-Update.html
+start /wait unrar x *.rar  Put_This_In_SD_Card\TTMenu -y
+del *.zip
+del *.rar
+echo Download Moonshell?
+echo (y/n)
+set /p g8mshl=
+IF "%g8mshl%" == "n" goto end
+IF "%g8mshl%" == "y" goto mshl
 :hb
 start http://filetrip.net/
 
@@ -636,12 +977,12 @@ echo The Acekard team for making the acekard
 echo The AKAIO team for making AKAIO
 echo Yellow Wood Goblin for making Wood R4/RPG
 echo Filetrip.net for hosting downloads
-echo The R4 Team for making the R4 and proving Slot-1 carts possible
+echo The R4 Team for making the R4
 echo The R4ids.cn Team for working with ywg to make Wood R4iDSN and Wood R4iGold
 echo Moonlight for Moonshell
 echo BrianTokyo for NDSTokyoTrim
 echo SolidSnake for eNDryptS advanced
-
+echo A Gay Little Cat Boy for M3 QuadBoot
 pause
 goto start 
 
@@ -706,5 +1047,280 @@ move %cd%\NDSTokyoTrim25Beta2.exe %cd%\ndstokyotrim\NDSTokyoTrim.exe
 :trim2
 start ndstokyotrim\NDSTokyoTrim.exe
 goto start
+
+
+:dsi
+cls
+echo This option is for updating your flashcart for the latest 3DS/DSi firmware
+echo The latest DSi firmware is 1.4.3, 1.4.4C
+echo The latest 3DS firmware is 2.1.0-4
+echo This option is up to date as of August 29th 2011
+echo.
+echo FlashcartHelper is not responsible for bricked flashcarts resulting from 
+echo improper use of this option.
+echo.
+echo DSi Firmware fixes are availible for...
+echo [1] Supercard DSTWO
+echo [2] Acekard 2i
+echo [3] R4i Gold (Non 3DS version) (r4ids.cn)
+echo [4] R4i Gold (3DS version) (r4ids.cn)
+echo [5] R4iDSN (Non 3DS version) (r4idsn.com)
+echo [6] R4iDSN (3DS version) (r4idsn.com)
+echo [7] EZ5i
+echo.
+echo All other carts do not have a DSi 1.4.3 compatible patch.
+
+
+echo The following patches are only compatible to up to DSi firmware 1.4.2 
+echo and/or 3DS 2.1.0-4
+echo.
+echo [8] M3i Zero
+echo [9] DSTTi
+echo [B] Go back to the main menu
+set /p dsifirm=
+IF "%dsifirm%" == "1" goto firmdstwo
+IF "%dsifirm%" == "2" goto firmak2
+IF "%dsifirm%" == "3" goto firmr4igold
+IF "%dsifirm%" == "4" goto firmr4i3ds
+IF "%dsifirm%" == "5" goto firmr4idsn
+IF "%dsifirm%" == "6" goto firmr4idsn3ds
+IF "%dsifirm%" == "7" goto firmez5i
+IF "%dsifirm%" == "8" goto firmm30
+IF "%dsifirm%" == "9" goto firmtti
+IF "%dsifirm%" == "B" goto start
+:firmdstwo
+cls
+echo You chose DSTWO
+echo Is this correct?
+echo (y/n)
+set /p firmdstwo=
+IF "%firmdstwo%" == "n" goto exit
+
+start /wait wget http://down.supercard.sc/download/dstwo/Firmware/Firmware_v1.12_eng.zip
+start /wait 7za x *.zip 
+del *.zip
+rmdir Put_This_In_SD_Card /S /Q
+ren eng Put_This_In_SD_Card
+cls
+echo.
+echo Please put the file dstwoupdate.dat in the ROOT of your SD card
+echo Then boot your DSTWO and it will prompt you to update.
+echo FlashcartHelper is not responsible for bricked flashcarts resulting from improper use of this option.
+echo Make sure your DS is plugged in before you attempt to update
+start explorer.exe %cd%\Put_This_In_SD_Card
+echo Press any key to exit. 
+pause > nul
+:firmak2
+cls
+echo You chose Acekard 2i
+echo Is this correct?
+echo (y/n)
+set /p firmak2=
+IF "%firmak2%" == "n" goto exit
+start /wait wget http://www.acekard.com/download/ak2/ak2ifw_update_3ds21_DSi143.zip
+start /wait 7za x *.zip -oPut_This_In_SD_Card
+cls
+echo Please put the files 
+echo ak2ifw_update_3ds21_DSi143_onDSi_NO44.nds 
+echo ak2ifw_update_3ds21__DSi143_onDSL_NO44.nds
+echo to the ROOT of your SD Card
+echo Then run the file that is most appropiate for your system.
+echo.
+echo Use ak2ifw_update_3ds21_DSi143_onDSi_NO44.nds if you are on a
+echo DSi, DSi XL, or 3DS
+echo.
+echo Use ak2ifw_update_3ds21__DSi143_onDSL_NO44.nds if you are on a 
+echo DS Phat or DS Lite
+echo FlashcartHelper is not responsible for bricked flashcarts resulting from improper use of this option.
+echo Make sure your DS is plugged in before you attempt to update
+pause
+start explorer.exe %cd%\Put_This_In_SD_Card
+echo Press any key to exit. 
+pause > nul
+:firmr4igold
+cls
+echo You chose R4i Gold Non-3DS version
+echo Is this correct?
+echo (y/n)
+set /p firmr4i=
+IF "%firmr4i%" == "n" goto exit
+start /wait wget ftp://r4idsdown:r4idsdown@www.r4ids.co.cc/V143_Patch_R4iGold_Non3DS.rar
+start /wait unrar x *.rar Put_This_In_SD_Card
+cls
+echo Please put the files 
+echo V143_Update_R4iGold_Non3DS_NDSi.nds
+echo V143_Update_R4iGold_Non3DS_NDSL.nds
+echo to the ROOT of your SD Card
+echo Then run the file that is most appropiate for your system.
+echo.
+echo Use V143_Update_R4iGold_Non3DS_NDSi.nds if you are on a
+echo DSi, DSi XL, or 3DS
+echo.
+echo Use V143_Update_R4iGold_Non3DS_NDSL.nds if you are on a 
+echo DS Phat or DS Lite
+echo FlashcartHelper is not responsible for bricked flashcarts resulting from improper use of this option.
+echo Make sure your DS is plugged in before you attempt to update
+pause
+start explorer.exe %cd%\Put_This_In_SD_Card
+echo Press any key to exit. 
+:firmr4i3ds
+cls
+echo You chose R4i Gold 3DS version
+echo Updating the R4i Gold 3DS version is not nessacary
+echo If you do not wish to continue, press n
+echo Only use this patch if you have a problem with your R4i Gold 3DS version
+echo On DSi firmware 1.4.3
+echo (y/n)
+set /p firmr4i=
+IF "%firmr4i%" == "n" goto exit
+start /wait wget ftp://r4idsdown:r4idsdown@www.r4ids.co.cc/V143_Patch_R4iGold_3DS.rar
+start /wait unrar x *.rar Put_This_In_SD_Card
+cls
+echo Please put the files 
+echo V143_Patch_R4iGold3DS_NDSi.nds
+echo V143_Patch_R4iGold3DS_NDSL.nds
+echo to the ROOT of your SD Card
+echo Then run the file that is most appropiate for your system.
+echo.
+echo Use V143_Patch_R4iGold3DS_NDSi.nds if you are on a
+echo DSi, DSi XL, or 3DS
+echo.
+echo Use V143_Patch_R4iGold3DS_NDSL.nds if you are on a 
+echo DS Phat or DS Lite
+echo FlashcartHelper is not responsible for bricked flashcarts resulting from improper use of this option.
+echo Make sure your DS is plugged in before you attempt to update
+pause
+start explorer.exe %cd%\Put_This_In_SD_Card
+echo Press any key to exit. 
+:firmr4idsn
+cls
+echo You chose R4iDSN Non-3DS version
+echo Is this correct?
+echo (y/n)
+set /p firmr4idsn=
+IF "%firmr4idsn%" == "n" goto exit
+start /wait wget http://r4idsn.com/admin/userimages/V143_Patch_R4iDSN_Non3DS.rar
+start /wait unrar x *.rar Put_This_In_SD_Card
+cls
+echo Please put the files 
+echo V143_Patch_R4iDSN_Non3DS_NDSi.nds
+echo V143_Patch_R4iDSN_Non3DS_NDSL.nds
+echo to the ROOT of your SD Card
+echo Then run the file that is most appropiate for your system.
+echo.
+echo Use V143_Patch_R4iDSN_Non3DS_NDSi.nds if you are on a
+echo DSi, DSi XL, or 3DS
+echo.
+echo Use V143_Patch_R4iDSN_Non3DS_NDSL.nds if you are on a 
+echo DS Phat or DS Lite
+echo FlashcartHelper is not responsible for bricked flashcarts resulting from improper use of this option.
+echo Make sure your DS is plugged in before you attempt to update
+pause
+start explorer.exe %cd%\Put_This_In_SD_Card
+
+:firmr4idsn3ds
+cls
+echo You chose R4iDSN 3DS version
+echo Updating the R4iDSN 3DS version is not nessacary
+echo If you do not wish to continue, press n
+echo Only use this patch if you have a problem with your R4i Gold 3DS version
+echo On DSi firmware 1.4.3
+echo (y/n)
+set /p firmr4idsn3ds=
+IF "%firmr4idsn3ds%" == "n" goto exit
+start /wait wget http://r4idsn.com/admin/userimages/V143_Patch_R4iDSN_3DS.rar
+start /wait unrar x *.rar Put_This_In_SD_Card
+cls
+echo Please put the files 
+echo V143_Patch_R4iDSN_3ds_NDSi.nds
+echo V143_Patch_R4iDSN_3DS_NDSL.nds
+echo to the ROOT of your SD Card
+echo Then run the file that is most appropiate for your system.
+echo.
+echo Use V143_Patch_R4iDSN_3ds_NDSi.nds if you are on a
+echo DSi, DSi XL, or 3DS
+echo.
+echo Use V143_Patch_R4iDSN_3DS_NDSL.nds if you are on a 
+echo DS Phat or DS Lite
+echo FlashcartHelper is not responsible for bricked flashcarts resulting from improper use of this option.
+echo Make sure your DS is plugged in before you attempt to update
+pause
+start explorer.exe %cd%\Put_This_In_SD_Card
+:firmez5i
+cls
+echo You chose EZ-Flash Vi (EZ5i)
+echo Is this correct?
+echo (y/n)
+set /p firmez5i=
+IF "%firmez5i%" == "n" goto exit
+start /wait wget http://www.ezflash.cn/zip/EZ5F106A.rar
+start /wait unrar x *.rar Put_This_In_SD_Card
+cls
+echo Please put the file EZ5F106A.nds 
+echo to the ROOT of your SD Card.
+echo DO NOT RENAME THE FILE
+echo Make sure you are first on firmware v101 before updating
+echo Run EZ5F106A.nds to update
+echo FlashcartHelper is not responsible for bricked flashcarts resulting from improper use of this option.
+echo Make sure your DS is plugged in before you attempt to update
+echo If you rename the file your EZ5i will be BRICKED
+pause
+start explorer.exe %cd%\Put_This_In_SD_Card
+:firmm30
+cls
+echo You chose M3i Zero
+echo Is this correct?
+echo (y/n)
+set /p firmm3=
+IF "%firmm3%" == "n" goto exit
+start /wait wget http://filetrip.net/d25495-M3i-Zero-Core-2-0-2.html
+start /wait 7za x *.rar -oPut_This_In_SD_Card
+cls
+echo Please put the file F_CORE.dat
+echo to the ROOT of your SD Card.
+echo DO NOT RENAME THE FILE
+echo Then flash your M3i Zero with the flashing cable.
+echo FlashcartHelper is not responsible for bricked flashcarts resulting from improper use of this option.
+echo Make sure your DS is plugged in before you attempt to update
+pause
+start explorer.exe %cd%\Put_This_In_SD_Card
+:firmtti
+cls
+echo You chose DSTTi
+echo Is this correct?
+echo (y/n)
+set /p firmdst=
+IF "%firmdst%" == "n" goto exit
+cls
+start /wait wget http://goo.gl/qW9Pt
+start /wait wget http://www.ndstt.com/download/os/v1.17/ttmenu_en.zip
+start /wait 7za x *.zip -oPut_This_In_SD_Card
+echo First, BACK UP YOUR SD CARD
+echo This will overwrite your current kernel with an official version that is no longer supported
+echo This update will only work on the official kernel.
+echo After you updated the firmware, please replace the kernel with
+echo RetroGameFan's updates.
+echo Please put all the files in the folder that will pop up
+echo to the ROOT of your MicroSD card
+echo Including..
+echo rom_pcb0.dat
+echo rom_pcb1.dat
+echo rom_pcb2.dat
+echo TTi142UPGRADE.nds
+echo to the ROOT of your SD Card
+echo Then run TTi142UPGRADE.nds
+echo FlashcartHelper is not responsible for bricked flashcarts resulting from improper use of this option.
+echo Make sure your DS is plugged in before you attempt to update
+pause
+start explorer.exe %cd%\Put_This_In_SD_Card
+
 :exit
 exit
+ 
+:FlashcartHelperRobocopy
+FlashcartHelperRobocopy
+
+
+
+
+

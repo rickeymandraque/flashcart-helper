@@ -5,36 +5,29 @@
 ::Also, you may replace the GPL notice with translated versions from
 ::http://www.gnu.org/licenses/licenses.html#translations
 ::The license is GNU GPL v3.0
-color 0f
-cls
+
 ::date of compilation
 set compiledate=9/1/2011
-::copyver is whether FlashcartHelper uses xcopy or Robocopy 
-set copyver=xcopy
+del guide.fhg 2> nul
+del *.txt 2> nul
 ::currentver is version number
-set currentver=v0.6
+set currentver=v0.7
 ::required for auto update check DO NOT CHANGE IF YOU WILL NOT REMOVE :fhtest
 ::IF %errorlevel% EQU 1 goto begin 
 ::GPL notice
-title FlashcartHelper %currentver% %copyver% version: GPL notice
-echo  FlashcartHelper %currentver% Copyright (C) 2011  ron975
-echo    This program comes with ABSOLUTELY NO WARRANTY; for details read the license
+title FlashcartHelper %currentver% version: GPL notice
+echo FlashcartHelper %currentver% Copyright (C) 2011  ron975
+echo    This program comes with ABSOLUTELY NO WARRANTY; neither express not implied
 echo    This is free software, and you are welcome to redistribute it
 echo    under certain conditions;read the license for details.
-echo    This software comes with ABSOLUTELY NO WARRANTY; either express nor implied.
 echo    FlashcartHelper is not responsible for any data loss resulting from
-echo    improper use of this utility. FlashcartHelper is distributed in the hope that
-echo    it will be useful, but this does not guarantee that it will be.
+echo    improper use of this utility, including Data corruption, 
+echo    or bricked flashcarts. FlashcartHelper is distributed in the hope that
+echo    it will be useful, but this does not guarantee that it will be. 
 echo    By continuing, it is assumed that you agree to the following terms
 pause
 cls
-title FlashcartHelper %currentver% %copyver% version
-echo This is the %copyver% compliant version
-echo This version will not work on Windows 7 or above
-echo If you are on Windows 7 or above, type "Win7" (Exactly like that), otherwise, 
-echo press enter to continue
-set /p xptest=
-if "%xptest%" == "Win7" goto FlashcartHelperRobocopy
+title FlashcartHelper %currentver%
 :wgettest
 IF EXIST wget.exe. (
 goto unrartest
@@ -51,12 +44,12 @@ goto 7ztest
 echo unrar.exe not found
 echo Press any key to download.
 pause >nul
-start /wait wget http://flashcart-helper.googlecode.com/files/unrar.exe
+start /wait wget http://flashcart-helper.googlecode.com/files/UnRAR.exe
 )
 
 :7ztest
 IF EXIST 7za.exe. (
-goto fhtest
+goto begin
 ) ELSE (
 echo 7za.exe not found
 echo Press any key to download.
@@ -64,14 +57,10 @@ pause >nul
 start /wait wget http://flashcart-helper.googlecode.com/files/7za.exe
 )
 
-:fhtest
-::echo Loading..
-::start /wait wget http://flashcart-helper.googlecode.com/files/FHupdater.bat
-::call fhupdater.bat
-::----tests end---
+
+set workdir=%cd%
 :begin
 del fhupdater.bat 2> nul
-mode con lines=40
 del *.zip 2> nul
 del *.7z 2> nul
 del *.rar 2> nul
@@ -82,10 +71,11 @@ cls
 set error=1
 :start2
 cls
+mode con lines=35
 IF %error% NEQ 1 echo Invalid Choice
-title FlashcartHelper %currentver% %copyver% version
+title FlashcartHelper %currentver%
 echo.
-echo                          Welcome to FlashcartHelper.          %currentver% %copyver%
+echo                          Welcome to FlashcartHelper.          %currentver%
 echo                           What do you wish to do?
 echo                     __________________________________
 color F0
@@ -102,6 +92,8 @@ echo.
 echo [6]NDSTokyoTrim  (Trim Roms)
 echo.
 echo [7]Download DSi Firmware Fixes (Use this option at your own risk)
+echo.
+echo [8]Download DS-Scene Rom Helper (Download latest CMP cheat DB)
 echo.
 echo [R]Readme
 echo.
@@ -133,15 +125,16 @@ IF "%selection%" == "e" goto exit
 IF "%selection%" == "r" goto readmii
 IF "%selection%" == "l" goto license
 IF "%selection%" == "7" goto dsi
+IF "%selection%" == "8" goto cmp
 set error=0
 goto start2
 :setups
 cls
-del guide.txt 2> nul
 set ind=1
 :setup
 ::Displays invalid choice if invalid choice
 cls
+mode con lines=45
 IF %ind% NEQ 1 echo Invalid Choice
 echo.
 echo                                  ~~Setup~~
@@ -153,7 +146,7 @@ echo [2] Acekard 2i/2.1/R.P.G
 echo.
 echo [3] R4 Revolution
 echo. 
-echo [4] DSTT/DSTTi
+echo [4] DSTT/DSOnei
 echo.
 echo [5] R4i Gold (r4ids.cn
 echo.
@@ -172,6 +165,14 @@ echo.
 echo [12] M3 Real/M3 Simply/M3i Zero
 echo.
 echo [13] R4 Clones
+echo.
+echo [14] Supercard DSOne
+echo.
+echo [15] Supercard DSOne SDHC
+echo.
+echo [16] Supercard DSonei
+echo.
+echo [17] iSmart Premuim
 echo.
 echo [B] Go back
 echo Please input your choice
@@ -192,6 +193,11 @@ IF "%FC%" == "12" goto m3
 IF "%FC%" == "13" goto clone
 IF "%FC%" == "B" goto start2
 IF "%FC%" == "b" goto start2
+IF "%FC%" == "14" goto ds1
+IF "%FC%" == "15" goto ds1sdhc
+IF "%FC%" == "16" goto ds1i
+IF "%FC%" == "17" goto ispp
+IF
 set ind=0
 goto setup
 :ds2
@@ -244,7 +250,8 @@ echo Downloading CATSFC
 echo Please wait, this may take a while..
 start /wait wget http://filetrip.net/h35131424-CATSFC.html
 start /wait 7za x *.zip -x!version -x!source.txt -x!copyright -x!installation.txt
-start /wait xcopy %cd%\CATSFC %cd%\Put_This_In_SD_card\CATSFC /s /e /c /h /i
+start /wait 7za a -tzip cat.zip "CATSFC"
+start /wait 7za x cat.zip -oPut_This_In_SD_card
 copy *.ini %cd%\Put_This_In_SD_card\_dstwoplug\*.ini
 copy *.bmp %cd%\Put_This_In_SD_card\_dstwoplug\*.bmp
 copy *.plg %cd%\Put_This_In_SD_card\_dstwoplug\*.plg
@@ -270,20 +277,13 @@ start /wait wget http://down.supercard.cn/download/dstwo/plugin/moonshl2_for_DST
 start /wait 7za x *.zip -oPut_This_In_SD_card\ -y
 del *.zip
 
-echo Download MAME4ALL? (Arcade emulators for the DSTWO)
-echo (y/n)
-set /p mame4all=
-IF "%mame4all%" == "n" goto ds2end
-start /wait wget http://filetrip.net/h35130190-MAME4ALL-%28SCDS2%29.html
-start /wait 7za x *.7z -oPut_This_In_SD_card\ -y -x!readme.txt
-del *.zip
 :ds2end
 cls
 echo A guide will now pop up
 echo Please drag eveything in the folder that will pop up to the root of your MicroSD card. Follow the guide for further instructions
 pause
 ren *.guide.txt guide.txt
-start notepad ds2.guide.txt
+start notepad guide.txt
 explorer %cd%\Put_This_In_SD_card\
 exit
 
@@ -297,12 +297,8 @@ IF "%ak2yn%" == "n" goto start
 
 echo Downloading Latest AKAIO Kernel
 start /wait wget http://filetrip.net/h7853-AKAIO.html
-start /wait 7za x *.zip Put_This_In_SD_Card
 start /wait unrar x *.rar Put_This_In_SD_Card
-start /wait 7za x *.7z Put_This_In_SD_Card
-del *.zip
 del *.rar
-echo Downloading guide
 start /wait wget http://flashcart-helper.googlecode.com/svn-history/r9/data/guides/ak2.guide.txt
 
 echo Download Moonshell?
@@ -314,11 +310,16 @@ IF "%mshl%" == "y" goto mshl
 :mshl
 echo Downloading MoonShell
 echo Please wait, this may take a while.
-del *.zip
+del *.zip 2> nul
 start /wait wget http://mdxonline.dyndns.org/201002161705_moonshell210stable.zip
-start /wait 7za x *.zip
-start /wait xcopy 201002161705_moonshell210stable %cd%\Put_This_In_SD_card\ /s /e /c /h /i
-rmdir %cd%\Put_This_In_SD_card\misctools /S /Q
+set za=%cd%\7za.exe
+start /wait %za% x 201002161705_moonshell210stable.zip
+cd 201002161705_moonshell210stable
+set moondir=%cd%
+start /wait %za% a -tzip mshl.zip moonshl2.nds "moonshl2"
+cd..
+move %moondir%\mshl.zip %cd%
+start /wait 7za x mshl.zip -oPut_This_In_SD_Card
 rmdir 201002161705_moonshell210stable /S /Q
 start /wait wget http://flashcart-helper.googlecode.com/svn/data/misc/moonshl2.ini
 copy moonshl2.ini %cd%\Put_This_In_SD_card\moonshl2\moonshl2.ini
@@ -334,8 +335,8 @@ echo Please drag eveything in the folder that will pop up to the root of your Mi
 echo Follow the guide for further instructions
 pause
 del guide.txt 2> nul
-ren *.guide.txt guide.txt 2> nul
-start notepad guide.txt
+ren *.guide.txt guide.fhg 2> nul
+start notepad guide.fhg
 start explorer %cd%\Put_This_In_SD_card\
 exit
 
@@ -350,9 +351,16 @@ IF "%r4yn%" == "n" goto start
 echo Downloading latest Wood R4
 start /wait wget http://filetrip.net/h25123666-Wood-R4.html
 start /wait 7za x *.7z
-rmdir %cd%\Put_This_In_SD_Card\ /S /Q 2> nul
-for /D %%j in (%cd%\*) do move %%j %%~dpj\Put_This_In_SD_Card
-echo Downloading guide
+set za=%cd%\7za.exe
+cd "Wood_R4_v*.*"
+set wooddir=%cd%
+start /wait %za% a -tzip wood.zip _DS_MENU.DAT 
+start /wait %za% u -tzip wood.zip "__rpg"
+cd ..
+move %wooddir%\wood.zip %cd%
+start /wait 7za x wood.zip -oPut_This_In_SD_Card 
+rmdir %wooddir% /s /q
+pause
 start /wait wget http://flashcart-helper.googlecode.com/svn-history/r17/data/guides/r4.guide.txt
 del *.7z
 echo Download Moonshell?
@@ -433,7 +441,6 @@ echo Is this correct?
 echo (y/n)
 set /p r4iyn=
 IF "%r4iyn%" == "n" goto start
-echo Downloading guide
 start /wait wget http://flashcart-helper.googlecode.com/svn-history/r9/data/guides/r4i.guide.txt
 start /wait wget http://filetrip.net/h35130127-Wood-R4-for-R4i-Gold-%28R4iDS%29.html
 start /wait unrar x *.rar Put_This_In_SD_card\
@@ -450,7 +457,6 @@ echo Is this correct?
 echo (y/n)
 set /p r4dyn=
 IF "%r4dyn%" == "n" goto start
-echo Downloading guide
 start /wait wget http://flashcart-helper.googlecode.com/svn-history/r17/data/guides/dsn.guide.txt
 echo Downloading latest Wood R4iDSN
 start /wait wget http://filetrip.net/h35130793-Wood-R4iDSN.html
@@ -470,7 +476,6 @@ echo Is this correct?
 echo (y/n)
 set /p cyclo=
 IF "%cyclo%" == "n" goto start
-echo Downloading guide
 start /wait wget http://flashcart-helper.googlecode.com/svn-history/r9/data/guides/cyclo.guide.txt
 echo Downloading Latest STABLE Evolution firmware
 start /wait wget http://filetrip.net/h35130821-CycloDS-Evolution-Firmware-Stable.html
@@ -602,8 +607,7 @@ echo Downloading latest iSmartMM kernel
 del *.zip 2> nul
 start /wait wget http://filetrip.net/h35132061-iSmart-MM-kernel-update.html
 start /wait 7za x *.zip -oPut_This_In_SD_Card
-echo Downloading guide file
-start /wait wget https://flashcart-helper.googlecode.com/svn-history/r14/data/guides/ismm.guide.txt
+start /wait wget http://flashcart-helper.googlecode.com/svn-history/r14/data/guides/ismm.guide.txt
 echo Download Moonshell?
 echo (y/n)
 set /p mshlmm=
@@ -612,13 +616,19 @@ echo Downloading MoonShell
 echo Please wait, this may take a while.
 del *.zip
 start /wait wget http://mdxonline.dyndns.org/201002161705_moonshell210stable.zip
-start /wait 7za x *.zip
-start /wait xcopy 201002161705_moonshell210stable %cd%\Put_This_In_SD_card\ /s /e /c /h /i
-rmdir %cd%\Put_This_In_SD_card\misctools /S /Q
+set za=%cd%\7za.exe
+start /wait %za% x 201002161705_moonshell210stable.zip
+cd 201002161705_moonshell210stable
+set moondir=%cd%
+start /wait %za% a -tzip mshl.zip moonshl2.nds "moonshl2"
+cd..
+move %moondir%\mshl.zip %cd%
+start /wait 7za x mshl.zip -oPut_This_In_SD_Card
 rmdir 201002161705_moonshell210stable /S /Q
 start /wait wget http://flashcart-helper.googlecode.com/svn/data/misc/moonshl2.ini
 copy moonshl2.ini %cd%\Put_This_In_SD_card\moonshl2\moonshl2.ini
 del moonshl2.ini
+rmdir 201002161705_moonshell210stable /S /Q
 copy %cd%\Put_This_In_SD_card\moonshl2.nds %cd%\Put_This_In_SD_card\ismartplug\moonshell.nds
 echo [plug setting] >> %cd%\Put_This_In_SD_card\ismartplug\moonshell.ini
 echo icon=fat1:/ismartplug/moonshell.bmp >> %cd%\Put_This_In_SD_card\ismartplug\moonshell.ini
@@ -699,7 +709,7 @@ echo A Guide for R4 clones is not availible at this time. Sorry for the inconven
 echo    ----------------
 echo [1]    Group 1 
 echo Group 1 includes
-echo DSTTi Gold - www.ndstti.cn
+echo DSOnei Gold - www.ndstti.cn
 echo DSTT-Advance - www.dsttadv.com
 echo R4Top Revolution - www.r4top.com 
 echo R4i-SDHC v3.07 www.r4ll-net.com
@@ -945,13 +955,133 @@ echo (y/n)
 set /p g8mshl=
 IF "%g8mshl%" == "n" goto end
 IF "%g8mshl%" == "y" goto mshl
+exit
+
+:ds1
+::DSone
+cls 
+echo You chose Supercard DSOne (Original)
+echo Is this correct?
+echo (y/n)
+set /p ds1=
+IF "%ds1%" == "n" goto start
+start /wait wget http://down.supercard.sc/download/evolution/DSONE_Evolution_V1.0_eng_sp6_20110427.zip
+start /wait 7za x *.zip
+rd Put_This_In_SD_Card /s /q
+ren "DSONE_Evolution_V1.0_eng_sp6_0427" "Put_This_In_SD_Card"
+goto sctt
+:ds1i
+::DSonei
+cls 
+echo You chose Supercard DSOnei (All DSonei Carts)
+echo Is this correct?
+echo (y/n)
+set /p ds1i=
+IF "%ds1i%" == "n" goto start
+start /wait wget http://down.supercard.sc/download/evolution/DSONE_mini_SDHC_Evolution_V1.0_eng_sp6_20110427.zip
+start /wait 7za x *.zip
+rd Put_This_In_SD_Card /s /q
+ren DSONE^&mini_SDHC_Evolution_V1.0_eng_sp6_0427 Put_This_In_SD_Card
+cls 
+goto ds1iflash
+:ds1sdhc
+::DSone SDHC
+cls 
+echo You chose Supercard DSOne SDHC 
+echo Is this correct?
+echo (y/n)
+set /p ds1sdhc=
+IF "%ds1sdhc%" == "n" goto start
+rd Put_This_In_SD_Card /s /q
+start /wait wget http://down.supercard.sc/download/evolution/DSONE_SDHC_Evolution_V1.0_eng_sp6_20110427.zip
+start /wait 7za x *.zip
+ren DSONE_SDHC_Evolution_V1.0_eng_sp6_0427 Put_This_In_SD_Card
+goto sctt
+
+:sctt
+cls
+echo Install RetroGameFan's YSmenu? (Recommended, gives better compatability)
+echo (y/n)
+set /p sctt=
+IF "%sctt%" == "n" goto ds1guide
+start /wait 7za a -tzip ds1.zip "Put_This_In_SD_Card"
+rd Put_This_In_SD_Card /s /q
+echo Downloading RetroGameFan's YSmenu updates
+start /wait wget http://filetrip.net/h25123605-RetroGameFan-Multi-Cart-Update.html
+start /wait unrar x *.rar -y
+del *.rar
+start /wait 7za a -tzip ystt.zip "DSONE_DSONEi YSMenu"
+For /D %%a in ("%cd%\*") do RD /S/Q "%%a"
+start /wait 7za x ystt.zip 
+ren "DSONE_DSONEi YSMenu" "Put_This_In_SD_Card"
+start /wait 7za x ds1.zip -y
+echo Downloading RetroGameFan's latest DAT updates
+start /wait wget http://filetrip.net/h35132218-RetroGameFan-DAT-Update.html
+start /wait unrar x *.rar  Put_This_In_SD_Card\TTMenu -y
+del *.zip
+del *.rar
+goto scttguide
+:scttguide
+start /wait wget http://flashcart-helper.googlecode.com/svn-history/r21/data/guides/sctt.guide.txt
+goto ds1mshl
+:ds1guide
+start /wait wget http://flashcart-helper.googlecode.com/svn-history/r21/data/guides/ds1.guide.txt
+goto ds1mshl
+:ds1mshl
+echo Download Moonshell?
+echo (y/n)
+set /p mshl=
+IF "%mshl%" == "n" goto end
+IF "%mshl%" == "y" goto mshl
+exit
+
+:ds1iflash
+echo Is your DSOnei Flashed? (Choose NO if you have not used your DSOnei Before)
+echo (y/n)
+set /p ds13=
+IF "%ds13%" == "n" goto ds1flasha
+IF "%ds13%" == "y" goto sctt
+:ds1flasha
+cls
+echo Your DSOnei has not been flashed yet, is this correct?
+echo (y/n)
+set /p checkds1i=
+IF "%checkds1i%" == "y" goto ds1iflashs
+goto sctt
+exit
+:ds1iflashs
+echo Downloading DSOnei Internal Firmware
+start /wait wget http://down.supercard.cn/download/evolution/dsonei_update_1.43^&1.44c.zip
+start /wait 7za x dsonei_update_1.43^&1.44c.zip -oPut_This_In_SD_Card -x!updatecn.bin
+echo Please follow the instructions that will come up after you have completed setup of your DSonei.
+goto sctt
+exit
+
+:ispp
+cls
+echo You chose iSmart Premuim
+echo Is this correct? (y/n)
+set /p ismartp=
+IF "%ismartp%" == "n" goto start
+echo Downloading iSmart Premuim Kernel Latest
+start /wait wget http://filetrip.net/h35131650-iSmart-Premium-kernel.html
+start /wait 7za x *.zip -oPut_This_In_SD_Card
+start /wait wget http://flashcart-helper.googlecode.com/svn-history/r24/data/guides/isp.guide.txt
+del *.zip 2> nul
+del *.rar 2> nul
+echo Download Moonshell?
+echo (y/n)
+set /p ipmshl=
+IF "%ipmshl%" == "n" goto end
+IF "%ipmshl%" == "y" goto mshl
+
 :hb
 start http://filetrip.net/
 
 :redown
 echo Redownloading start /wait unrar and 7z.exe
-start /wait wget http://flashcart-helper.googlecode.com/files/start /wait unrar.exe
-start /wait wget http://flashcart-helper.googlecode.com/files/start /wait 7za.exe
+start /wait wget http://flashcart-helper.googlecode.com/files/UnRAR.exe
+start /wait wget http://flashcart-helper.googlecode.com/files/7za.exe
 goto begin
 
 :readmii
@@ -960,7 +1090,7 @@ goto start
 
 :about
 echo About FlashcartHelper
-echo FlashcartHelper %currentver% %copyver% Compliant
+echo FlashcartHelper %currentver%
 echo Compiled %compiledate%
 echo By ron975
 echo Press any key for credits
@@ -1067,6 +1197,7 @@ echo [4] R4i Gold (3DS version) (r4ids.cn)
 echo [5] R4iDSN (Non 3DS version) (r4idsn.com)
 echo [6] R4iDSN (3DS version) (r4idsn.com)
 echo [7] EZ5i
+echo [8] Supercard DSonei
 echo.
 echo All other carts do not have a DSi 1.4.3 compatible patch.
 
@@ -1074,8 +1205,8 @@ echo All other carts do not have a DSi 1.4.3 compatible patch.
 echo The following patches are only compatible to up to DSi firmware 1.4.2 
 echo and/or 3DS 2.1.0-4
 echo.
-echo [8] M3i Zero
-echo [9] DSTTi
+echo [10] M3i Zero
+echo [11] DSTTi
 echo [B] Go back to the main menu
 set /p dsifirm=
 IF "%dsifirm%" == "1" goto firmdstwo
@@ -1085,8 +1216,9 @@ IF "%dsifirm%" == "4" goto firmr4i3ds
 IF "%dsifirm%" == "5" goto firmr4idsn
 IF "%dsifirm%" == "6" goto firmr4idsn3ds
 IF "%dsifirm%" == "7" goto firmez5i
-IF "%dsifirm%" == "8" goto firmm30
-IF "%dsifirm%" == "9" goto firmtti
+IF "%dsifirm%" == "8" goto firmds1
+IF "%dsifirm%" == "10" goto firmm30
+IF "%dsifirm%" == "11" goto firmtti
 IF "%dsifirm%" == "B" goto start
 :firmdstwo
 cls
@@ -1299,7 +1431,8 @@ echo First, BACK UP YOUR SD CARD
 echo This will overwrite your current kernel with an official version that is no longer supported
 echo This update will only work on the official kernel.
 echo After you updated the firmware, please replace the kernel with
-echo RetroGameFan's updates.
+echo RetroGameFan's updates. Use FlashcartHelper to re-setup your DSTT after you have
+echo updated your DSTTi's firmware to go back to RetroGameFan's Updates.
 echo Please put all the files in the folder that will pop up
 echo to the ROOT of your MicroSD card
 echo Including..
@@ -1314,11 +1447,59 @@ echo Make sure your DS is plugged in before you attempt to update
 pause
 start explorer.exe %cd%\Put_This_In_SD_Card
 
+:firmds1
+cls
+echo You chose DSonei
+echo Is this correct?
+echo (y/n)
+set /p firmdst=
+IF "%firmdst%" == "n" goto exit
+cls
+echo Downloading DSOnei Internal Firmware
+start /wait wget http://down.supercard.cn/download/evolution/dsonei_update_1.43^&1.44c.zip
+start /wait 7za x dsonei_update_1.43^&1.44c.zip -oPut_This_In_SD_Card -x!updatecn.bin
+echo Once you have copied the contents of the folder that will pop up into your DSonei's MicroSD, 
+echo please insert your DSonei's MicroSD into your DSonei. 
+echo Then, insert your DSonei into the firmware flasher, then plug it into your computer.
+echo Wait until the light turns GREEN before removing.
+pause
+start explorer.exe %cd%\Put_This_In_SD_Card
+goto start
+:cmp
+IF EXIST %cd%\DS-Scene\DS-SCE~1.exe. (
+goto cmpstart
+) ELSE (
+del *.rar 2> nul
+cls
+echo Download DS-Scene Rom tool?
+echo {y/n}
+set /p dscne=
+IF "%dscne%" == "n" goto start
+start /wait wget http://filetrip.net/h35132042-RetroGameFan-DS-Scene-Rom-Tool-.html
+start /wait unrar x *.rar
+ren "DS-Scene_Rom_Tool_v1.0_build_1205_Pack" "DS-Scene"
+)
+
+:cmpstart
+cls
+echo The DS-Scene Rom tool will prompt you for updates if nescassary.
+echo View guide for DS-Scene Rom Tool?
+echo (y/n)
+set /p cmpguide=
+IF "%cmpguide%" == "y" goto cmpguide
+:cmpb
+start %cd%\DS-Scene\DS-SCE~1.exe
+goto begin 
+:cmpguide
+start /wait wget http://flashcart-helper.googlecode.com/svn/data/guides/dsc.guide.txt
+ren *.guide.txt guide.fhg
+start notepad guide.fhg
+goto cmpb
+
 :exit
 exit
  
-:FlashcartHelperRobocopy
-FlashcartHelperRobocopy
+
 
 
 

@@ -1,4 +1,5 @@
 @echo off
+echo --Start log FlashcartHelper %time% %date%-- >> fh.log
 IF "%cd%" EQU "%userprofile%\Desktop" goto invpath
 IF "%cd%" EQU "%userprofile%" goto invpath
 IF "%cd%" EQU "%windir%\*" goto invpath
@@ -6,6 +7,8 @@ IF "%cd%" EQU "C:" goto invpath
 IF "%cd%" EQU "%userprofile%\Documents" goto invpath
 rd Put_This_In_SD_Card /S /Q 2> nul
 mkdir Put_This_In_SD_Card 2>nul
+IF NOT EXIST "%cd%\Trashes\" mkdir Trashes 2>nul
+
 ::To translators
 ::Please do not change commented lines, (lines with :: in front of it)
 ::Also, only change lines with echo infront of it.
@@ -14,11 +17,11 @@ mkdir Put_This_In_SD_Card 2>nul
 ::The license is GNU GPL v3.0
 
 ::date of compilation
-set compiledate=11/15/2011
-del guide.fhg 2> nul
-del *.txt 2> nul
+set compiledate=1/11/2012
+frec guide.fhg 2> nul
+frec *.txt 2> nul
 ::currentver is version number
-set currentver=0.8.3
+set currentver=0.9 RC
 :uptest
 IF EXIST FHup.bat. (
 goto begin
@@ -58,39 +61,52 @@ echo unrar.exe not found
 echo Press any key to download.
 pause >nul
 start /wait wget http://flashcart-helper.googlecode.com/files/UnRAR.exe
+goto 7ztest
 )
 
 :7ztest
 IF EXIST 7za.exe. (
-goto uptest
+goto frectest
 ) ELSE (
 echo 7za.exe not found
 echo Press any key to download.
 pause >nul
 start /wait wget http://flashcart-helper.googlecode.com/files/7za.exe
+goto frectest
 )
 
+:frectest
+IF EXIST frec.exe. (
+goto uptest
+) ELSE (
+echo frec.exe not found
+echo Press any key to download
+pause >nul
+echo move %%1 freceted_files 2>nul >frec.bat
+goto uptest
+)
 
-set workdir=%cd%
 :uptest
 IF EXIST FHup.bat. (
 goto begin
 ) ELSE (
-goto up
+goto begin
 )
+pause
 
 :up
 ::Fetch Update File
-wget -q http://flashcart-helper.googlecode.com/files/fhup.bat >nul
-call fhup.bat
+::wget -q http://flashcart-helper.googlecode.com/files/fhup.bat >nul
+::call fhup.bat
 
 :begin
-del FHup.bat 2> nul
+set workdir=%cd%
+frec FHup.bat 2> nul
 set FC=
 set menuguide=
-del *.zip 2> nul
-del *.7z 2> nul
-del *.rar 2> nul
+frec *.zip 2> nul
+frec *.7z 2> nul
+frec *.rar 2> nul
 rmdir %cd%\Put_This_In_SD_Card\ /S /Q 2> nul
 mkdir Put_This_In_SD_Card 2>nul
 :start
@@ -134,6 +150,8 @@ echo [L]Read License
 echo.
 echo [U]Update FlashcartHelper
 echo.
+echo [C]Clear log file
+echo.
 echo [E]Exit
 echo.
 echo Please input your choice
@@ -160,6 +178,8 @@ IF "%selection%" == "8" goto cmp
 IF "%selection%" == "9" goto menudo
 IF "%selection%" == "b" goto bak
 IF "%selection%" == "B" goto bak
+IF "%selection%" == "C" goto clrlog
+IF "%selection%" == "c" goto clrlog
 set error=0
 goto start2
 :setups
@@ -253,9 +273,9 @@ start /wait wget http://flashcart-helper.googlecode.com/svn/data/guides/ds2.guid
 start /wait unrar x *.rar Put_This_In_SD_card\
 start /wait 7za x *.7z  -oPut_This_In_SD_card\
 start /wait 7za x *.zip -oPut_This_In_SD_card\
-del *.rar
-del *.7z
-del *.zip
+frec *.rar
+frec *.7z
+frec *.zip
 cls
 echo Is your DSTWO flashed? (Choose no if you have not used your DSTwo before yet)
 echo (y/n)
@@ -268,7 +288,7 @@ echo Your DSTwo is flashed, correct?
 echo (y/n)
 set /p sure=
 IF "%sure%" == "n" goto plug
-del %cd%\Put_This_In_SD_Card\ds2boot.dat
+frec %cd%\Put_This_In_SD_Card\ds2boot.dat
 
 :plug
 cls
@@ -281,10 +301,10 @@ echo Downloading NDSGBA and game_config.txt
 echo Please wait, this may take a while..
 start /wait wget http://filetrip.net/d11694-SuperCard-DSTWO-GBA-EMU-Plug-in-1-21.html
 start /wait 7za x *.zip -oPut_This_In_SD_card\
-del *.zip
+frec *.zip
 start /wait wget http://filetrip.net/h35130196-SCDS2Iplayer-GBA-EMU-%28game_conf-.html
 start /wait 7za x *.7z -oPut_This_In_SD_card\NDSGBA\
-del *.7z
+frec *.7z
 echo Downloading CATSFC
 echo Please wait, this may take a while..
 start /wait wget http://filetrip.net/h35131424-CATSFC.html
@@ -294,18 +314,18 @@ start /wait 7za x cat.zip -oPut_This_In_SD_card
 copy *.ini %cd%\Put_This_In_SD_card\_dstwoplug\*.ini
 copy *.bmp %cd%\Put_This_In_SD_card\_dstwoplug\*.bmp
 copy *.plg %cd%\Put_This_In_SD_card\_dstwoplug\*.plg
-del cat*.*
+frec cat*.*
 rmdir %cd%\CATSFC\ /S /Q
-del *.zip
+frec *.zip
 echo Downloading iPlayer
 echo Please wait, this may take a while..
 start /wait wget http://filetrip.net/h35130740-Supercard-DSTWO-iPlayer-Plugin.html
 start /wait 7za x *.zip -oPut_This_In_SD_card\ -y
-del *.zip
+frec *.zip
 echo Downloading iReader, Please wait
 start /wait wget http://filetrip.net/h35130143-DSTwo-iReader.html
 start /wait 7za x *.zip -oPut_This_In_SD_card\ -y
-del *.zip
+frec *.zip
 echo Download Moonshell? (Yes is recommended)
 echo (y/n)
 set /p mshlplug=
@@ -314,10 +334,11 @@ IF "%mshlplug%" == "n" goto ds2end
 echo Downloading Moonshell from Supercard server
 start /wait wget http://down.supercard.cn/download/dstwo/plugin/moonshl2_for_DSTWO.zip
 start /wait 7za x *.zip -oPut_This_In_SD_card\ -y
-del *.zip
+frec *.zip
 
 :ds2end
 cls
+echo %cd%
 echo A guide will now pop up
 echo Please drag eveything in the folder that will pop up to the root of your MicroSD card. Follow the guide for further instructions
 pause
@@ -337,7 +358,7 @@ IF "%ak2yn%" == "n" goto start
 echo Downloading Latest AKAIO Kernel
 start /wait wget http://filetrip.net/h7853-AKAIO.html
 start /wait unrar x *.rar Put_This_In_SD_Card
-del *.rar
+frec *.rar
 start /wait wget http://flashcart-helper.googlecode.com/svn-history/r9/data/guides/ak2.guide.txt
 
 echo Download Moonshell?
@@ -349,7 +370,7 @@ IF "%mshl%" == "y" goto mshl
 :mshl
 echo Downloading MoonShell
 echo Please wait, this may take a while.
-del *.zip 2> nul
+frec *.zip 2> nul
 start /wait wget http://mdxonline.dyndns.org/201002161705_moonshell210stable.zip
 set za=%cd%\7za.exe
 start /wait %za% x 201002161705_moonshell210stable.zip
@@ -362,22 +383,22 @@ start /wait 7za x mshl.zip -oPut_This_In_SD_Card
 rmdir 201002161705_moonshell210stable /S /Q
 start /wait wget http://flashcart-helper.googlecode.com/svn/data/misc/moonshl2.ini
 copy moonshl2.ini %cd%\Put_This_In_SD_card\moonshl2\moonshl2.ini
-del moonshl2.ini
+frec moonshl2.ini
 :end
 cls
-del *.dat 2> nul
-del *.zip 2> nul
-del *.7z 2> nul
-del *.rar 2> nul
+frec *.dat 2> nul
+frec *.zip 2> nul
+frec *.7z 2> nul
+frec *.rar 2> nul
 echo A guide will now pop up
 echo Please drag eveything in the folder that will pop up to the root of your MicroSD card. 
 echo Follow the guide for further instructions
 pause
-del guide.txt 2> nul
+frec guide.txt 2> nul
 ren *.guide.txt guide.fhg 2> nul
-start notepad guide.fhg
-start explorer.exe Put_This_In_SD_card
-exit
+start notepad %cd%\guide.fhg
+start explorer.exe %cd%\Put_This_In_SD_card
+goto :eof
 
 :r4
 cls
@@ -388,19 +409,19 @@ set /p r4yn=
 IF "%r4yn%" == "n" goto start
 echo Downloading latest Wood R4
 start /wait wget http://filetrip.net/h25123666-Wood-R4.html
-start /wait 7za x *.7z
+7za x *.7z >>fh.log
 set za="%cd%"\7za.exe
 cd "Wood_R4_v*.*"
 set wooddir=%cd%
-%za% a -tzip wood.zip _DS_MENU.DAT 
-%za% u -tzip wood.zip "__rpg"
+%za% a -tzip wood.zip _DS_MENU.DAT >>"%workdir%\fh.log"
+%za% u -tzip wood.zip "__rpg" >>"%workdir%\fh.log"
 cd ..
-move "%wooddir%\wood.zip" "%cd%"
-start /wait 7za x wood.zip -oPut_This_In_SD_Card 
+move "%wooddir%\wood.zip" "%cd%" >>fh.log
+7za x wood.zip -oPut_This_In_SD_Card >>fh.log
 rmdir "%wooddir%" /s /q
 pause
 start /wait wget http://flashcart-helper.googlecode.com/svn-history/r17/data/guides/r4.guide.txt
-::del *.7z
+::frec *.7z
 echo Download Moonshell?
 echo (y/n)
 set /p mshl=
@@ -431,18 +452,13 @@ set /p ysme=
 IF "%ysme%" == "n" goto tt
 echo Downloading RetroGameFan's DSTT Updates (YSmenu)
 start /wait wget http://filetrip.net/h25123605-RetroGameFan-Multi-Cart-Update.html
-start /wait unrar x *.rar -y
-del *.rar
+start /wait 7za x *.7z -y
 start /wait 7za a -tzip ystt.zip "DSTT_DSTTi YSMenu"
 For /D %%a in ("%cd%\*") do RD /S/Q "%%a"
 start /wait 7za x ystt.zip 
 ren "DSTT_DSTTi YSmenu" "Put_This_In_SD_Card"
-echo Downloading RetroGameFan's latest DAT updates
-start /wait wget http://filetrip.net/h35132218-RetroGameFan-DAT-Update.html
-start /wait unrar x *.rar  Put_This_In_SD_Card\TTMenu -y
 start /wait wget http://flashcart-helper.googlecode.com/svn/data/guides/tt.guide.txt
-del *.zip
-del *.rar
+frec *.zip
 echo Download Moonshell?
 echo (y/n)
 set /p mshl=
@@ -456,18 +472,13 @@ set /p ttme=
 IF "%ttme%" == "n" goto tt
 echo Downloading RetroGameFan's DSTT Updates (TTMenu)
 start /wait wget http://filetrip.net/h25123605-RetroGameFan-Multi-Cart-Update.html
-start /wait unrar x *.rar -y
-del *.rar
+start /wait 7za x *.7z -y
 start /wait 7za a -tzip ystt.zip "DSTT_DSTTi TTMenu"
 For /D %%a in ("%cd%\*") do RD /S/Q "%%a"
 start /wait 7za x ystt.zip 
 ren "DSTT_DSTTi TTmenu" "Put_This_In_SD_Card"
-echo Downloading RetroGameFan's latest DAT updates
-start /wait wget http://filetrip.net/h35132218-RetroGameFan-DAT-Update.html
-start /wait unrar x *.rar  Put_This_In_SD_Card\TTMenu -y
-start /wair wget http://flashcart-helper.googlecode.com/svn/data/guides/tt.guide.txt
-del *.zip
-del *.rar
+start /wait wget http://flashcart-helper.googlecode.com/svn/data/guides/tt.guide.txt
+frec *.zip
 echo Download Moonshell?
 echo (y/n)
 set /p mshl=
@@ -501,8 +512,11 @@ start /wait wget http://flashcart-helper.googlecode.com/svn-history/r17/data/gui
 echo Downloading latest Wood R4iDSN
 start /wait wget http://filetrip.net/h35130793-Wood-R4iDSN.html
 start /wait 7za x *.7z 
-rmdir %cd%\Put_This_In_SD_Card\ /S /Q 2> nul
-for /D %%j in (%cd%\*) do move %%j %%~dpj\Put_This_In_SD_Card
+cd wood*
+set wooddir=%cd%
+cd %workdir%
+rmdir "%cd%\Put_This_In_SD_Card\" /S /Q 2> nul
+ren "%wooddir%" "Put_This_In_SD_Card"
 echo Download Moonshell?
 echo (y/n)
 set /p mshl=
@@ -536,7 +550,7 @@ IF "%iEVO%" == "n" goto start
 echo Downnloading guide
 start /wait wget http://flashcart-helper.googlecode.com/svn-history/r9/data/guides/ievo.guide.txt
 echo Downloading latest STABLE iEvoloution Firmware
-del *.zip
+frec *.zip
 start /wait wget http://filetrip.net/h35131267-CycloDS-iEvolution-Firmware-Stable.html
 start /wait 7za e *.zip -oPut_This_In_SD_card
 cls
@@ -556,7 +570,7 @@ IF "%bootstr%" == "2" goto EEU
 exit
 :EUS
 cls
-del *.zip
+frec *.zip
 start /wait wget http://filetrip.net/h35131269-CycloDS-iEvolution-Bootstrap-%28US-.html
 start /wait 7za e *.zip -oievobootstrapper
 echo WAIT WAIT WAIT WAIT!
@@ -579,7 +593,7 @@ IF "%checkboot%" == "n" goto bootstrapper
 
 :EEU
 cls
-del *.zip
+frec *.zip
 start /wait wget http://filetrip.net/h35131270-CycloDS-iEvolution-Bootstrap-%28Eu-.html
 start /wait 7za e *.zip -oievobootstrapper
 echo WAIT WAIT WAIT WAIT!
@@ -618,7 +632,7 @@ mkdir formatter 2> nul
 IF EXIST %cd%\formatter\SDFormatter.exe. (
 goto formatstart
 ) ELSE (
-del *.rar 2> nul
+frec *.rar 2> nul
 echo Download Panasonic Formatter?
 echo (y/n)
 set /p format=
@@ -644,7 +658,7 @@ echo (y/n)
 set /p imm=
 IF "%imm%" == "n" goto start
 echo Downloading latest iSmartMM kernel
-del *.zip 2> nul
+frec *.zip 2> nul
 start /wait wget http://filetrip.net/h35132061-iSmart-MM-kernel-update.html
 start /wait 7za x *.zip -oPut_This_In_SD_Card
 start /wait wget http://flashcart-helper.googlecode.com/svn-history/r14/data/guides/ismm.guide.txt
@@ -654,7 +668,7 @@ set /p mshlmm=
 IF "%mshlmm%" == "n" goto end
 echo Downloading MoonShell
 echo Please wait, this may take a while.
-del *.zip
+frec *.zip
 start /wait wget http://mdxonline.dyndns.org/201002161705_moonshell210stable.zip
 set za=%cd%\7za.exe
 start /wait %za% x 201002161705_moonshell210stable.zip
@@ -667,7 +681,7 @@ start /wait 7za x mshl.zip -oPut_This_In_SD_Card
 rmdir 201002161705_moonshell210stable /S /Q
 start /wait wget http://flashcart-helper.googlecode.com/svn/data/misc/moonshl2.ini
 copy moonshl2.ini %cd%\Put_This_In_SD_card\moonshl2\moonshl2.ini
-del moonshl2.ini
+frec moonshl2.ini
 rmdir 201002161705_moonshell210stable /S /Q
 copy %cd%\Put_This_In_SD_card\moonshl2.nds %cd%\Put_This_In_SD_card\ismartplug\moonshell.nds
 echo [plug setting] >> %cd%\Put_This_In_SD_card\ismartplug\moonshell.ini
@@ -710,7 +724,7 @@ start /wait wget http://flashcart-helper.googlecode.com/svn/data/guides/ez5.guid
 echo If you have not yet updated your EZ5i to v101, please run ez5firmwreUP_V101.nds
 echo If your cart says "No need to update" you do not need to update to v101.
 echo You need atleast 1 .NDS file to load your EZ Flash 5
-del %cd%\Put_This_In_SD_Card\ez5firmwreUP_V103.nds 2> nul
+frec %cd%\Put_This_In_SD_Card\ez5firmwreUP_V103.nds 2> nul
 echo Download Moonshell?
 echo (y/n)
 set /p mshez5i=
@@ -766,7 +780,7 @@ echo Downloading latest iEDGE OS
 start /wait wget http://filetrip.net/h35129832-iEDGE-OS.html
 start /wait 7za x *.zip -oPut_This_In_SD_card
 cls
-del *.zip
+frec *.zip
 echo Do you need to flash your iEDGE
 echo (Choose Yes if you have not used your iEDGE before)
 echo (y/n)
@@ -780,7 +794,7 @@ echo (y/n)
 set /p iedgemshl=
 IF "%iedgemshl%" == "y" goto mshl
 IF "%iedgemshl%" == "n" goto end
-
+goto end
 :clone
 cls
 mode con lines=50
@@ -854,7 +868,7 @@ IF "%g1%" == "n" goto start
 echo Downloading RetroGameFan's DSTT Updates (YSmenu)
 start /wait wget http://filetrip.net/h25123605-RetroGameFan-Multi-Cart-Update.html
 start /wait unrar x *.rar -y
-del *.rar
+frec *.rar
 start /wait 7za a -tzip ystt.zip "DSTT_DSTTi YSMenu"
 For /D %%a in ("%cd%\*") do RD /S/Q "%%a"
 start /wait 7za x ystt.zip 
@@ -862,8 +876,8 @@ ren "DSTT_DSTTi YSmenu" "Put_This_In_SD_Card"
 echo Downloading RetroGameFan's latest DAT updates
 start /wait wget http://filetrip.net/h35132218-RetroGameFan-DAT-Update.html
 start /wait unrar x *.rar  Put_This_In_SD_Card\TTMenu -y
-del *.zip
-del *.rar
+frec *.zip
+frec *.rar
 echo Download Moonshell?
 echo (y/n)
 set /p gmshl=
@@ -878,7 +892,7 @@ IF "%g2%" == "n" goto start
 echo Downloading RetroGameFan's DSTT Updates (YSmenu)
 start /wait wget http://filetrip.net/h25123605-RetroGameFan-Multi-Cart-Update.html
 start /wait unrar x *.rar -y
-del *.rar
+frec *.rar
 start /wait 7za a -tzip ystt.zip "DSTT_DSTTi YSMenu"
 For /D %%a in ("%cd%\*") do RD /S/Q "%%a"
 start /wait 7za x ystt.zip 
@@ -887,8 +901,8 @@ echo Downloading RetroGameFan's latest DAT updates
 start /wait wget http://filetrip.net/h35132218-RetroGameFan-DAT-Update.html
 start /wait unrar x *.rar  Put_This_In_SD_Card\TTMenu -y
 ren Put_This_In_SD_card\TTmenu.dat R4.dat
-del *.zip
-del *.rar
+frec *.zip
+frec *.rar
 echo Download Moonshell?
 echo (y/n)
 set /p g2mshl=
@@ -903,7 +917,7 @@ IF "%g3%" == "n" goto start
 echo Downloading RetroGameFan's DSTT Updates (YSmenu)
 start /wait wget http://filetrip.net/h25123605-RetroGameFan-Multi-Cart-Update.html
 start /wait unrar x *.rar -y
-del *.rar
+frec *.rar
 start /wait 7za a -tzip ystt.zip "DSTT_DSTTi YSMenu"
 For /D %%a in ("%cd%\*") do RD /S/Q "%%a"
 start /wait 7za x ystt.zip 
@@ -912,8 +926,8 @@ echo Downloading RetroGameFan's latest DAT updates
 start /wait wget http://filetrip.net/h35132218-RetroGameFan-DAT-Update.html
 start /wait unrar x *.rar  Put_This_In_SD_Card\TTMenu -y
 ren Put_This_In_SD_card\TTmenu.dat iLL.iL
-del *.zip
-del *.rar
+frec *.zip
+frec *.rar
 echo Download Moonshell?
 echo (y/n)
 set /p g3mshl=
@@ -928,7 +942,7 @@ IF "%g4%" == "n" goto start
 echo Downloading RetroGameFan's DSTT Updates (YSmenu)
 start /wait wget http://filetrip.net/h25123605-RetroGameFan-Multi-Cart-Update.html
 start /wait unrar x *.rar -y
-del *.rar
+frec *.rar
 start /wait 7za a -tzip ystt.zip "DSTT_DSTTi YSMenu"
 For /D %%a in ("%cd%\*") do RD /S/Q "%%a"
 start /wait 7za x ystt.zip 
@@ -938,8 +952,8 @@ start /wait wget http://filetrip.net/h35132218-RetroGameFan-DAT-Update.html
 start /wait unrar x *.rar  Put_This_In_SD_Card\TTMenu -y
 copy Put_This_In_SD_card\TTmenu.dat Put_This_In_SD_card\iLL.iL
 ren Put_This_In_SD_card\TTmenu.dat R4i.TP
-del *.zip
-del *.rar
+frec *.zip
+frec *.rar
 echo Download Moonshell?
 echo (y/n)
 set /p g4mshl=
@@ -954,7 +968,7 @@ IF "%g5%" == "n" goto start
 echo Downloading RetroGameFan's DSTT Updates (YSmenu)
 start /wait wget http://filetrip.net/h25123605-RetroGameFan-Multi-Cart-Update.html
 start /wait unrar x *.rar -y
-del *.rar
+frec *.rar
 start /wait 7za a -tzip ystt.zip "DSTT_DSTTi YSMenu"
 For /D %%a in ("%cd%\*") do RD /S/Q "%%a"
 start /wait 7za x ystt.zip 
@@ -963,8 +977,8 @@ echo Downloading RetroGameFan's latest DAT updates
 start /wait wget http://filetrip.net/h35132218-RetroGameFan-DAT-Update.html
 start /wait unrar x *.rar  Put_This_In_SD_Card\TTMenu -y
 copy Put_This_In_SD_card\TTmenu.dat Put_This_In_SD_card\R4i.dat
-del *.zip
-del *.rar
+frec *.zip
+frec *.rar
 echo Download Moonshell?
 echo (y/n)
 set /p g5mshl=
@@ -979,7 +993,7 @@ IF "%g6%" == "n" goto start
 echo Downloading RetroGameFan's DSTT Updates (YSmenu)
 start /wait wget http://filetrip.net/h25123605-RetroGameFan-Multi-Cart-Update.html
 start /wait unrar x *.rar -y
-del *.rar
+frec *.rar
 start /wait 7za a -tzip ystt.zip "DSTT_DSTTi YSMenu"
 For /D %%a in ("%cd%\*") do RD /S/Q "%%a"
 start /wait 7za x ystt.zip 
@@ -988,8 +1002,8 @@ echo Downloading RetroGameFan's latest DAT updates
 start /wait wget http://filetrip.net/h35132218-RetroGameFan-DAT-Update.html
 start /wait unrar x *.rar  Put_This_In_SD_Card\TTMenu -y
 ren Put_This_In_SD_card\TTmenu.dat R4i.TP
-del *.zip
-del *.rar
+frec *.zip
+frec *.rar
 echo Download Moonshell?
 echo (y/n)
 set /p g6mshl=
@@ -1004,7 +1018,7 @@ IF "%g7%" == "n" goto start
 echo Downloading RetroGameFan's DSTT Updates (YSmenu)
 start /wait wget http://filetrip.net/h25123605-RetroGameFan-Multi-Cart-Update.html
 start /wait unrar x *.rar -y
-del *.rar
+frec *.rar
 start /wait 7za a -tzip ystt.zip "DSTT_DSTTi YSMenu"
 For /D %%a in ("%cd%\*") do RD /S/Q "%%a"
 start /wait 7za x ystt.zip 
@@ -1013,8 +1027,8 @@ echo Downloading RetroGameFan's latest DAT updates
 start /wait wget http://filetrip.net/h35132218-RetroGameFan-DAT-Update.html
 start /wait unrar x *.rar  Put_This_In_SD_Card\TTMenu -y
 ren Put_This_In_SD_card\TTmenu.dat R4KING
-del *.zip
-del *.rar
+frec *.zip
+frec *.rar
 echo Download Moonshell?
 echo (y/n)
 set /p g7mshl=
@@ -1029,7 +1043,7 @@ IF "%g8%" == "n" goto start
 echo Downloading RetroGameFan's DSTT Updates (YSmenu)
 start /wait wget http://filetrip.net/h25123605-RetroGameFan-Multi-Cart-Update.html
 start /wait unrar x *.rar -y
-del *.rar
+frec *.rar
 start /wait 7za a -tzip ystt.zip "R4SDHC"
 For /D %%a in ("%cd%\*") do RD /S/Q "%%a"
 start /wait 7za x ystt.zip 
@@ -1037,8 +1051,8 @@ ren "R4SDHC" "Put_This_In_SD_Card"
 echo Downloading RetroGameFan's latest DAT updates
 start /wait wget http://filetrip.net/h35132218-RetroGameFan-DAT-Update.html
 start /wait unrar x *.rar  Put_This_In_SD_Card\TTMenu -y
-del *.zip
-del *.rar
+frec *.zip
+frec *.rar
 echo Download Moonshell?
 echo (y/n)
 set /p g8mshl=
@@ -1078,7 +1092,7 @@ echo Setting up your cart, please wait.
 echo Downloading RetroGameFan's DSTT Updates (TTMenu)
 start /wait wget http://filetrip.net/h25123605-RetroGameFan-Multi-Cart-Update.html
 start /wait unrar x *.rar -y
-del *.rar
+frec *.rar
 start /wait 7za a -tzip ystt.zip "R4_Orginal_R4_Clone YSMenu"
 For /D %%a in ("%cd%\*") do RD /S/Q "%%a"
 start /wait 7za x ystt.zip 
@@ -1086,8 +1100,8 @@ ren "R4_Orginal_R4_Clone YSMenu" "Put_This_In_SD_Card"
 echo Downloading RetroGameFan's latest DAT updates
 start /wait wget http://filetrip.net/h35132218-RetroGameFan-DAT-Update.html
 start /wait unrar x *.rar  Put_This_In_SD_Card\TTMenu -y
-del *.zip
-del *.rar
+frec *.zip
+frec *.rar
 IF "%g9sel%" == "9A1" goto 9A1
 IF "%g9sel%" == "9A2" goto 9A2
 IF "%g9sel%" == "9A3" goto 9A3
@@ -1182,7 +1196,7 @@ rd Put_This_In_SD_Card /s /q
 echo Downloading RetroGameFan's YSmenu updates
 start /wait wget http://filetrip.net/h25123605-RetroGameFan-Multi-Cart-Update.html
 start /wait unrar x *.rar -y
-del *.rar
+frec *.rar
 start /wait 7za a -tzip ystt.zip "DSONE_DSONEi YSMenu"
 For /D %%a in ("%cd%\*") do RD /S/Q "%%a"
 start /wait 7za x ystt.zip 
@@ -1191,8 +1205,8 @@ start /wait 7za x ds1.zip -y
 echo Downloading RetroGameFan's latest DAT updates
 start /wait wget http://filetrip.net/h35132218-RetroGameFan-DAT-Update.html
 start /wait unrar x *.rar  Put_This_In_SD_Card\TTMenu -y
-del *.zip
-del *.rar
+frec *.zip
+frec *.rar
 goto scttguide
 :scttguide
 start /wait wget http://flashcart-helper.googlecode.com/svn-history/r21/data/guides/sctt.guide.txt
@@ -1240,8 +1254,8 @@ echo Downloading iSmart Premuim Kernel Latest
 start /wait wget http://filetrip.net/h35131650-iSmart-Premium-kernel.html
 start /wait 7za x *.zip -oPut_This_In_SD_Card
 start /wait wget http://flashcart-helper.googlecode.com/svn-history/r24/data/guides/isp.guide.txt
-del *.zip 2> nul
-del *.rar 2> nul
+frec *.zip 2> nul
+frec *.rar 2> nul
 echo Download Moonshell?
 echo (y/n)
 set /p ipmshl=
@@ -1317,7 +1331,7 @@ goto endl
 exit
 )
 :endl
-del *.zip
+frec *.zip
 start /wait wget http://filetrip.net/d219-eNDryptS-Advanced-v1-2.html
 start /wait 7za e *.zip -x!ind-ndse12.jpg -x!ind-ndse12.nfo
 start /wait 7za e ind-ndse12.zip -oeNDryptS -y
@@ -1338,7 +1352,7 @@ start notepad enderyptguide.txt
 cls
 color 0F
 title eNDryptS Advance 1.2
-del *.zip
+frec *.zip
 "eNDryptS\eNDryptS Advanced.exe"
 
 :trim
@@ -1411,7 +1425,7 @@ IF "%firmdstwo%" == "n" goto exit
 
 start /wait wget http://down.supercard.sc/download/dstwo/Firmware/Firmware_v1.13_eng.zip
 start /wait 7za x *.zip 
-del *.zip
+frec *.zip
 rmdir Put_This_In_SD_Card /S /Q
 ren en Put_This_In_SD_Card
 cls
@@ -1652,7 +1666,7 @@ goto start
 IF EXIST "%cd%\DS-Scene\DS-SCE~1.exe." (
 goto cmpstart
 ) ELSE (
-del *.rar 2> nul
+frec *.rar 2> nul
 cls
 echo Download DS-Scene Rom tool?
 echo {y/n}
@@ -1706,11 +1720,11 @@ start /wait 7za x acekard.zip
 rd Put_This_In_SD_Card
 ren acekard Put_This_In_SD_Card
 rd Put_This_In_SD_Card\__aio /s /q
-del Put_This_In_SD_Card\*.dat
-del Put_This_In_SD_Card\akaio.nds
-del Put_This_In_SD_Card\akmenu4.nds
+frec Put_This_In_SD_Card\*.dat
+frec Put_This_In_SD_Card\akaio.nds
+frec Put_This_In_SD_Card\akmenu4.nds
 start /wait wget http://flashcart-helper.googlecode.com/files/ak.nds.ini
-del Put_This_In_SD_Card\_menudo\donors\nds.ini
+frec Put_This_In_SD_Card\_menudo\donors\nds.ini
 copy ak.nds.ini Put_This_In_SD_Card\_menudo\donors\nds.ini
 goto menuend
 :mr4
@@ -1731,7 +1745,7 @@ rmdir %wooddir% /s /q
 start /wait 7za x r4.zip -aos
 rd Put_This_In_SD_Card
 ren r4 Put_This_In_SD_Card
-del Put_This_In_SD_Card\_menudo\donors\nds.ini
+frec Put_This_In_SD_Card\_menudo\donors\nds.ini
 set donorpath=Put_This_In_SD_Card\_menudo\donors
 start /wait wget http://flashcart-helper.googlecode.com/files/wood.nds.ini
 copy wood.nds.ini Put_This_In_SD_Card\_menudo\donors\nds.ini
@@ -1744,9 +1758,9 @@ start /wait 7za x dstt.zip
 rd Put_This_In_SD_Card
 ren dstt Put_This_In_SD_Card
 rd Put_This_In_SD_Card\TTMENU /s /q
-del Put_This_In_SD_Card\*.dat 2>nul
-del Put_This_In_SD_Card\akaio.nds >nul
-del Put_This_In_SD_Card\akmenu4.nds >nul
+frec Put_This_In_SD_Card\*.dat 2>nul
+frec Put_This_In_SD_Card\akaio.nds >nul
+frec Put_This_In_SD_Card\akmenu4.nds >nul
 
 goto menuend
 
@@ -1761,8 +1775,8 @@ start /wait wget http://menudo.yolasite.com/resources/menudo-files/localizations
 start /wait 7za x generic.zip
 rd Put_This_In_SD_Card
 ren generic Put_This_In_SD_Card
-del Put_This_In_SD_Card\*.dat
-del Put_This_In_SD_Card\akmenu4.nds
+frec Put_This_In_SD_Card\*.dat
+frec Put_This_In_SD_Card\akmenu4.nds
 goto menuend
 :menuend
 echo MenuDO Installed successfully.
@@ -1840,7 +1854,7 @@ echo Which drive letter is your MicroSD?
 echo DO NOT ENTER THE COLON (:)
 set /p drvlet=
 echo Are you sure you want to restore? You may loose data.
-echo FlashcartHelper will not delete/format your card.
+echo FlashcartHelper will not frecete/format your card.
 echo If you restore from backup without removing files from your cart
 echo you make get duplicates.
 echo If you want to restore, type "restore" without the quotes.
@@ -1860,11 +1874,11 @@ pause
 goto start
 
 :rembak
-echo Are you sure you want to delete all backups?
-echo If you want to delete all backups, type "delete" without the quotes.
-set /p delbak=
-IF %delbak% NEQ delete goto start
-IF %delbak% EQU delete goto rembakcont
+echo Are you sure you want to frecete all backups?
+echo If you want to frecete all backups, type "frecete" without the quotes.
+set /p frecbak=
+IF %frecbak% NEQ frecete goto start
+IF %frecbak% EQU frecete goto rembakcont
 goto start
 :rembakcont
 rd %bakdrv%:\flashcartbak\ /s /q
@@ -1891,4 +1905,11 @@ echo Please do not run FlashcartHelper in your Hard Drive Root.
 pause
 exit
 
+:clrlog
+echo Are you sure you want to clear the log file?
+echo (y/n)
+echo FlashcartHelper will close after log file has been cleared
+set /p clrlog=
+IF "%clrlog%" == "y" del fh.log
+IF "%clrlog%" == "n" exit
 

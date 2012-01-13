@@ -1,13 +1,15 @@
 @echo off
 echo --Start log FlashcartHelper %time% %date%-- >> fh.log
+SET COPYCMD=/Y
 IF "%cd%" EQU "%userprofile%\Desktop" goto invpath
 IF "%cd%" EQU "%userprofile%" goto invpath
 IF "%cd%" EQU "%windir%\*" goto invpath
 IF "%cd%" EQU "C:" goto invpath
 IF "%cd%" EQU "%userprofile%\Documents" goto invpath
-rd Put_This_In_SD_Card /S /Q 2> nul
-mkdir Put_This_In_SD_Card 2>nul
-IF NOT EXIST "%cd%\Trashes\" mkdir Trashes 2>nul
+IF EXIST "%cd%\Put_This_In_SD_Card_OLD\" rd Put_This_In_SD_Card_OLD /s /q
+IF EXIST "%cd%\Put_This_In_SD_Card\" ren Put_This_In_SD_Card Put_This_In_SD_Card_OLD
+IF NOT EXIST "%cd%\Put_This_In_SD_Card\" mkdir Put_This_In_SD_Card >>fh.log 2>&1
+IF NOT EXIST "%cd%\Trashes\" mkdir Trashes >>fh.log 2>&1
 
 ::To translators
 ::Please do not change commented lines, (lines with :: in front of it)
@@ -17,11 +19,11 @@ IF NOT EXIST "%cd%\Trashes\" mkdir Trashes 2>nul
 ::The license is GNU GPL v3.0
 
 ::date of compilation
-set compiledate=1/11/2012
+set compiledate=1/12/2012
 frec guide.fhg 2> nul
 frec *.txt 2> nul
 ::currentver is version number
-set currentver=0.9 RC
+set currentver=0.9 RC2 r9
 :uptest
 IF EXIST FHup.bat. (
 goto begin
@@ -107,8 +109,7 @@ set menuguide=
 frec *.zip 2> nul
 frec *.7z 2> nul
 frec *.rar 2> nul
-rmdir %cd%\Put_This_In_SD_Card\ /S /Q 2> nul
-mkdir Put_This_In_SD_Card 2>nul
+
 :start
 cls
 set error=1
@@ -136,7 +137,7 @@ echo [6]NDSTokyoTrim  (Trim Roms)
 echo.
 echo [7]Download DSi Firmware Fixes (Use this option at your own risk)
 echo.
-echo [8]Download DS-Scene Rom Helper (Download latest CMP cheat DB)
+echo [8]DS-Scene Rom Helper (Download latest CMP cheat DB)
 echo.
 echo [9]Install MENUdo (ClouDS) for my Flashcart
 echo.
@@ -151,6 +152,8 @@ echo.
 echo [U]Update FlashcartHelper
 echo.
 echo [C]Clear log file
+echo.
+echo [F]File Cleanup and Clear Trashes file
 echo.
 echo [E]Exit
 echo.
@@ -180,6 +183,8 @@ IF "%selection%" == "b" goto bak
 IF "%selection%" == "B" goto bak
 IF "%selection%" == "C" goto clrlog
 IF "%selection%" == "c" goto clrlog
+IF "%selection%" == "F" goto clrtrash
+IF "%selection%" == "f" goto clrtrash
 set error=0
 goto start2
 :setups
@@ -288,7 +293,7 @@ echo Your DSTwo is flashed, correct?
 echo (y/n)
 set /p sure=
 IF "%sure%" == "n" goto plug
-frec %cd%\Put_This_In_SD_Card\ds2boot.dat
+frec "%cd%\Put_This_In_SD_Card\ds2boot.dat"
 
 :plug
 cls
@@ -311,11 +316,11 @@ start /wait wget http://filetrip.net/h35131424-CATSFC.html
 start /wait 7za x *.zip -x!version -x!source.txt -x!copyright -x!installation.txt
 start /wait 7za a -tzip cat.zip "CATSFC"
 start /wait 7za x cat.zip -oPut_This_In_SD_card
-copy *.ini %cd%\Put_This_In_SD_card\_dstwoplug\*.ini
-copy *.bmp %cd%\Put_This_In_SD_card\_dstwoplug\*.bmp
-copy *.plg %cd%\Put_This_In_SD_card\_dstwoplug\*.plg
+copy *.ini "%cd%\Put_This_In_SD_card\_dstwoplug\*.ini" >>fh.log 2>&1
+copy *.bmp "%cd%\Put_This_In_SD_card\_dstwoplug\*.bmp" >>fh.log 2>&1
+copy *.plg "%cd%\Put_This_In_SD_card\_dstwoplug\*.plg" >>fh.log 2>&1
 frec cat*.*
-rmdir %cd%\CATSFC\ /S /Q
+frec CATSFC
 frec *.zip
 echo Downloading iPlayer
 echo Please wait, this may take a while..
@@ -338,12 +343,11 @@ frec *.zip
 
 :ds2end
 cls
-echo %cd%
 echo A guide will now pop up
 echo Please drag eveything in the folder that will pop up to the root of your MicroSD card. Follow the guide for further instructions
 pause
-ren *.guide.txt guide.txt
-start notepad guide.txt
+ren *.guide.txt guide.fhg
+start notepad guide.fhg
 explorer %cd%\Put_This_In_SD_card\
 exit
 
@@ -359,8 +363,6 @@ echo Downloading Latest AKAIO Kernel
 start /wait wget http://filetrip.net/h7853-AKAIO.html
 start /wait unrar x *.rar Put_This_In_SD_Card
 frec *.rar
-start /wait wget http://flashcart-helper.googlecode.com/svn-history/r9/data/guides/ak2.guide.txt
-
 echo Download Moonshell?
 echo (y/n)
 set /p mshl=
@@ -384,7 +386,22 @@ rmdir 201002161705_moonshell210stable /S /Q
 start /wait wget http://flashcart-helper.googlecode.com/svn/data/misc/moonshl2.ini
 copy moonshl2.ini %cd%\Put_This_In_SD_card\moonshl2\moonshl2.ini
 frec moonshl2.ini
+
 :end
+IF "%FC%" == "2" wget http://flashcart-helper.googlecode.com/svn/data/guides/ak2.guide.txt
+IF "%FC%" == "3" wget http://flashcart-helper.googlecode.com/svn/data/guides/r4.guide.txt
+IF "%FC%" == "4" wget http://flashcart-helper.googlecode.com/svn/data/guides/tt.guide.txt
+IF "%FC%" == "5" wget http://flashcart-helper.googlecode.com/svn/data/guides/r4i.guide.txt
+IF "%FC%" == "6" wget http://flashcart-helper.googlecode.com/svn/data/guides/dsn.guide.txt
+IF "%FC%" == "7" wget http://flashcart-helper.googlecode.com/svn/data/guides/cyclo.guide.txt
+IF "%FC%" == "8" wget http://flashcart-helper.googlecode.com/svn/data/guides/ievo.guide.txt
+IF "%FC%" == "9" wget http://flashcart-helper.googlecode.com/svn/data/guides/ismm.guide.txt
+IF "%FC%" == "10" wget http://flashcart-helper.googlecode.com/svn/data/guides/ez5.guide.txt
+IF "%FC%" == "11" wget http://flashcart-helper.googlecode.com/svn/data/guides/ez5.guide.txt
+IF "%FC%" == "12" wget http://flashcart-helper.googlecode.com/svn/data/guides/m3.guide.txt
+IF "%FC%" == "17" wget http://flashcart-helper.googlecode.com/svn/data/guides/isp.guide.txt
+IF "%FC%" == "18" wget http://flashcart-helper.googlecode.com/svn/data/guides/edge.guide.txt
+IF "%FC%" == "19" wget http://flashcart-helper.googlecode.com/svn/data/guides/iedge.guide.txt
 cls
 frec *.dat 2> nul
 frec *.zip 2> nul
@@ -420,7 +437,6 @@ move "%wooddir%\wood.zip" "%cd%" >>fh.log
 7za x wood.zip -oPut_This_In_SD_Card >>fh.log
 rmdir "%wooddir%" /s /q
 pause
-start /wait wget http://flashcart-helper.googlecode.com/svn-history/r17/data/guides/r4.guide.txt
 ::frec *.7z
 echo Download Moonshell?
 echo (y/n)
@@ -453,11 +469,17 @@ IF "%ysme%" == "n" goto tt
 echo Downloading RetroGameFan's DSTT Updates (YSmenu)
 start /wait wget http://filetrip.net/h25123605-RetroGameFan-Multi-Cart-Update.html
 start /wait 7za x *.7z -y
-start /wait 7za a -tzip ystt.zip "DSTT_DSTTi YSMenu"
-For /D %%a in ("%cd%\*") do RD /S/Q "%%a"
-start /wait 7za x ystt.zip 
+rd "DSONE_DSONEi YSMenu" /s /q
+rd "DSTT_DSTTi TTMenu" /s /q
+rd "Extras" /s /q
+rd "M3Real_M3iZero YSMenu" /s /q
+rd "R4-SDHC_R4i-SDHC TTMenu" /s /q
+rd "R4_Orginal_R4_Clone YSMenu" /s /q
+rd "R4SDHC" /s /q
+frec *.txt
+frec usrcheat.dat
+rd Put_This_In_SD_Card /s /q
 ren "DSTT_DSTTi YSmenu" "Put_This_In_SD_Card"
-start /wait wget http://flashcart-helper.googlecode.com/svn/data/guides/tt.guide.txt
 frec *.zip
 echo Download Moonshell?
 echo (y/n)
@@ -468,16 +490,23 @@ IF "%mshl%" == "y" goto mshl
 cls
 echo You chose TTmenu
 echo Is this correct?
+echo (y/n)
 set /p ttme=
 IF "%ttme%" == "n" goto tt
 echo Downloading RetroGameFan's DSTT Updates (TTMenu)
 start /wait wget http://filetrip.net/h25123605-RetroGameFan-Multi-Cart-Update.html
 start /wait 7za x *.7z -y
-start /wait 7za a -tzip ystt.zip "DSTT_DSTTi TTMenu"
-For /D %%a in ("%cd%\*") do RD /S/Q "%%a"
-start /wait 7za x ystt.zip 
+rd "DSONE_DSONEi YSMenu" /s /q
+rd "DSTT_DSTTi YSMenu" /s /q
+rd "Extras" /s /q
+rd "M3Real_M3iZero YSMenu" /s /q
+rd "R4-SDHC_R4i-SDHC TTMenu" /s /q
+rd "R4_Orginal_R4_Clone YSMenu" /s /q
+rd "R4SDHC" /s /q
+frec *.txt
+frec usrcheat.dat
+rd Put_This_In_SD_Card /s /q
 ren "DSTT_DSTTi TTmenu" "Put_This_In_SD_Card"
-start /wait wget http://flashcart-helper.googlecode.com/svn/data/guides/tt.guide.txt
 frec *.zip
 echo Download Moonshell?
 echo (y/n)
@@ -492,7 +521,6 @@ echo Is this correct?
 echo (y/n)
 set /p r4iyn=
 IF "%r4iyn%" == "n" goto start
-start /wait wget http://flashcart-helper.googlecode.com/svn-history/r9/data/guides/r4i.guide.txt
 start /wait wget http://filetrip.net/h35130127-Wood-R4-for-R4i-Gold-%28R4iDS%29.html
 start /wait unrar x *.rar Put_This_In_SD_card\
 echo Download Moonshell?
@@ -508,7 +536,6 @@ echo Is this correct?
 echo (y/n)
 set /p r4dyn=
 IF "%r4dyn%" == "n" goto start
-start /wait wget http://flashcart-helper.googlecode.com/svn-history/r17/data/guides/dsn.guide.txt
 echo Downloading latest Wood R4iDSN
 start /wait wget http://filetrip.net/h35130793-Wood-R4iDSN.html
 start /wait 7za x *.7z 
@@ -530,7 +557,6 @@ echo Is this correct?
 echo (y/n)
 set /p cyclo=
 IF "%cyclo%" == "n" goto start
-start /wait wget http://flashcart-helper.googlecode.com/svn-history/r9/data/guides/cyclo.guide.txt
 echo Downloading Latest STABLE Evolution firmware
 start /wait wget http://filetrip.net/h35130821-CycloDS-Evolution-Firmware-Stable.html
 start /wait 7za e *.zip -oPut_This_In_SD_card
@@ -547,8 +573,6 @@ echo Is this correct?
 echo (y/n)
 set /p iEVO=
 IF "%iEVO%" == "n" goto start
-echo Downnloading guide
-start /wait wget http://flashcart-helper.googlecode.com/svn-history/r9/data/guides/ievo.guide.txt
 echo Downloading latest STABLE iEvoloution Firmware
 frec *.zip
 start /wait wget http://filetrip.net/h35131267-CycloDS-iEvolution-Firmware-Stable.html
@@ -629,12 +653,12 @@ exit
 
 :format
 mkdir formatter 2> nul
-IF EXIST %cd%\formatter\SDFormatter.exe. (
+IF EXIST "%cd%\formatter\"SDFormatter.exe. (
 goto formatstart
 ) ELSE (
 frec *.rar 2> nul
 echo Download Panasonic Formatter?
-echo (y/n)
+echo {y/n}
 set /p format=
 IF "%format%" == "n" goto start
 start /wait wget http://filetrip.net/d6027-Panasonic-SD-FormatterPORTABLE.html
@@ -642,8 +666,9 @@ start /wait unrar e *.rar formatter
 )
 
 :formatstart
-start %cd%\formatter\SDformatter.exe
-pause
+cd formatter
+start sdformatter.exe
+cd ..
 goto start
 
 :update 
@@ -661,7 +686,6 @@ echo Downloading latest iSmartMM kernel
 frec *.zip 2> nul
 start /wait wget http://filetrip.net/h35132061-iSmart-MM-kernel-update.html
 start /wait 7za x *.zip -oPut_This_In_SD_Card
-start /wait wget http://flashcart-helper.googlecode.com/svn-history/r14/data/guides/ismm.guide.txt
 echo Download Moonshell?
 echo (y/n)
 set /p mshlmm=
@@ -700,7 +724,6 @@ IF "%ez5%" == "n" goto start
 echo Downloading latest EZ5 kernel
 start /wait wget http://filetrip.net/h25124137-EZ5-Kernel.html
 start /wait 7za x *.zip -oPut_This_In_SD_Card
-start /wait wget http://flashcart-helper.googlecode.com/svn/data/guides/ez5.guide.txt
 echo You need atleast 1 .NDS file to load your EZ Flash 5
 echo Download Moonshell?
 echo (y/n)
@@ -720,7 +743,6 @@ IF "%ez5i%" == "n" goto start
 echo Downloading latest EZ5i kernel
 start /wait wget http://filetrip.net/h25124710-EZ5i-Kernel.html
 start /wait unrar x *.rar Put_This_In_SD_Card
-start /wait wget http://flashcart-helper.googlecode.com/svn/data/guides/ez5.guide.txt
 echo If you have not yet updated your EZ5i to v101, please run ez5firmwreUP_V101.nds
 echo If your cart says "No need to update" you do not need to update to v101.
 echo You need atleast 1 .NDS file to load your EZ Flash 5
@@ -743,7 +765,6 @@ IF "%m3%" == "n" goto start
 echo Downloading latest M3 Quad-Boot
 start /wait wget http://filetrip.net/h25123141-The-M3-Quad-Boot.html
 start /wait 7za x *.7z -oPut_This_In_SD_Card
-start /wait wget http://flashcart-helper.googlecode.com/svn-history/r17/data/guides/m3.guide.txt
 echo Download Moonshell?
 echo (y/n)
 set /p m3msh=
@@ -761,12 +782,12 @@ echo Downloading latest EDGE OS
 start /wait wget http://filetrip.net/h35129830-EDGE-OS.html
 start /wait 7za x *.zip -oPut_This_In_SD_Card
 ren Put_This_In_SD_Card\IEDGE.dat EDGE.dat
-start /wait wget http://flashcart-helper.googlecode.com/svn/data/guides/edge.guide.txt
 echo Download Moonshell?
 echo (y/n)
 set /p edgemsh=
 IF "%edgemsh%" == "y" goto mshl
 IF "%edgemsh%" == "n" goto end
+
 :iedge
 cls
 echo You chose iEDGE
@@ -774,8 +795,6 @@ echo Is this correct?
 echo (y/n)
 set /p iedge=
 IF "%iedge%" == "n" goto start
-echo Downnloading guide
-start /wait wget http://flashcart-helper.googlecode.com/svn/data/guides/iedge.guide.txt
 echo Downloading latest iEDGE OS
 start /wait wget http://filetrip.net/h35129832-iEDGE-OS.html
 start /wait 7za x *.zip -oPut_This_In_SD_card
@@ -785,15 +804,16 @@ echo Do you need to flash your iEDGE
 echo (Choose Yes if you have not used your iEDGE before)
 echo (y/n)
 set /p iedgeflash=
-IF "%iedgeflash%" == "n" goto mshl
+IF "%iedgeflash%" == "n" goto iedgea
 echo Downloading iEDGE Boot Update
 start /wait wget http://filetrip.net/d26407-BootStrap-File-for-iEDGE-4.html
 start /wait 7za x *.zip -oPut_This_In_SD_Card
+:iedgea
 echo Download Moonshell?
 echo (y/n)
-set /p iedgemshl=
-IF "%iedgemshl%" == "y" goto mshl
-IF "%iedgemshl%" == "n" goto end
+set /p iemshl=
+IF "%iemshl%" == "y" goto mshl
+IF "%iemshl%" == "n" goto end
 goto end
 :clone
 cls
@@ -1209,10 +1229,10 @@ frec *.zip
 frec *.rar
 goto scttguide
 :scttguide
-start /wait wget http://flashcart-helper.googlecode.com/svn-history/r21/data/guides/sctt.guide.txt
+start /wait wget http://flashcart-helper.googlecode.com/svn/data/guides/sctt.guide.txt
 goto ds1mshl
 :ds1guide
-start /wait wget http://flashcart-helper.googlecode.com/svn-history/r21/data/guides/ds1.guide.txt
+start /wait wget http://flashcart-helper.googlecode.com/svn/data/guides/ds1.guide.txt
 goto ds1mshl
 :ds1mshl
 echo Download Moonshell?
@@ -1220,7 +1240,7 @@ echo (y/n)
 set /p mshl=
 IF "%mshl%" == "n" goto end
 IF "%mshl%" == "y" goto mshl
-exit
+goto end
 
 :ds1iflash
 echo Is your DSOnei Flashed? (Choose NO if you have not used your DSOnei Before)
@@ -1253,7 +1273,6 @@ IF "%ismartp%" == "n" goto start
 echo Downloading iSmart Premuim Kernel Latest
 start /wait wget http://filetrip.net/h35131650-iSmart-Premium-kernel.html
 start /wait 7za x *.zip -oPut_This_In_SD_Card
-start /wait wget http://flashcart-helper.googlecode.com/svn-history/r24/data/guides/isp.guide.txt
 frec *.zip 2> nul
 frec *.rar 2> nul
 echo Download Moonshell?
@@ -1356,7 +1375,7 @@ frec *.zip
 "eNDryptS\eNDryptS Advanced.exe"
 
 :trim
-IF EXIST "ndstokyotrim\NDSTokyoTrim.exe". (
+IF EXIST "%cd%\ndstokyotrim\NDSTokyoTrim.exe". (
 goto trim2
 ) ELSE (
 goto trimdl
@@ -1365,9 +1384,11 @@ exit
 :trimdl
 mkdir ndstokyotrim
 start /wait wget http://eden.fm/apps/NDSTokyoTrim/NDSTokyoTrim25Beta2.exe
-move %cd%\NDSTokyoTrim25Beta2.exe %cd%\ndstokyotrim\NDSTokyoTrim.exe
+move "%cd%\NDSTokyoTrim25Beta2.exe" "%cd%\ndstokyotrim\NDSTokyoTrim.exe"
 :trim2
-start ndstokyotrim\NDSTokyoTrim.exe
+cd ndstokyotrim
+start NDSTokyoTrim.exe
+cd ..
 goto start
 
 
@@ -1685,7 +1706,9 @@ echo (y/n)
 set /p cmpguide=
 IF "%cmpguide%" == "y" goto cmpguide
 :cmpb
-start explorer.exe %cd%\DS-Scene\DS-SCE~1.exe
+cd DS-Scene
+start DS-SCE~1.exe
+cd ..
 goto begin 
 :cmpguide
 start /wait wget http://flashcart-helper.googlecode.com/svn/data/guides/dsc.guide.txt
@@ -1732,23 +1755,26 @@ echo Install MENUdo for R4 Revoloution
 start /wait wget http://menudo.yolasite.com/resources/menudo-files/localizations/12311/r4.zip
 start /wait wget http://filetrip.net/h25123666-Wood-R4.html
 start /wait 7za x *.7z
-set za=%cd%\7za.exe
+set za="%cd%"\7za.exe
 cd "Wood_R4_v*.*"
 set wooddir=%cd%
-start /wait %za% a -tzip wood.zip _DS_MENU.DAT 
-start /wait %za% u -tzip wood.zip "__rpg"
+%za% a -tzip wood.zip _DS_MENU.DAT >>"%workdir%\fh.log"
+%za% u -tzip wood.zip "__rpg" >>"%workdir%\fh.log"
 cd ..
-move %wooddir%\wood.zip %cd%
-start /wait 7za x wood.zip -oPut_This_In_SD_Card 
-copy Put_This_In_SD_Card\_DS_MENU.DAT Put_This_In_SD_Card\__rpg\woodr4.nds
-rmdir %wooddir% /s /q
-start /wait 7za x r4.zip -aos
-rd Put_This_In_SD_Card
-ren r4 Put_This_In_SD_Card
-frec Put_This_In_SD_Card\_menudo\donors\nds.ini
-set donorpath=Put_This_In_SD_Card\_menudo\donors
+move "%wooddir%\wood.zip" "%cd%"
+start /wait 7za x wood.zip -oPut_This_In_SD_Card -y
+copy "%cd%\Put_This_In_SD_Card\_DS_MENU.DAT" "%cd%\Put_This_In_SD_Card\__rpg\woodr4.nds"
+rd "%wooddir%" /S /Q
+7za x r4.zip -aos >>fh.log
+move "%cd%\r4\_menudo" "%cd%\Put_This_In_SD_Card"
+move "%cd%\r4\menudo.nds" "%cd%\Put_This_In_SD_Card"
+move "%cd%\r4\TTMENU" "%cd%\Put_This_In_SD_Card"
+frec "%cd%\Put_This_In_SD_Card\_menudo\donors\nds.ini"
 start /wait wget http://flashcart-helper.googlecode.com/files/wood.nds.ini
-copy wood.nds.ini Put_This_In_SD_Card\_menudo\donors\nds.ini
+move wood.nds.ini "%cd%\Put_This_In_SD_Card\_menudo\donors\nds.ini"
+frec *.zip
+frec *.7z
+rd r4
 goto menuend
 
 :mtt
@@ -1913,3 +1939,21 @@ set /p clrlog=
 IF "%clrlog%" == "y" del fh.log
 IF "%clrlog%" == "n" exit
 
+:clrtrash
+echo Are you sure you want to clear the Trash folder and 
+echo (y/n)
+echo FlashcartHelper will close after Trashes has been cleared
+set /p clrt=
+IF "%clrt%" == "y" goto clrfile
+IF "%clrt%" == "n" exit
+exit
+exit
+goto eof
+:clrfile
+rmdir Trashes /S /Q
+del *.zip
+del *.7z
+del *.rar
+del *.log
+del *.txt
+exit

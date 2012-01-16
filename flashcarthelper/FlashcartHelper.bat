@@ -1,11 +1,15 @@
 @echo off
+::Log Start message
 echo --Start log FlashcartHelper %time% %date%-- >> fh.log
+::Forces move, copy and other commands to suppress confirmation 
 SET COPYCMD=/Y
+::Determines if FlashcartHelper runs in the Desktop, Userprofile, Windows direcory, Documents folder, or root. If yes, FH will refuse to run.
 IF "%cd%" EQU "%userprofile%\Desktop" goto invpath
 IF "%cd%" EQU "%userprofile%" goto invpath
 IF "%cd%" EQU "%windir%\*" goto invpath
 IF "%cd%" EQU "C:" goto invpath
 IF "%cd%" EQU "%userprofile%\Documents" goto invpath
+::If "Put_This_In_SD_Card exists, will rename to "Put_This_In_SD_Card_OLD". If "Put_This_In_SD_Card_OLD" exists, will delete "Put_This_In_SD_Card_OLD"
 IF EXIST "%cd%\Put_This_In_SD_Card_OLD\" rd Put_This_In_SD_Card_OLD /s /q
 IF EXIST "%cd%\Put_This_In_SD_Card\" ren Put_This_In_SD_Card Put_This_In_SD_Card_OLD
 IF NOT EXIST "%cd%\Put_This_In_SD_Card\" mkdir Put_This_In_SD_Card >>fh.log 2>&1
@@ -20,10 +24,12 @@ IF NOT EXIST "%cd%\Trashes\" mkdir Trashes >>fh.log 2>&1
 
 ::date of compilation
 set compiledate=1/12/2012
+::file cleanup, invoke frec to delete guide.fhg and any text files
 frec guide.fhg 2> nul
 frec *.txt 2> nul
 ::currentver is version number
-set currentver=0.9 RC2 r9
+set currentver=0.9 RC3 r10
+::Update routine, if fh.bat exists, will go directly to begin. If not, will continue.
 :uptest
 IF EXIST FHup.bat. (
 goto begin
@@ -45,7 +51,9 @@ echo    it will be useful, but this does not guarantee that it will be.
 echo    By continuing, it is assumed that you agree to the following terms
 pause
 cls
+::sets title of the Window to "FlashcartHelper [version]"
 title FlashcartHelper %currentver%
+::tests if wget is present
 :wgettest
 IF EXIST wget.exe. (
 goto unrartest
@@ -55,6 +63,7 @@ echo Press any key to exit.
 pause >nul
 exit
 )
+::tests if unrar is present, if not, will download
 :unrartest 
 IF EXIST unrar.exe. (
 goto 7ztest
@@ -65,7 +74,7 @@ pause >nul
 start /wait wget http://flashcart-helper.googlecode.com/files/UnRAR.exe
 goto 7ztest
 )
-
+::tests if 7za is present, if not will download
 :7ztest
 IF EXIST 7za.exe. (
 goto frectest
@@ -76,7 +85,7 @@ pause >nul
 start /wait wget http://flashcart-helper.googlecode.com/files/7za.exe
 goto frectest
 )
-
+::tests if frec is present, if not, will download
 :frectest
 IF EXIST frec.exe. (
 goto uptest
@@ -84,38 +93,43 @@ goto uptest
 echo frec.exe not found
 echo Press any key to download
 pause >nul
-echo move %%1 freceted_files 2>nul >frec.bat
+start /wait wget 
 goto uptest
 )
-
+::required or it will go into an infinite loop.
 :uptest
 IF EXIST FHup.bat. (
 goto begin
 ) ELSE (
-goto begin
+goto up
 )
-pause
-
+::fetches update file, disabled in BAT versions , source
 :up
 ::Fetch Update File
 ::wget -q http://flashcart-helper.googlecode.com/files/fhup.bat >nul
 ::call fhup.bat
 
+::begin routine
 :begin
+::sets var workdir to current dir
 set workdir=%cd%
-frec FHup.bat 2> nul
+::deletes fhup.bat. DO NOT frec!
+del FHup.bat 2> nul
 set FC=
 set menuguide=
+::file cleanup
 frec *.zip 2> nul
 frec *.7z 2> nul
 frec *.rar 2> nul
 
+::sets error to 1, if not 1, will return Invalid choice
 :start
 cls
 set error=1
 :start2
+::main menu
 cls
-mode con lines=40
+mode con lines=50
 IF %error% NEQ 1 echo Invalid Choice
 title FlashcartHelper %currentver%
 echo.
@@ -155,10 +169,12 @@ echo [C]Clear log file
 echo.
 echo [F]File Cleanup and Clear Trashes file
 echo.
+echo [D]Download List BETA
+echo.
 echo [E]Exit
 echo.
 echo Please input your choice
-::selection menu
+::selection 
 set /p selection=
 IF "%selection%" == "1" goto setups
 IF "%selection%" == "2" goto format
@@ -185,9 +201,11 @@ IF "%selection%" == "C" goto clrlog
 IF "%selection%" == "c" goto clrlog
 IF "%selection%" == "F" goto clrtrash
 IF "%selection%" == "f" goto clrtrash
+IF /i "%selection%" == "d" goto dlist
 set error=0
 goto start2
 :setups
+:: if ind NEQ 1, setup menu will return invalid choice
 cls
 set ind=1
 :setup
@@ -239,7 +257,7 @@ echo [19] iEDGE
 echo.
 echo [B] Go back
 echo Please input your choice
-
+::FC selection
 set /p FC=
 IF "%FC%" == "1" goto ds2 
 IF "%FC%" == "2" goto ak2
@@ -388,6 +406,7 @@ copy moonshl2.ini %cd%\Put_This_In_SD_card\moonshl2\moonshl2.ini
 frec moonshl2.ini
 
 :end
+::depending on FC selection, will dl appropriate guide from server
 IF "%FC%" == "2" wget http://flashcart-helper.googlecode.com/svn/data/guides/ak2.guide.txt
 IF "%FC%" == "3" wget http://flashcart-helper.googlecode.com/svn/data/guides/r4.guide.txt
 IF "%FC%" == "4" wget http://flashcart-helper.googlecode.com/svn/data/guides/tt.guide.txt
@@ -403,6 +422,7 @@ IF "%FC%" == "17" wget http://flashcart-helper.googlecode.com/svn/data/guides/is
 IF "%FC%" == "18" wget http://flashcart-helper.googlecode.com/svn/data/guides/edge.guide.txt
 IF "%FC%" == "19" wget http://flashcart-helper.googlecode.com/svn/data/guides/iedge.guide.txt
 cls
+title FlashcartHelper %currentver% Flashcart Setup Complete
 frec *.dat 2> nul
 frec *.zip 2> nul
 frec *.7z 2> nul
@@ -427,9 +447,11 @@ IF "%r4yn%" == "n" goto start
 echo Downloading latest Wood R4
 start /wait wget http://filetrip.net/h25123666-Wood-R4.html
 7za x *.7z >>fh.log
+::Allows 7za use outside of cd
 set za="%cd%"\7za.exe
 cd "Wood_R4_v*.*"
 set wooddir=%cd%
+::zips up Wood files
 %za% a -tzip wood.zip _DS_MENU.DAT >>"%workdir%\fh.log"
 %za% u -tzip wood.zip "__rpg" >>"%workdir%\fh.log"
 cd ..
@@ -657,10 +679,8 @@ IF EXIST "%cd%\formatter\"SDFormatter.exe. (
 goto formatstart
 ) ELSE (
 frec *.rar 2> nul
-echo Download Panasonic Formatter?
-echo {y/n}
-set /p format=
-IF "%format%" == "n" goto start
+echo Will download Panasonic Formatter 
+pause
 start /wait wget http://filetrip.net/d6027-Panasonic-SD-FormatterPORTABLE.html
 start /wait unrar e *.rar formatter
 )
@@ -694,11 +714,11 @@ echo Downloading MoonShell
 echo Please wait, this may take a while.
 frec *.zip
 start /wait wget http://mdxonline.dyndns.org/201002161705_moonshell210stable.zip
-set za=%cd%\7za.exe
-start /wait %za% x 201002161705_moonshell210stable.zip
+set za="%cd%"\7za.exe
+%za% x 201002161705_moonshell210stable.zip
 cd 201002161705_moonshell210stable
 set moondir=%cd%
-start /wait %za% a -tzip mshl.zip moonshl2.nds "moonshl2"
+%za% a -tzip mshl.zip moonshl2.nds "moonshl2"
 cd..
 move %moondir%\mshl.zip %cd%
 start /wait 7za x mshl.zip -oPut_This_In_SD_Card
@@ -1455,7 +1475,7 @@ echo Please put the file dstwoupdate.dat in the ROOT of your SD card
 echo Then boot your DSTWO and it will prompt you to update.
 echo FlashcartHelper is not responsible for bricked flashcarts resulting from improper use of this option.
 echo Make sure your DS is plugged in before you attempt to update
-start explorer.exe %cd%\Put_This_In_SD_Card
+start explorer.exe "%cd%\Put_This_In_SD_Card"
 echo Press any key to exit. 
 pause > nul
 :firmak2
@@ -1465,8 +1485,10 @@ echo Is this correct?
 echo (y/n)
 set /p firmak2=
 IF "%firmak2%" == "n" goto exit
-start /wait wget http://www.acekard.com/download/ak2/ak2ifw_update_3ds21_DSi143.zip
-start /wait 7za x *.zip -oPut_This_In_SD_Card
+start /wait wget http://www.acekard.com/download/ak2/ak2ifw_update_3ds3.0_DSi143.zip
+rd Put_This_In_SD_Card /s /q
+start /wait 7za x *.zip
+ren ak2ifw_update_3ds3.0_DSi143 Put_This_In_SD_Card
 cls
 echo Please put the files 
 echo ak2ifw_update_3ds21_DSi143_onDSi_NO44.nds 
@@ -1485,6 +1507,7 @@ pause
 start explorer.exe %cd%\Put_This_In_SD_Card
 echo Press any key to exit. 
 pause > nul
+exit
 :firmr4igold
 cls
 echo You chose R4i Gold Non-3DS version
@@ -1521,7 +1544,7 @@ echo On DSi firmware 1.4.3
 echo (y/n)
 set /p firmr4i=
 IF "%firmr4i%" == "n" goto exit
-start /wait wget ftp://r4idsdown:r4idsdown@www.r4ids.co.cc/V143_Patch_R4iGold_3DS.rar
+start /wait wget ftp://r4idsdown:r4idsdown@www.r4ids.co.cc/R4iGold_3DS2.2_Patch.rar
 start /wait unrar x *.rar Put_This_In_SD_Card
 cls
 echo Please put the files 
@@ -1956,4 +1979,134 @@ del *.7z
 del *.rar
 del *.log
 del *.txt
+
+:dlist
+@echo off
+title FlashcartHelper DownloadQueue Beta Test
+set currentver=r9
+del fh.dq
+set u1=
+set u2=
+set u3=
+set u4=
+set m1=
+set m2=
+set m3=
+set m4=
+set m5=
+set m6=
+del dlque.bat 2>nul
+:dbegin
+mode con lines=50
+set list=
+cls
+echo.
+echo                  FlashcartHelper download list BETA    %currentver%
+echo                      [D] Process Download Queue
+echo.
+echo -------Utitlities-------       -------MenuDO-------
+echo %u1%[U1] DS-Scene Rom Tool     %m1%[M1]MenuDO AceKard
+echo %u2%[U2] Panasonic Formatter   %m2%[M2]MenuDO DSTT
+echo %u3%[U3] eNDryptS Advance      %m3%[M3]MenuDO Generic
+echo %u4%[U4] NDSTokyoTrim          %m4%[M4]MenuDO R4
+echo                            %m5%[M5]MenuDO Wood Donor ini file
+echo                            %m6%[M6]MenuDO AK Donor ini file
+set /p list=
+if /i "%list%" EQU "u1" goto dlu1
+if /i "%list%" EQU "u2" goto dlu2
+if /i "%list%" EQU "u3" goto dlu3
+if /i "%list%" EQU "u4" goto dlu4
+if /i "%list%" EQU "d" goto dlque
+if /i "%list%" EQU "m1" goto dlm1
+if /i "%list%" EQU "m2" goto dlm2
+if /i "%list%" EQU "m3" goto dlm3
+if /i "%list%" EQU "m4" goto dlm4
+if /i "%list%" EQU "m5" goto dlm5
+if /i "%list%" EQU "m6" goto dlm6
+goto begin
+::ultilities
+:dlu1
+if /i "%u1%" EQU "*" (set u1=) else (set u1=*)
+goto dbegin
+:dlu2
+if /i "%u2%" EQU "*" (set u2=) else (set u2=*)
+goto dbegin
+:dlu3
+if /i "%u3%" EQU "*" (set u3=) else (set u3=*)
+goto dbegin
+:dlu4
+if /i "%u4%" EQU "*" (set u4=) else (set u4=*)
+goto dbegin
+::MenuDO
+:dlm1
+if /i "%m1%" EQU "*" (set m1=) else (set m1=*)
+goto dbegin
+
+:dlm2
+if /i "%m2%" EQU "*" (set m2=) else (set m2=*)
+goto dbegin
+
+:dlm3
+if /i "%m3%" EQU "*" (set m3=) else (set m3=*)
+goto dbegin
+
+:dlm4
+if /i "%m4%" EQU "*" (set m4=) else (set m4=*)
+goto dbegin
+
+:dlm5
+if /i "%m5%" EQU "*" (set m5=) else (set m5=*)
+goto dbegin
+
+:dlm6
+if /i "%m6%" EQU "*" (set m6=) else (set m6=*)
+goto dbegin
+:dlque
+echo echo FlashcartHelper Download Queue TEST >>dlque.bat
+echo echo %date% %time% >>dlque.bat
+echo IF NOT EXIST "%cd%\DOWNLOAD_QUEUE\" mkdir DOWNLOAD_QUEUE >>dlque.bat
+echo COPY wget.exe DOWNLOAD_QUEUE >>dlque.bat
+echo copy fh.dq DOWNLOAD_QUEUE >>dlque.bat
+echo CD DOWNLOAD_QUEUE >>dlque.bat
+echo echo Downloading queue >>dlque.bat
+echo start /wait wget -i fh.dq >>dlque.bat
+echo echo The download completed >>dlque.bat
+echo del fh.dq >>dlque.bat
+echo del wget.exe >>dlque.bat
+echo pause >>dlque.bat
+echo exit >>dlque.bat
+cls
+echo Please confirm your download queue.
+echo.
+::queue 
+if /i "%u1%" EQU "*" echo *DS-Scene Rom Tool
+if /i "%u2%" EQU "*" echo *Panasonic Formatter
+if /i "%u3%" EQU "*" echo *eNDryptS Advance
+if /i "%u4%" EQU "*" echo *NDSTokyoTrim
+if /i "%m1%" EQU "*" echo *MenuDO Acekard
+if /i "%m2%" EQU "*" echo *MenuDO DSTT
+if /i "%m3%" EQU "*" echo *MenuDO Generic
+if /i "%m4%" EQU "*" echo *MenuDO R4
+if /i "%m5%" EQU "*" echo *MenuDO Wood Donor ini file
+if /i "%m6%" EQU "*" echo *MenuDO AK Donor ini file
+echo.
+echo Is this correct?
+echo (y/n)
+set /p queueyn=
+if /i "%queueyn%" EQU "y" goto downst
+goto begin
+:downst
+pause
+if /i "%u1%" EQU "*" echo http://filetrip.net/h35132042-RetroGameFan-DS-Scene-Rom-Tool-.html >>fh.dq
+if /i "%u2%" EQU "*" echo http://filetrip.net/d6027-Panasonic-SD-FormatterPORTABLE.html >>fh.dq
+if /i "%u3%" EQU "*" echo http://filetrip.net/d219-eNDryptS-Advanced-v1-2.html >>fh.dq
+if /i "%u4%" EQU "*" echo http://eden.fm/apps/NDSTokyoTrim/NDSTokyoTrim25Beta2.exe >>fh.dq
+if /i "%m1%" EQU "*" echo http://menudo.yolasite.com/resources/menudo-files/localizations/12311/acekard.zip >>fh.dq
+if /i "%m2%" EQU "*" echo http://menudo.yolasite.com/resources/menudo-files/localizations/12311/dstt.zip >>fh.dq
+if /i "%m3%" EQU "*" echo http://menudo.yolasite.com/resources/menudo-files/localizations/12311/generic.zip >>fh.dq
+if /i "%m4%" EQU "*" echo http://menudo.yolasite.com/resources/menudo-files/localizations/12311/r4.zip >>fh.dq
+if /i "%m5%" EQU "*" echo http://flashcart-helper.googlecode.com/files/wood.nds.ini >>fh.dq
+if /i "%m6%" EQU "*" echo http://flashcart-helper.googlecode.com/files/ak.nds.ini >>fh.dq
+IF NOT EXIST fh.dq (echo Error 404 Queue Empty && pause && exit)
+call dlque.bat
 exit

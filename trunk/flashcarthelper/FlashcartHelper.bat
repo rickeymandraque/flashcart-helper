@@ -28,7 +28,7 @@ set compiledate=1/12/2012
 frec guide.fhg 2> nul
 frec *.txt 2> nul
 ::currentver is version number
-set currentver=0.9 RC3 r10
+set currentver=0.9 RC4 r11
 ::Update routine, if fh.bat exists, will go directly to begin. If not, will continue.
 :uptest
 IF EXIST FHup.bat. (
@@ -1982,9 +1982,8 @@ del *.txt
 
 :dlist
 @echo off
-title FlashcartHelper DownloadQueue Beta Test
-set currentver=r9
-del fh.dq
+title FlashcartHelper Advanced Download Queue
+del fh.dq 2>fh.log
 set u1=
 set u2=
 set u3=
@@ -1995,35 +1994,105 @@ set m3=
 set m4=
 set m5=
 set m6=
+set f1=
+set f2=
+set f3=
+set f4=
+set f5=
+set f6=
+set f7=
+set f8=
+set f9=
+set f10=
+set f11=
+set f12=
+set f13=
+set f14=
+set f15=
+set f16=
+set f17=
+set f18=
+set f19=
+set f20=
+set f21=
 del dlque.bat 2>nul
 :dbegin
 mode con lines=50
+mode con cols=130
 set list=
 cls
 echo.
-echo                  FlashcartHelper download list BETA    %currentver%
-echo                      [D] Process Download Queue
+echo                                      FlashcartHelper Advance Download list BETA    %currentver%
+echo          [S] Save Current Download Queue [C] Clear Current Download Queue [D] Process Download Queue [E] Exit [I] Download Saved Download Queue
 echo.
-echo -------Utitlities-------       -------MenuDO-------
-echo %u1%[U1] DS-Scene Rom Tool     %m1%[M1]MenuDO AceKard
-echo %u2%[U2] Panasonic Formatter   %m2%[M2]MenuDO DSTT
-echo %u3%[U3] eNDryptS Advance      %m3%[M3]MenuDO Generic
-echo %u4%[U4] NDSTokyoTrim          %m4%[M4]MenuDO R4
-echo                            %m5%[M5]MenuDO Wood Donor ini file
-echo                            %m6%[M6]MenuDO AK Donor ini file
+echo -------Utitlities-------            -------MenuDO-------
+echo %u1%[U1] DS-Scene Rom Tool             %m1%[M1]MenuDO AceKard
+echo %u2%[U2] Panasonic Formatter           %m2%[M2]MenuDO DSTT
+echo %u3%[U3] eNDryptS Advance              %m3%[M3]MenuDO Generic
+echo %u4%[U4] NDSTokyoTrim                  %m4%[M4]MenuDO R4
+echo                                    %m5%[M5]MenuDO Wood Donor ini file
+echo                                    %m6%[M6]MenuDO AK Donor ini file
+echo -----Firmwares/Kernel-----
+echo %f1%[F1]DSTWO EOS
+echo %f2%[F2]AKAIO
+echo %f3%[F3]Wood R4
+echo %f4%[F4]Wood R4iGold
+echo %f5%[F5]Wood R4iDSN
+echo %f6%[F6]CycloDS Evolution Firmware
+echo %f7%[F7]CycloDS iEvolution Firmware
+echo %f8%[F8]iSmart MM Kernel
+echo %f9%[F9]EZV Kernel
+echo %f10%[F10]EZVi Kernel
+echo %f11%[F11]M3 Quad-Boot
+echo %f12%[F12]EDGE OS
+echo %f13%[F13]iEDGE OS
+echo %f14%[F14]N5 Firmware
+echo %f15%[F15]N5i Firmware
+echo %f16%[F16]DSONE EOS
+echo %f17%[F17]DSONE mini SDHC EOS
+echo %f18%[F18]DSONE SDHC EOS
+echo %f19%[F19]RetroGameFan's Multi-Cart
+echo %f20%[F20]iSmart Premuim Kernel
+echo %f21%[F21]TTMenu 1.17
 set /p list=
 if /i "%list%" EQU "u1" goto dlu1
 if /i "%list%" EQU "u2" goto dlu2
 if /i "%list%" EQU "u3" goto dlu3
 if /i "%list%" EQU "u4" goto dlu4
 if /i "%list%" EQU "d" goto dlque
+if /i "%list%" EQU "c" goto clque
+if /i "%list%" EQU "i" goto dsque
+if /i "%list%" EQU "s" goto savque
+if /i "%list%" EQU "e" goto begin
 if /i "%list%" EQU "m1" goto dlm1
 if /i "%list%" EQU "m2" goto dlm2
 if /i "%list%" EQU "m3" goto dlm3
 if /i "%list%" EQU "m4" goto dlm4
 if /i "%list%" EQU "m5" goto dlm5
 if /i "%list%" EQU "m6" goto dlm6
-goto begin
+if /i "%list%" EQU "f1" goto dlf1
+if /i "%list%" EQU "f2" goto dlf2
+if /i "%list%" EQU "f3" goto dlf3
+if /i "%list%" EQU "f4" goto dlf4
+if /i "%list%" EQU "f5" goto dlf5
+if /i "%list%" EQU "f6" goto dlf6
+if /i "%list%" EQU "f7" goto dlf7
+if /i "%list%" EQU "f8" goto dlf8
+if /i "%list%" EQU "f9" goto dlf9
+if /i "%list%" EQU "f10" goto dlf10
+if /i "%list%" EQU "f11" goto dlf11
+if /i "%list%" EQU "f12" goto dlf12
+if /i "%list%" EQU "f13" goto dlf13
+if /i "%list%" EQU "f14" goto dlf14
+if /i "%list%" EQU "f15" goto dlf15
+if /i "%list%" EQU "f16" goto dlf16
+if /i "%list%" EQU "f17" goto dlf17
+if /i "%list%" EQU "f18" goto dlf18
+if /i "%list%" EQU "f19" goto dlf19
+if /i "%list%" EQU "f20" goto dlf20
+if /i "%list%" EQU "F20" goto dlF20
+if /i "%list%" EQU "F21" goto dlF21
+goto dbegin
 ::ultilities
 :dlu1
 if /i "%u1%" EQU "*" (set u1=) else (set u1=*)
@@ -2061,9 +2130,81 @@ goto dbegin
 :dlm6
 if /i "%m6%" EQU "*" (set m6=) else (set m6=*)
 goto dbegin
+::Firmwares
+:dlf1
+if /i "%f1%" EQU "*" (set f1=) else (set f1=*)
+goto dbegin
+:dlf2
+if /i "%f2%" EQU "*" (set f2=) else (set f2=*)
+goto dbegin
+:dlf3
+if /i "%f3%" EQU "*" (set f3=) else (set f3=*)
+goto dbegin
+:dlf4
+if /i "%f4%" EQU "*" (set f4=) else (set f4=*)
+goto dbegin
+:dlf5
+if /i "%f5%" EQU "*" (set f5=) else (set f5=*)
+goto dbegin
+:dlf6
+if /i "%f6%" EQU "*" (set f6=) else (set f6=*)
+goto dbegin
+:dlf7
+if /i "%f7%" EQU "*" (set f7=) else (set f7=*)
+goto dbegin
+:dlf8
+if /i "%f8%" EQU "*" (set f8=) else (set f8=*)
+goto dbegin
+:dlf9
+if /i "%f9%" EQU "*" (set f9=) else (set f9=*)
+goto dbegin
+:dlf10
+if /i "%f10%" EQU "*" (set f10=) else (set f10=*)
+goto dbegin
+:dlf11
+if /i "%f11%" EQU "*" (set f11=) else (set f11=*)
+goto dbegin
+:dlf12
+if /i "%f12%" EQU "*" (set f12=) else (set f12=*)
+goto dbegin
+:dlf13
+if /i "%f13%" EQU "*" (set f13=) else (set f13=*)
+goto dbegin
+:dlf14
+if /i "%f14%" EQU "*" (set f14=) else (set f14=*)
+goto dbegin
+:dlf15
+if /i "%f15%" EQU "*" (set f15=) else (set f15=*)
+goto dbegin
+:dlf16
+if /i "%f16%" EQU "*" (set f16=) else (set f16=*)
+goto dbegin
+:dlf17
+if /i "%f17%" EQU "*" (set f17=) else (set f17=*)
+goto dbegin
+:dlf18
+if /i "%f18%" EQU "*" (set f18=) else (set f18=*)
+goto dbegin
+:dlf19
+if /i "%f19%" EQU "*" (set f19=) else (set f19=*)
+goto dbegin
+:dlf20
+if /i "%f20%" EQU "*" (set f20=) else (set f20=*)
+goto dbegin
+:dlf20
+if /i "%f20%" EQU "*" (set f20=) else (set f20=*)
+goto dbegin
+:dlf21
+if /i "%f21%" EQU "*" (set f21=) else (set f21=*)
+goto dbegin
+
+:savque
+set savque=1
+cls
+goto queueconfirm
 :dlque
-echo echo FlashcartHelper Download Queue TEST >>dlque.bat
-echo echo %date% %time% >>dlque.bat
+echo echo FlashcartHelper Download Queue>>dlque.bat
+echo echo Issued %date% %time% for FlashcartHelper %currentver%>>dlque.bat
 echo IF NOT EXIST "%cd%\DOWNLOAD_QUEUE\" mkdir DOWNLOAD_QUEUE >>dlque.bat
 echo COPY wget.exe DOWNLOAD_QUEUE >>dlque.bat
 echo copy fh.dq DOWNLOAD_QUEUE >>dlque.bat
@@ -2076,6 +2217,7 @@ echo del wget.exe >>dlque.bat
 echo pause >>dlque.bat
 echo exit >>dlque.bat
 cls
+:queueconfirm
 echo Please confirm your download queue.
 echo.
 ::queue 
@@ -2089,12 +2231,33 @@ if /i "%m3%" EQU "*" echo *MenuDO Generic
 if /i "%m4%" EQU "*" echo *MenuDO R4
 if /i "%m5%" EQU "*" echo *MenuDO Wood Donor ini file
 if /i "%m6%" EQU "*" echo *MenuDO AK Donor ini file
+if /i "%f1%" EQU "*" echo *DSTWO EOS
+if /i "%f2%" EQU "*" echo *AKAIO
+if /i "%f3%" EQU "*" echo *Wood R4
+if /i "%f4%" EQU "*" echo *Wood R4iGold
+if /i "%f5%" EQU "*" echo *Wood R4iDSN
+if /i "%f6%" EQU "*" echo *CycloDS Evolution Firmware
+if /i "%f7%" EQU "*" echo *CycloDS iEvolution Firmware
+if /i "%f8%" EQU "*" echo *iSmart MM Kernel
+if /i "%f9%" EQU "*" echo *EZV Kernel
+if /i "%f10%" EQU "*" echo *EZVi Kernel
+if /i "%f11%" EQU "*" echo *M3 Quad-Boot
+if /i "%f12%" EQU "*" echo *EDGE OS
+if /i "%f13%" EQU "*" echo *iEDGE OS
+if /i "%f14%" EQU "*" echo *N5 Firmware
+if /i "%f15%" EQU "*" echo *N5i Firmware
+if /i "%f16%" EQU "*" echo *DSONE EOS
+if /i "%f17%" EQU "*" echo *DSONE mini SDHC EOS
+if /i "%f18%" EQU "*" echo *DSONE SDHC EOS
+if /i "%f19%" EQU "*" echo *RetroGameFan's Multi-Cart
+if /i "%f20%" EQU "*" echo *iSmart Premuim Kernel
+if /i "%f21%" EQU "*" echo *TTMenu 1.17
 echo.
 echo Is this correct?
 echo (y/n)
 set /p queueyn=
 if /i "%queueyn%" EQU "y" goto downst
-goto begin
+goto dbegin
 :downst
 pause
 if /i "%u1%" EQU "*" echo http://filetrip.net/h35132042-RetroGameFan-DS-Scene-Rom-Tool-.html >>fh.dq
@@ -2107,6 +2270,68 @@ if /i "%m3%" EQU "*" echo http://menudo.yolasite.com/resources/menudo-files/loca
 if /i "%m4%" EQU "*" echo http://menudo.yolasite.com/resources/menudo-files/localizations/12311/r4.zip >>fh.dq
 if /i "%m5%" EQU "*" echo http://flashcart-helper.googlecode.com/files/wood.nds.ini >>fh.dq
 if /i "%m6%" EQU "*" echo http://flashcart-helper.googlecode.com/files/ak.nds.ini >>fh.dq
+if /i "%f1%" EQU "*" echo http://filetrip.net/h35130066-Supercard-DSTWO-EOS.html >>fh.dq
+if /i "%f2%" EQU "*" echo http://filetrip.net/h7853-AKAIO.html >>fh.dq
+if /i "%f3%" EQU "*" echo http://filetrip.net/h25123666-Wood-R4.html >>fh.dq
+if /i "%f4%" EQU "*" echo http://filetrip.net/h35130127-Wood-R4-for-R4i-Gold-%28R4iDS%29.html >>fh.dq
+if /i "%f5%" EQU "*" echo http://filetrip.net/h35130793-Wood-R4iDSN.html >>fh.dq
+if /i "%f6%" EQU "*" echo http://filetrip.net/h35130821-CycloDS-Evolution-Firmware-Stable.html >>fh.dq
+if /i "%f7%" EQU "*" echo http://filetrip.net/h35131267-CycloDS-iEvolution-Firmware-Stable.html >>fh.dq
+if /i "%f8%" EQU "*" echo http://filetrip.net/h35132061-iSmart-MM-kernel-update.html >>fh.dq
+if /i "%f9%" EQU "*" echo http://filetrip.net/h25124137-EZ5-Kernel.html >>fh.dq
+if /i "%f10%" EQU "*" echo http://filetrip.net/h25124710-EZ5i-Kernel.html >>fh.dq
+if /i "%f11%" EQU "*" echo http://filetrip.net/h25123141-The-M3-Quad-Boot.html >>fh.dq
+if /i "%f12%" EQU "*" echo http://filetrip.net/h35129830-EDGE-OS.html >>fh.dq
+if /i "%f13%" EQU "*" echo http://filetrip.net/h35129832-iEDGE-OS.html >>fh.dq
+if /i "%f14%" EQU "*" echo http://filetrip.net/d26367-N5-Firmware-1-32.html >>fh.dq
+if /i "%f15%" EQU "*" echo http://filetrip.net/d26383-N5i-2-03-ENG-LTE.html >>fh.dq
+if /i "%f16%" EQU "*" echo http://down.supercard.sc/download/evolution/DSONE_Evolution_V1.0_eng_sp6_20110427.zip >>fh.dq
+if /i "%f17%" EQU "*" echo http://down.supercard.sc/download/evolution/DSONE_mini_SDHC_Evolution_V1.0_eng_sp6_20110427.zip >>fh.dq
+if /i "%f18%" EQU "*" echo http://down.supercard.sc/download/evolution/DSONE_SDHC_Evolution_V1.0_eng_sp6_20110427.zip >>fh.dq
+if /i "%f19%" EQU "*" echo http://filetrip.net/h25123605-RetroGameFan-Multi-Cart-Update.html >>fh.dq
+if /i "%f20%" EQU "*" echo http://filetrip.net/h35131650-iSmart-Premium-kernel.html >>fh.dq
+if /i "%f21%" EQU "*" echo http://www.ndstt.com/download/os/v1.17/ttmenu_en.zip >>fh.dq
 IF NOT EXIST fh.dq (echo Error 404 Queue Empty && pause && exit)
+if "%savque%" EQU "1" goto savequend
+goto callqueue
+:callqueue
 call dlque.bat
+:clque
+cls
+echo Clear Current Download Queue?
+echo (y/n)
+set /p clq=
+IF /i "%clq%" EQU "y" (goto dlist) else (goto dbegin)
+goto dbegin
+:savequend
+mode con lines=30
+mode con cols=105
+echo What do you wish to name your saved Download Queue?
+echo The name cannot include any of the following characters, nor can it be empty or spaces. 
+echo No Duplicate file names
+echo \ / : * ? " < > |
+set /p quename=
+ren "fh.dq" "%quename%.dq"
+IF NOT EXIST "%cd%\%quename%.dq" (echo Queue Save Unsucessful, Invalid Characters in filename? && pause && goto savequend)
+echo Queue Saved successfully to "%cd%\%quename%.dq"
+pause
+exit
+:dsque
+echo Which Download Queue File (.dq) to download?
+echo Please enter filename, excluding file extention.
+dir
+set /p dlqd=
+echo echo FlashcartHelper Download Queue>>dlque.bat
+echo echo Issued %date% %time% for FlashcartHelper %currentver%>>dlque.bat
+echo IF NOT EXIST "%cd%\DOWNLOAD_QUEUE\" mkdir DOWNLOAD_QUEUE >>dlque.bat
+echo COPY wget.exe DOWNLOAD_QUEUE >>dlque.bat
+echo copy %dlqd%.dq DOWNLOAD_QUEUE >>dlque.bat
+echo CD DOWNLOAD_QUEUE >>dlque.bat
+echo echo Downloading queue >>dlque.bat
+echo start /wait wget -i %dlqd%.dq >>dlque.bat
+echo echo The download completed >>dlque.bat
+echo del %dlqd%.dq >>dlque.bat
+echo del wget.exe >>dlque.bat
+echo pause >>dlque.bat
+echo exit >>dlque.bat
 exit

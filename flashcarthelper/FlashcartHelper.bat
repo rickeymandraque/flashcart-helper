@@ -23,12 +23,12 @@ IF NOT EXIST "%cd%\Trashes\" mkdir Trashes >>fh.log 2>&1
 ::The license is GNU GPL v3.0
 
 ::date of compilation
-set compiledate=1/12/2012
+set compiledate=1/25/2012
 ::file cleanup, invoke frec to delete guide.fhg and any text files
 frec guide.fhg 2> nul
 frec *.txt 2> nul
 ::currentver is version number
-set currentver=0.9 RC4 r11
+set currentver=0.9 RC5 r12
 ::Update routine, if fh.bat exists, will go directly to begin. If not, will continue.
 :uptest
 IF EXIST FHup.bat. (
@@ -155,6 +155,8 @@ echo [8]DS-Scene Rom Helper (Download latest CMP cheat DB)
 echo.
 echo [9]Install MENUdo (ClouDS) for my Flashcart
 echo.
+echo [10]Download .ds2skin packs
+echo.
 echo [B]Backup/Restore MicroSD card
 echo.
 echo [R]Readme
@@ -170,6 +172,8 @@ echo.
 echo [F]File Cleanup and Clear Trashes file
 echo.
 echo [D]Download List BETA
+echo.
+echo [S]Save source
 echo.
 echo [E]Exit
 echo.
@@ -202,6 +206,8 @@ IF "%selection%" == "c" goto clrlog
 IF "%selection%" == "F" goto clrtrash
 IF "%selection%" == "f" goto clrtrash
 IF /i "%selection%" == "d" goto dlist
+IF /i "%selection%" == "s" goto src
+IF "%selection%" == "10" goto ds2skin
 set error=0
 goto start2
 :setups
@@ -349,10 +355,13 @@ echo Downloading iReader, Please wait
 start /wait wget http://filetrip.net/h35130143-DSTwo-iReader.html
 start /wait 7za x *.zip -oPut_This_In_SD_card\ -y
 frec *.zip
+echo Downloading DSTWO Skin installer, Please wait
+start /wait wget http://filetrip.net/h25125220-DSTwo-Skin-Installer.html
+start /wait 7za x *.zip -oPut_This_In_SD_card\ -y
 echo Download Moonshell? (Yes is recommended)
 echo (y/n)
 set /p mshlplug=
-IF "%mshlplug%" == "n" goto ds2end
+IF /i "%mshlplug%" == "n" goto ds2end
 
 echo Downloading Moonshell from Supercard server
 start /wait wget http://down.supercard.cn/download/dstwo/plugin/moonshl2_for_DSTWO.zip
@@ -1424,14 +1433,13 @@ echo improper use of this option.
 echo.
 echo DSi Firmware fixes are availible for...
 echo [1] Supercard DSTWO
-
-echo The following patches are only compatible up to 3DS firmware 2.1-04
 echo [2] Acekard 2i
 echo [3] R4i Gold (Non 3DS version) (r4ids.cn)
 echo [4] R4i Gold (3DS version) (r4ids.cn)
 echo [5] R4iDSN (Non 3DS version) (r4idsn.com)
 echo [6] R4iDSN (3DS version) (r4idsn.com)
 echo [7] EZ5i
+echo The following patches are only compatible up to 3DS firmware 2.1-04
 echo [8] Supercard DSonei
 echo [9] DSTTi
 echo.
@@ -1624,14 +1632,14 @@ echo Is this correct?
 echo (y/n)
 set /p firmez5i=
 IF "%firmez5i%" == "n" goto exit
-start /wait wget http://www.ezflash.cn/zip/EZ5F106A.rar
+start /wait wget http://www.ezflash.cn/zip/V108a.rar
 start /wait unrar x *.rar Put_This_In_SD_Card
 cls
-echo Please put the file EZ5F106A.nds 
+echo Please put the file ez5firmwreUP_V108a.nds
 echo to the ROOT of your SD Card.
 echo DO NOT RENAME THE FILE
 echo Make sure you are first on firmware v101 before updating
-echo Run EZ5F106A.nds to update
+echo Run ez5firmwreUP_V108a.nds to update
 echo FlashcartHelper is not responsible for bricked flashcarts resulting from improper use of this option.
 echo Make sure your DS is plugged in before you attempt to update
 echo If you rename the file your EZ5i will be BRICKED
@@ -1982,8 +1990,59 @@ del *.txt
 
 :dlist
 @echo off
+cls
 title FlashcartHelper Advanced Download Queue
+echo Welcome to the FlashcartHelper Download List
+echo Use this at your own descretion
+echo This will merely download your selected items
+echo There will be no guide, and it will not be prepared for you neatly in a folder
+echo Your downloads will be in the "DOWNLOAD_QUEUE" folder
+echo Do not do anything you are unsure of.
+pause
 del fh.dq 2>fh.log
+set df1=
+set df2=
+set df3=
+set df4=
+set df5=
+set df6=
+set df7=
+set df8=
+set df9=
+set df10=
+set df11=
+set df12=
+set gd1=
+set gd2=
+set gd3=
+set gd4=
+set gd5=
+set gd6=
+set gd7=
+set gd8=
+set gd9=
+set gd10=
+set gd11=
+set gd12=
+set gd13=
+set gd14=
+set gd15=
+set gd16=
+set gd17=
+set gd18=
+set gd19=
+set dp1=
+set dp2=
+set dp3=
+set dp4=
+set dp5=
+set dp6=
+set dp7=
+set mc1=
+set mc2=
+set mc3=
+set mc4=
+set mc5=
 set u1=
 set u2=
 set u3=
@@ -2014,7 +2073,6 @@ set f17=
 set f18=
 set f19=
 set f20=
-set f21=
 del dlque.bat 2>nul
 :dbegin
 mode con lines=50
@@ -2023,37 +2081,42 @@ set list=
 cls
 echo.
 echo                                      FlashcartHelper Advance Download list BETA    %currentver%
-echo          [S] Save Current Download Queue [C] Clear Current Download Queue [D] Process Download Queue [E] Exit [I] Download Saved Download Queue
+echo        [S] Save Current Download Queue [C] Clear Current Download Queue [D] Process Download Queue [E] Exit [I] Download Saved Download Queue
 echo.
-echo -------Utitlities-------            -------MenuDO-------
-echo %u1%[U1] DS-Scene Rom Tool             %m1%[M1]MenuDO AceKard
-echo %u2%[U2] Panasonic Formatter           %m2%[M2]MenuDO DSTT
-echo %u3%[U3] eNDryptS Advance              %m3%[M3]MenuDO Generic
-echo %u4%[U4] NDSTokyoTrim                  %m4%[M4]MenuDO R4
-echo                                    %m5%[M5]MenuDO Wood Donor ini file
-echo                                    %m6%[M6]MenuDO AK Donor ini file
-echo -----Firmwares/Kernel-----
-echo %f1%[F1]DSTWO EOS
-echo %f2%[F2]AKAIO
-echo %f3%[F3]Wood R4
-echo %f4%[F4]Wood R4iGold
-echo %f5%[F5]Wood R4iDSN
-echo %f6%[F6]CycloDS Evolution Firmware
-echo %f7%[F7]CycloDS iEvolution Firmware
-echo %f8%[F8]iSmart MM Kernel
-echo %f9%[F9]EZV Kernel
-echo %f10%[F10]EZVi Kernel
-echo %f11%[F11]M3 Quad-Boot
-echo %f12%[F12]EDGE OS
-echo %f13%[F13]iEDGE OS
-echo %f14%[F14]N5 Firmware
-echo %f15%[F15]N5i Firmware
-echo %f16%[F16]DSONE EOS
-echo %f17%[F17]DSONE mini SDHC EOS
-echo %f18%[F18]DSONE SDHC EOS
-echo %f19%[F19]RetroGameFan's Multi-Cart
-echo %f20%[F20]iSmart Premuim Kernel
-echo %f21%[F21]TTMenu 1.17
+echo -------Utitlities-------            -------MenuDO-------                        -----DSi/3DS Fixes-----
+echo %u1%[U1] DS-Scene Rom Tool             %m1%[M1]MenuDO AceKard              %df1%[DF1]DSonei mini DSi1.43 3DS3.0.0-6
+echo %u2%[U2] Panasonic Formatter           %m2%[M2]MenuDO DSTT                 %df2%[DF2]R4iDSN Non3DS DSi1.43
+echo %u3%[U3] eNDryptS Advance              %m3%[M3]MenuDO Generic              %df3%[DF3]R4iDSN 3DS 2.2.0-4 to 3.0.0-6
+echo %u4%[U4] NDSTokyoTrim                  %m4%[M4]MenuDO R4                   %df4%[DF4]R4iDSN 3DS Special patch "DORASU" 3.0.0-6
+echo                                    %m5%[M5]MenuDO Wood Donor ini file  %df5%[DF5]Acekard 2i DSi 1.43 3DS 3.0.0-6
+echo                                    %m6%[M6]MenuDO AK Donor ini file    %df6%[DF6]DSTWO Firmware DSi 1.43 3DS 3.0.0-6
+echo -----Firmwares/Kernel-----                                         %df7%[DF7]R4iGold 3DS 2.2.0-4 to 3.0.0-6
+echo %f1%[F1]DSTWO EOS                       ----Miscellaneous----          %df8%[DF8]R4iGold Non3DS DSi 1.43
+echo %f2%[F2]AKAIO                          %mc1%[MC1]CycloDS iEvo Moonshell     %df9%[DF9]R4iGold 3DS Special patch "DORASU" 3.0.0-6
+echo %f3%[F3]Wood R4                        %mc2%[MC2]MoonShell 2.10             %df10%[DF10]EZFlash Vi 705/805 3.0.0-6
+echo %f4%[F4]Wood R4iGold                   %mc3%[MC3]iEDGE BootStrap            %df11%[DF11]M3i Zero Core 2.0.2 DSi 1.4.2
+echo %f5%[F5]Wood R4iDSN                    %mc4%[MC4]iEvo BootStrap Creator USA %df12%[DF12]DSTT Core firmware update 1.4.3
+echo %f6%[F6]CycloDS Evolution Firmware     %mc5%[MC5]iEvo BootStrap Creator EUR
+echo %f7%[F7]CycloDS iEvolution Firmware                                            -----Guides-----
+echo %f8%[F8]iSmart MM Kernel               -----DSTWO Plugins-----         %gd1%[GD1]Acekard Guide
+echo %f9%[F9]EZV Kernel                     %dp1%[DP1]NDSGBA 1.21                %gd2%[GD2]R4 Guide
+echo %f10%[F10]EZVi Kernel                   %dp2%[DP2]gameconfig.txt for NDSGBA  %gd3%[GD3]DSTT Guide
+echo %f11%[F11]M3 Quad-Boot                  %dp3%[DP3]CATSFC                     %gd4%[GD4]R4iGold Guide
+echo %f12%[F12]EDGE OS                       %dp4%[DP4]iPlayer                    %gd5%[GD5]R4iDSN Guide
+echo %f13%[F13]iEDGE OS                      %dp5%[DP5]iReader                    %gd6%[GD6]CycloDS Guide
+echo %f14%[F14]N5 Firmware                   %dp6%[DP6]MoonShell2 for DS2         %gd7%[GD7]CycloDSi Guide
+echo %f15%[F15]N5i Firmware                  %dp7%[DP7]DSTWO Skin Installer       %gd8%[GD8]iSmartMM Guide
+echo %f16%[F16]DSONE EOS                                                     %gd9%[GD9]EZV/Vi Guide
+echo %f17%[F17]DSONE mini SDHC EOS                                           %gd10%[GD10]M3 Guide
+echo %f18%[F18]DSONE SDHC EOS                                                %gd11%[GD11]iSmartPP Guide
+echo %f19%[F19]RetroGameFan's Multi-Cart                                     %gd12%[GD12]EDGE Guide
+echo %f20%[F20]iSmart Premuim Kernel                                         %gd13%[GD13]iEDGE Guide
+echo %f21%[F21]TTMenu 1.17                                                   %gd14%[GD14]DSTWO Guide
+echo                                                                    %gd15%[GD15]DSOne TTMenu Guide
+echo                                                                    %gd16%[GD16]DSOne EOSMenu Guide
+echo                                                                    %gd17%[GD17]eNDryptS Advance Guide
+echo                                                                    %gd18%[GD18]DS-Scene Rom Tool Guide
+echo                                                                    %gd19%[GD19]Menudo Guide
 set /p list=
 if /i "%list%" EQU "u1" goto dlu1
 if /i "%list%" EQU "u2" goto dlu2
@@ -2062,7 +2125,6 @@ if /i "%list%" EQU "u4" goto dlu4
 if /i "%list%" EQU "d" goto dlque
 if /i "%list%" EQU "c" goto clque
 if /i "%list%" EQU "i" goto dsque
-if /i "%list%" EQU "s" goto savque
 if /i "%list%" EQU "e" goto begin
 if /i "%list%" EQU "m1" goto dlm1
 if /i "%list%" EQU "m2" goto dlm2
@@ -2092,6 +2154,50 @@ if /i "%list%" EQU "f19" goto dlf19
 if /i "%list%" EQU "f20" goto dlf20
 if /i "%list%" EQU "F20" goto dlF20
 if /i "%list%" EQU "F21" goto dlF21
+if /i "%list%" EQU "mc1" goto dlmc1
+if /i "%list%" EQU "mc2" goto dlmc2
+if /i "%list%" EQU "mc3" goto dlmc3
+if /i "%list%" EQU "mc4" goto dlmc4
+if /i "%list%" EQU "mc5" goto dlmc5
+if /i "%list%" EQU "dp1" goto dldp1
+if /i "%list%" EQU "dp2" goto dldp2
+if /i "%list%" EQU "dp3" goto dldp3
+if /i "%list%" EQU "dp4" goto dldp4
+if /i "%list%" EQU "dp5" goto dldp5
+if /i "%list%" EQU "dp6" goto dldp6
+if /i "%list%" EQU "dp7" goto dldp7
+if /i "%list%" EQU "df1" goto dldf1
+if /i "%list%" EQU "df2" goto dldf2
+if /i "%list%" EQU "df3" goto dldf3
+if /i "%list%" EQU "df4" goto dldf4
+if /i "%list%" EQU "df5" goto dldf5
+if /i "%list%" EQU "df6" goto dldf6
+if /i "%list%" EQU "df7" goto dldf7
+if /i "%list%" EQU "df8" goto dldf8
+if /i "%list%" EQU "df9" goto dldf9
+if /i "%list%" EQU "df10" goto dldf10
+if /i "%list%" EQU "df11" goto dldf11
+if /i "%list%" EQU "df12" goto dldf12
+if /i "%list%" EQU "gd1" goto dlgd1
+if /i "%list%" EQU "gd2" goto dlgd2
+if /i "%list%" EQU "gd3" goto dlgd3
+if /i "%list%" EQU "gd4" goto dlgd4
+if /i "%list%" EQU "gd5" goto dlgd5
+if /i "%list%" EQU "gd6" goto dlgd6
+if /i "%list%" EQU "gd7" goto dlgd7
+if /i "%list%" EQU "gd8" goto dlgd8
+if /i "%list%" EQU "gd9" goto dlgd9
+if /i "%list%" EQU "gd10" goto dlgd10
+if /i "%list%" EQU "gd11" goto dlgd11
+if /i "%list%" EQU "gd12" goto dlgd12
+if /i "%list%" EQU "gd13" goto dlgd13
+if /i "%list%" EQU "gd14" goto dlgd14
+if /i "%list%" EQU "gd15" goto dlgd15
+if /i "%list%" EQU "gd16" goto dlgd16
+if /i "%list%" EQU "gd17" goto dlgd17
+if /i "%list%" EQU "gd18" goto dlgd18
+if /i "%list%" EQU "gd19" goto dlgd19
+if /i "%list%" EQU "gd20" goto dlgd20
 goto dbegin
 ::ultilities
 :dlu1
@@ -2110,23 +2216,18 @@ goto dbegin
 :dlm1
 if /i "%m1%" EQU "*" (set m1=) else (set m1=*)
 goto dbegin
-
 :dlm2
 if /i "%m2%" EQU "*" (set m2=) else (set m2=*)
 goto dbegin
-
 :dlm3
 if /i "%m3%" EQU "*" (set m3=) else (set m3=*)
 goto dbegin
-
 :dlm4
 if /i "%m4%" EQU "*" (set m4=) else (set m4=*)
 goto dbegin
-
 :dlm5
 if /i "%m5%" EQU "*" (set m5=) else (set m5=*)
 goto dbegin
-
 :dlm6
 if /i "%m6%" EQU "*" (set m6=) else (set m6=*)
 goto dbegin
@@ -2197,11 +2298,138 @@ goto dbegin
 :dlf21
 if /i "%f21%" EQU "*" (set f21=) else (set f21=*)
 goto dbegin
+:dlmc1
+if /i "%mc1%" EQU "*" (set mc1=) else (set mc1=*)
+goto dbegin
+:dlmc2
+if /i "%mc2%" EQU "*" (set mc2=) else (set mc2=*)
+goto dbegin
+:dlmc3
+if /i "%mc3%" EQU "*" (set mc3=) else (set mc3=*)
+goto dbegin
+:dlmc4
+if /i "%mc4%" EQU "*" (set mc4=) else (set mc4=*)
+goto dbegin
+:dlmc5
+if /i "%mc5%" EQU "*" (set mc5=) else (set mc5=*)
+goto dbegin
+::DSTWOPlugs
+:dldp1
+if /i "%dp1%" EQU "*" (set dp1=) else (set dp1=*)
+goto dbegin
+:dldp2
+if /i "%dp2%" EQU "*" (set dp2=) else (set dp2=*)
+goto dbegin
+:dldp3
+if /i "%dp3%" EQU "*" (set dp3=) else (set dp3=*)
+goto dbegin
+:dldp4
+if /i "%dp4%" EQU "*" (set dp4=) else (set dp4=*)
+goto dbegin
+:dldp5
+if /i "%dp5%" EQU "*" (set dp5=) else (set dp5=*)
+goto dbegin
+:dldp6
+if /i "%dp6%" EQU "*" (set dp6=) else (set dp6=*)
+goto dbegin
+:dldp7
+if /i "%dp7%" EQU "*" (set dp7=) else (set dp7=*)
+goto dbegin
+:dldf1
+if /i "%df1%" EQU "*" (set df1=) else (set df1=*)
+goto dbegin
+:dldf2
+if /i "%df2%" EQU "*" (set df2=) else (set df2=*)
+goto dbegin
+:dldf3
+if /i "%df3%" EQU "*" (set df3=) else (set df3=*)
+goto dbegin
+:dldf4
+if /i "%df4%" EQU "*" (set df4=) else (set df4=*)
+goto dbegin
+:dldf5
+if /i "%df5%" EQU "*" (set df5=) else (set df5=*)
+goto dbegin
+:dldf6
+if /i "%df6%" EQU "*" (set df6=) else (set df6=*)
+goto dbegin
+:dldf7
+if /i "%df7%" EQU "*" (set df7=) else (set df7=*)
+goto dbegin
+:dldf8
+if /i "%df8%" EQU "*" (set df8=) else (set df8=*)
+goto dbegin
+:dldf9
+if /i "%df9%" EQU "*" (set df9=) else (set df9=*)
+goto dbegin
+:dldf10
+if /i "%df10%" EQU "*" (set df10=) else (set df10=*)
+goto dbegin
+:dldf11
+if /i "%df11%" EQU "*" (set df11=) else (set df11=*)
+goto dbegin
+:dldf12
+if /i "%df12%" EQU "*" (set df12=) else (set df12=*)
+goto dbegin
+:dlgd1
+if /i "%gd1%" EQU "*" (set gd1=) else (set gd1=*)
+goto dbegin
+:dlgd2
+if /i "%gd2%" EQU "*" (set gd2=) else (set gd2=*)
+goto dbegin
+:dlgd3
+if /i "%gd3%" EQU "*" (set gd3=) else (set gd3=*)
+goto dbegin
+:dlgd4
+if /i "%gd4%" EQU "*" (set gd4=) else (set gd4=*)
+goto dbegin
+:dlgd5
+if /i "%gd5%" EQU "*" (set gd5=) else (set gd5=*)
+goto dbegin
+:dlgd6
+if /i "%gd6%" EQU "*" (set gd6=) else (set gd6=*)
+goto dbegin
+:dlgd7
+if /i "%gd7%" EQU "*" (set gd7=) else (set gd7=*)
+goto dbegin
+:dlgd8
+if /i "%gd8%" EQU "*" (set gd8=) else (set gd8=*)
+goto dbegin
+:dlgd9
+if /i "%gd9%" EQU "*" (set gd9=) else (set gd9=*)
+goto dbegin
+:dlgd10
+if /i "%gd10%" EQU "*" (set gd10=) else (set gd10=*)
+goto dbegin
+:dlgd11
+if /i "%gd11%" EQU "*" (set gd11=) else (set gd11=*)
+goto dbegin
+:dlgd12
+if /i "%gd12%" EQU "*" (set gd12=) else (set gd12=*)
+goto dbegin
+:dlgd13
+if /i "%gd13%" EQU "*" (set gd13=) else (set gd13=*)
+goto dbegin
+:dlgd14
+if /i "%gd14%" EQU "*" (set gd14=) else (set gd14=*)
+goto dbegin
+:dlgd15
+if /i "%gd15%" EQU "*" (set gd15=) else (set gd15=*)
+goto dbegin
+:dlgd16
+if /i "%gd16%" EQU "*" (set gd16=) else (set gd16=*)
+goto dbegin
+:dlgd17
+if /i "%gd17%" EQU "*" (set gd17=) else (set gd17=*)
+goto dbegin
+:dlgd18
+if /i "%gd18%" EQU "*" (set gd18=) else (set gd18=*)
+goto dbegin
+:dlgd19
+if /i "%gd19%" EQU "*" (set gd19=) else (set gd19=*)
+goto dbegin
 
-:savque
-set savque=1
-cls
-goto queueconfirm
+
 :dlque
 echo echo FlashcartHelper Download Queue>>dlque.bat
 echo echo Issued %date% %time% for FlashcartHelper %currentver%>>dlque.bat
@@ -2211,7 +2439,9 @@ echo copy fh.dq DOWNLOAD_QUEUE >>dlque.bat
 echo CD DOWNLOAD_QUEUE >>dlque.bat
 echo echo Downloading queue >>dlque.bat
 echo start /wait wget -i fh.dq >>dlque.bat
-echo echo The download completed >>dlque.bat
+echo cls >>dlque.bat
+echo echo. >>dlque.bat
+echo echo Download complete >>dlque.bat
 echo del fh.dq >>dlque.bat
 echo del wget.exe >>dlque.bat
 echo pause >>dlque.bat
@@ -2252,6 +2482,49 @@ if /i "%f18%" EQU "*" echo *DSONE SDHC EOS
 if /i "%f19%" EQU "*" echo *RetroGameFan's Multi-Cart
 if /i "%f20%" EQU "*" echo *iSmart Premuim Kernel
 if /i "%f21%" EQU "*" echo *TTMenu 1.17
+if /i "%mc1%" EQU "*" echo *CycloDS iEvo Moonshell
+if /i "%mc2%" EQU "*" echo *Moonshell 2.10
+if /i "%mc3%" EQU "*" echo *iEDGE BootStrap
+if /i "%mc4%" EQU "*" echo *CycloDS iEvo BootStrap maker USA
+if /i "%mc5%" EQU "*" echo *CycloDS iEvo BootStrap maker EUR
+if /i "%dp1%" EQU "*" echo *NDSGBA 1.21
+if /i "%dp2%" EQU "*" echo *gameconfig.txt for NDSGBA
+if /i "%dp3%" EQU "*" echo *CATSFC
+if /i "%dp4%" EQU "*" echo *iPlayer
+if /i "%dp5%" EQU "*" echo *iReader
+if /i "%dp6%" EQU "*" echo *Moonshell2 for DSTWO
+if /i "%dp7%" EQU "*" echo *DSTWO Skin installer
+if /i "%df1%" EQU "*" echo *DSonei mini DSi1.43 3DS3.0.0-6
+if /i "%df2%" EQU "*" echo *R4iDSN Non3DS DSi1.43
+if /i "%df3%" EQU "*" echo *R4iDSN 3DS 2.2.0-4 to 3.0.0-6
+if /i "%df4%" EQU "*" echo *R4iDSN 3DS Special patch "DORASU" 3.0.0-6
+if /i "%df5%" EQU "*" echo *Acekard 2i DSi 1.43 3DS 3.0.0-6
+if /i "%df6%" EQU "*" echo *DSTWO Firmware DSi 1.43 3DS 3.0.0-6
+if /i "%df7%" EQU "*" echo *R4iGold 3DS 2.2.0-4 to 3.0.0-6
+if /i "%df8%" EQU "*" echo *R4iGold Non3DS DSi 1.43
+if /i "%df9%" EQU "*" echo *R4iGold 3DS Special patch "DORASU" 3.0.0-6
+if /i "%df10%" EQU "*" echo *EZFlash Vi 705/805 3.0.0-6
+if /i "%df11%" EQU "*" echo *M3i Zero Core 2.0.2 DSi 1.4.2
+if /i "%df12%" EQU "*" echo *DSTT Core firmware update 1.4.3
+if /i "%gd1%" EQU "*" echo *Acekard Guide
+if /i "%gd2%" EQU "*" echo *R4 Guide
+if /i "%gd3%" EQU "*" echo *DSTT Guide
+if /i "%gd4%" EQU "*" echo *R4iGold Guide
+if /i "%gd5%" EQU "*" echo *R4iDSN Guide
+if /i "%gd6%" EQU "*" echo *CycloDS Guide
+if /i "%gd7%" EQU "*" echo *CycloDSi Guide
+if /i "%gd8%" EQU "*" echo *iSmartMM Guide
+if /i "%gd9%" EQU "*" echo *EZV/Vi Guide
+if /i "%gd10%" EQU "*" echo *M3 Guide
+if /i "%gd11%" EQU "*" echo *iSmartPP Guide
+if /i "%gd12%" EQU "*" echo *EDGE Guide
+if /i "%gd13%" EQU "*" echo *iEDGE Guide
+if /i "%gd14%" EQU "*" echo *DSTWO Guide
+if /i "%gd15%" EQU "*" echo *DSOne TTMenu Guide
+if /i "%gd16%" EQU "*" echo *DSOne EOSMenu Guide
+if /i "%gd17%" EQU "*" echo *eNDryptS Advance Guide
+if /i "%gd18%" EQU "*" echo *DS-Scene Rom Tool Guide
+if /i "%gd19%" EQU "*" echo *Menudo Guide
 echo.
 echo Is this correct?
 echo (y/n)
@@ -2291,9 +2564,126 @@ if /i "%f18%" EQU "*" echo http://down.supercard.sc/download/evolution/DSONE_SDH
 if /i "%f19%" EQU "*" echo http://filetrip.net/h25123605-RetroGameFan-Multi-Cart-Update.html >>fh.dq
 if /i "%f20%" EQU "*" echo http://filetrip.net/h35131650-iSmart-Premium-kernel.html >>fh.dq
 if /i "%f21%" EQU "*" echo http://www.ndstt.com/download/os/v1.17/ttmenu_en.zip >>fh.dq
+if /i "%mc1%" EQU "*" echo http://filetrip.net/h35131285-CycloDS-iEvolution-Moonshell.html >>fh.dq
+if /i "%mc2%" EQU "*" echo http://mdxonline.dyndns.org/201002161705_moonshell210stable.zip >>fh.dq
+if /i "%mc3%" EQU "*" echo http://filetrip.net/d26407-BootStrap-File-for-iEDGE-4.html >>fh.dq
+if /i "%mc4%" EQU "*" echo http://filetrip.net/h35131269-CycloDS-iEvolution-Bootstrap-%28US-.html >>fh.dq
+if /i "%mc5%" EQU "*" echo http://filetrip.net/h35131270-CycloDS-iEvolution-Bootstrap-%28Eu-.html >>fh.dq
+if /i "%dp1%" EQU "*" echo http://filetrip.net/d11694-SuperCard-DSTWO-GBA-EMU-Plug-in-1-21.html >>fh.dq
+if /i "%dp2%" EQU "*" echo http://filetrip.net/h35130196-SCDS2Iplayer-GBA-EMU-%28game_conf-.html >>fh.dq
+if /i "%dp3%" EQU "*" echo http://filetrip.net/h35131424-CATSFC.html >>fh.dq
+if /i "%dp4%" EQU "*" echo http://filetrip.net/h35130740-Supercard-DSTWO-iPlayer-Plugin.html >>fh.dq
+if /i "%dp5%" EQU "*" echo http://filetrip.net/h35130143-DSTwo-iReader.html >>fh.dq
+if /i "%dp6%" EQU "*" echo http://down.supercard.cn/download/dstwo/plugin/moonshl2_for_DSTWO.zip >>fh.dq
+if /i "%df1%" EQU "*" echo http://down.supercard.sc/download/evolution/dsoneimini_update_eng_3dsv2204.zip >>fh.dq
+if /i "%df2%" EQU "*" echo http://r4idsn.com/admin/userimages/V143_Patch_R4iDSN_Non3DS.rar >>fh.dq
+if /i "%df3%" EQU "*" echo http://www.r4idsn.com/admin/userimages/R4iDSN_3DS22_Patch.rar >>fh.dq
+if /i "%df4%" EQU "*" echo http://www.r4idsn.com/admin/userimages/Patch_3DS30.rar >>fh.dq
+if /i "%df5%" EQU "*" echo http://www.acekard.com/download/ak2/ak2ifw_update_3ds3.0_DSi143.zip >>fh.dq
+if /i "%df6%" EQU "*" echo http://down.supercard.sc/download/dstwo/Firmware/Firmware_v1.13_eng.zip >>fh.dq
+if /i "%df7%" EQU "*" echo ftp://r4idsdown:r4idsdown@www.r4ids.co.cc/R4iGold_3DS2.2_Patch.rar >>fh.dq
+if /i "%df8%" EQU "*" echo ftp://r4idsdown:r4idsdown@www.r4ids.co.cc/V143_Patch_R4iGold_Non3DS.rar >>fh.dq
+if /i "%df9%" EQU "*" echo ftp://r4idsdown:r4idsdown@www.r4ids.co.cc/Special_Patch.rar >>fh.dq
+if /i "%df10%" EQU "*" echo http://www.ezflash.cn/zip/V108a.rar >>fh.dq
+if /i "%df11%" EQU "*" echo http://filetrip.net/d25495-M3i-Zero-Core-2-0-2.html >>fh.dq
+if /i "%df12%" EQU "*" echo http://filetrip.net/d26365-DSTT-Core-Firmware-Update-DSi-1---1.html >>fh.dq
+if /i "%gd1%" EQU "*" echo http://flashcart-helper.googlecode.com/svn/data/guides/ak2.guide.txt >>fh.dq
+if /i "%gd2%" EQU "*" echo http://flashcart-helper.googlecode.com/svn/data/guides/r4.guide.txt >>fh.dq
+if /i "%gd3%" EQU "*" echo http://flashcart-helper.googlecode.com/svn/data/guides/tt.guide.txt >>fh.dq
+if /i "%gd4%" EQU "*" echo http://flashcart-helper.googlecode.com/svn/data/guides/r4i.guide.txt >>fh.dq
+if /i "%gd5%" EQU "*" echo http://flashcart-helper.googlecode.com/svn/data/guides/dsn.guide.txt >>fh.dq
+if /i "%gd6%" EQU "*" echo http://flashcart-helper.googlecode.com/svn/data/guides/cyclo.guide.txt >>fh.dq
+if /i "%gd7%" EQU "*" echo http://flashcart-helper.googlecode.com/svn/data/guides/ievo.guide.txt >>fh.dq
+if /i "%gd8%" EQU "*" echo http://flashcart-helper.googlecode.com/svn/data/guides/ismm.guide.txt >>fh.dq
+if /i "%gd9%" EQU "*" echo http://flashcart-helper.googlecode.com/svn/data/guides/ez5.guide.txt >>fh.dq
+if /i "%gd10%" EQU "*" echo http://flashcart-helper.googlecode.com/svn/data/guides/m3.guide.txt >>fh.dq
+if /i "%gd11%" EQU "*" echo http://flashcart-helper.googlecode.com/svn/data/guides/isp.guide.txt >>fh.dq
+if /i "%gd12%" EQU "*" echo http://flashcart-helper.googlecode.com/svn/data/guides/edge.guide.txt >>fh.dq
+if /i "%gd13%" EQU "*" echo http://flashcart-helper.googlecode.com/svn/data/guides/iedge.guide.txt >>fh.dq
+if /i "%gd14%" EQU "*" echo http://flashcart-helper.googlecode.com/svn/data/guides/ds2.guide.txt >>fh.dq
+if /i "%gd15%" EQU "*" echo http://flashcart-helper.googlecode.com/svn/data/guides/sctt.guide.txt >>fh.dq
+if /i "%gd16%" EQU "*" echo http://flashcart-helper.googlecode.com/svn/data/guides/ds1.guide.txt >>fh.dq
+if /i "%gd17%" EQU "*" echo http://flashcart-helper.googlecode.com/svn/data/guides/enderyptguide.txt >>fh.dq
+if /i "%gd18%" EQU "*" echo http://flashcart-helper.googlecode.com/svn/data/guides/dsc.guide.txt >>fh.dq
+if /i "%gd19%" EQU "*" echo http://flashcart-helper.googlecode.com/svn/data/guides/menudo.guide.txt >>fh.dq
 IF NOT EXIST fh.dq (echo Error 404 Queue Empty && pause && exit)
-if "%savque%" EQU "1" goto savequend
 goto callqueue
+
+:savqueue
+if /i "%u1%" EQU "*" echo 
+if /i "%u2%" EQU "*" echo
+if /i "%u3%" EQU "*" echo 
+if /i "%u4%" EQU "*" echo 
+if /i "%m1%" EQU "*" echo 
+if /i "%m2%" EQU "*" echo 
+if /i "%m3%" EQU "*" echo 
+if /i "%m4%" EQU "*" echo 
+if /i "%m5%" EQU "*" echo 
+if /i "%m6%" EQU "*" echo 
+if /i "%f1%" EQU "*" echo 
+if /i "%f2%" EQU "*" echo 
+if /i "%f3%" EQU "*" echo 
+if /i "%f4%" EQU "*" echo 
+if /i "%f5%" EQU "*" echo 
+if /i "%f6%" EQU "*" echo 
+if /i "%f7%" EQU "*" echo 
+if /i "%f8%" EQU "*" echo 
+if /i "%f9%" EQU "*" echo 
+if /i "%f10%" EQU "*" echo 
+if /i "%f11%" EQU "*" echo 
+if /i "%f12%" EQU "*" echo 
+if /i "%f13%" EQU "*" echo 
+if /i "%f14%" EQU "*" echo 
+if /i "%f15%" EQU "*" echo 
+if /i "%f16%" EQU "*" echo 
+if /i "%f17%" EQU "*" echo 
+if /i "%f18%" EQU "*" echo 
+if /i "%f19%" EQU "*" echo 
+if /i "%f20%" EQU "*" echo 
+if /i "%f21%" EQU "*" echo 
+if /i "%mc1%" EQU "*" echo 
+if /i "%mc2%" EQU "*" echo 
+if /i "%mc3%" EQU "*" echo 
+if /i "%mc4%" EQU "*" echo 
+if /i "%mc5%" EQU "*" echo 
+if /i "%dp1%" EQU "*" echo 
+if /i "%dp2%" EQU "*" echo 
+if /i "%dp3%" EQU "*" echo 
+if /i "%dp4%" EQU "*" echo 
+if /i "%dp5%" EQU "*" echo 
+if /i "%dp6%" EQU "*" echo 
+if /i "%dp7%" EQU "*" echo 
+if /i "%df1%" EQU "*" echo 
+if /i "%df2%" EQU "*" echo
+if /i "%df3%" EQU "*" echo 
+if /i "%df4%" EQU "*" echo 
+if /i "%df5%" EQU "*" echo 
+if /i "%df6%" EQU "*" echo 
+if /i "%df7%" EQU "*" echo 
+if /i "%df8%" EQU "*" echo 
+if /i "%df9%" EQU "*" echo 
+if /i "%df10%" EQU "*" echo 
+if /i "%df11%" EQU "*" echo 
+if /i "%df12%" EQU "*" echo 
+if /i "%gd1%" EQU "*" echo 
+if /i "%gd2%" EQU "*" echo 
+if /i "%gd3%" EQU "*" echo 
+if /i "%gd4%" EQU "*" echo 
+if /i "%gd5%" EQU "*" echo 
+if /i "%gd6%" EQU "*" echo 
+if /i "%gd7%" EQU "*" echo 
+if /i "%gd8%" EQU "*" echo 
+if /i "%gd9%" EQU "*" echo 
+if /i "%gd10%" EQU "*" echo 
+if /i "%gd11%" EQU "*" echo 
+if /i "%gd12%" EQU "*" echo 
+if /i "%gd13%" EQU "*" echo 
+if /i "%gd14%" EQU "*" echo
+if /i "%gd15%" EQU "*" echo 
+if /i "%gd16%" EQU "*" echo 
+if /i "%gd17%" EQU "*" echo 
+if /i "%gd18%" EQU "*" echo 
+if /i "%gd19%" EQU "*" echo 
 :callqueue
 call dlque.bat
 :clque
@@ -2303,35 +2693,12 @@ echo (y/n)
 set /p clq=
 IF /i "%clq%" EQU "y" (goto dlist) else (goto dbegin)
 goto dbegin
-:savequend
-mode con lines=30
-mode con cols=105
-echo What do you wish to name your saved Download Queue?
-echo The name cannot include any of the following characters, nor can it be empty or spaces. 
-echo No Duplicate file names
-echo \ / : * ? " < > |
-set /p quename=
-ren "fh.dq" "%quename%.dq"
-IF NOT EXIST "%cd%\%quename%.dq" (echo Queue Save Unsucessful, Invalid Characters in filename? && pause && goto savequend)
-echo Queue Saved successfully to "%cd%\%quename%.dq"
+
+:ds2skin
+start http://wiki.gbatemp.net/wiki/SuperCard_DSTWO_ds2skin_packs
+
+:src
+start /wait flashcarthelper.exe -d
+echo FlashcartHelper decomplied successfully. Source has been saved
 pause
-exit
-:dsque
-echo Which Download Queue File (.dq) to download?
-echo Please enter filename, excluding file extention.
-dir
-set /p dlqd=
-echo echo FlashcartHelper Download Queue>>dlque.bat
-echo echo Issued %date% %time% for FlashcartHelper %currentver%>>dlque.bat
-echo IF NOT EXIST "%cd%\DOWNLOAD_QUEUE\" mkdir DOWNLOAD_QUEUE >>dlque.bat
-echo COPY wget.exe DOWNLOAD_QUEUE >>dlque.bat
-echo copy %dlqd%.dq DOWNLOAD_QUEUE >>dlque.bat
-echo CD DOWNLOAD_QUEUE >>dlque.bat
-echo echo Downloading queue >>dlque.bat
-echo start /wait wget -i %dlqd%.dq >>dlque.bat
-echo echo The download completed >>dlque.bat
-echo del %dlqd%.dq >>dlque.bat
-echo del wget.exe >>dlque.bat
-echo pause >>dlque.bat
-echo exit >>dlque.bat
-exit
+goto begin

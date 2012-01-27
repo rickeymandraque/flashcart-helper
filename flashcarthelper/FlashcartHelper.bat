@@ -28,7 +28,7 @@ set compiledate=1/25/2012
 frec guide.fhg 2> nul
 frec *.txt 2> nul
 ::currentver is version number
-set currentver=0.9 RC5 r12
+set currentver=0.9 RC6 r13
 ::Update routine, if fh.bat exists, will go directly to begin. If not, will continue.
 :uptest
 IF EXIST FHup.bat. (
@@ -121,7 +121,10 @@ set menuguide=
 frec *.zip 2> nul
 frec *.7z 2> nul
 frec *.rar 2> nul
-
+::CMDLine
+color F0
+mode con lines=50
+IF "%1" EQU "setup" goto cmdfirm 
 ::sets error to 1, if not 1, will return Invalid choice
 :start
 cls
@@ -288,6 +291,26 @@ IF "%FC%" == "18" goto edge
 IF "%FC%" == "19" goto iedge
 set ind=0
 goto setup
+:cmdfirm
+::cli selection
+IF "%2" == "ak2" goto ak2
+IF "%2" == "r4" goto r4
+IF "%2" == "tt" goto tt
+IF "%2" == "r4i" goto r4i
+IF "%2" == "r4dsn" goto r4dsn
+IF "%2" == "cyclo" goto cyclo
+IF "%2" == "ievo" goto iEVO
+IF "%2" == "ismm" goto mm
+IF "%2" == "ez5" goto ez5
+IF "%2" == "ez5i" goto ez5i
+IF "%2" == "m3" goto m3
+IF "%2" == "clone" goto clone
+IF "%2" == "dsone" goto ds1
+IF "%2" == "ds1sdhc" goto ds1sdhc
+IF "%2" == "dsonei" goto ds1i
+IF "%2" == "ismart" goto ispp
+IF "%2" == "edge" goto edge
+IF "%2" == "iedge" goto iedge
 :ds2
 cls
 echo You chose DSTWO
@@ -299,9 +322,10 @@ echo Downloading latest EOS kernel and firmware
 start /wait wget http://filetrip.net/h35130066-Supercard-DSTWO-EOS.html
 echo Downloading DSTwo setup guide
 start /wait wget http://flashcart-helper.googlecode.com/svn/data/guides/ds2.guide.txt
-start /wait unrar x *.rar Put_This_In_SD_card\
-start /wait 7za x *.7z  -oPut_This_In_SD_card\
-start /wait 7za x *.zip -oPut_This_In_SD_card\
+echo Unzipping files
+start /wait unrar x *.rar Put_This_In_SD_card\ >>fh.log
+start /wait 7za x *.7z  -oPut_This_In_SD_card\ >>fh.log
+start /wait 7za x *.zip -oPut_This_In_SD_card\ >>fh.log
 frec *.rar
 frec *.7z
 frec *.zip
@@ -329,17 +353,17 @@ IF "%ds2plug%" == "n" goto ds2end
 echo Downloading NDSGBA and game_config.txt
 echo Please wait, this may take a while..
 start /wait wget http://filetrip.net/d11694-SuperCard-DSTWO-GBA-EMU-Plug-in-1-21.html
-start /wait 7za x *.zip -oPut_This_In_SD_card\
+start /wait 7za x *.zip -oPut_This_In_SD_card\ -y  >>fh.log
 frec *.zip
 start /wait wget http://filetrip.net/h35130196-SCDS2Iplayer-GBA-EMU-%28game_conf-.html
-start /wait 7za x *.7z -oPut_This_In_SD_card\NDSGBA\
+start /wait 7za x *.7z -oPut_This_In_SD_card\NDSGBA\ -y >>fh.log
 frec *.7z
 echo Downloading CATSFC
 echo Please wait, this may take a while..
 start /wait wget http://filetrip.net/h35131424-CATSFC.html
-start /wait 7za x *.zip -x!version -x!source.txt -x!copyright -x!installation.txt
-start /wait 7za a -tzip cat.zip "CATSFC"
-start /wait 7za x cat.zip -oPut_This_In_SD_card
+start /wait 7za x *.zip -x!version -x!source.txt -x!copyright -x!installation.txt -y >>fh.log
+start /wait 7za a -tzip cat.zip "CATSFC" >>fh.log
+start /wait 7za x cat.zip -oPut_This_In_SD_card >>fh.log
 copy *.ini "%cd%\Put_This_In_SD_card\_dstwoplug\*.ini" >>fh.log 2>&1
 copy *.bmp "%cd%\Put_This_In_SD_card\_dstwoplug\*.bmp" >>fh.log 2>&1
 copy *.plg "%cd%\Put_This_In_SD_card\_dstwoplug\*.plg" >>fh.log 2>&1
@@ -349,15 +373,15 @@ frec *.zip
 echo Downloading iPlayer
 echo Please wait, this may take a while..
 start /wait wget http://filetrip.net/h35130740-Supercard-DSTWO-iPlayer-Plugin.html
-start /wait 7za x *.zip -oPut_This_In_SD_card\ -y
+start /wait 7za x *.zip -oPut_This_In_SD_card\ -y >>fh.log
 frec *.zip
 echo Downloading iReader, Please wait
 start /wait wget http://filetrip.net/h35130143-DSTwo-iReader.html
-start /wait 7za x *.zip -oPut_This_In_SD_card\ -y
+start /wait 7za x *.zip -oPut_This_In_SD_card\ -y >>fh.log
 frec *.zip
 echo Downloading DSTWO Skin installer, Please wait
 start /wait wget http://filetrip.net/h25125220-DSTwo-Skin-Installer.html
-start /wait 7za x *.zip -oPut_This_In_SD_card\ -y
+start /wait 7za x *.zip -oPut_This_In_SD_card\ -y >>fh.log
 echo Download Moonshell? (Yes is recommended)
 echo (y/n)
 set /p mshlplug=
@@ -365,7 +389,7 @@ IF /i "%mshlplug%" == "n" goto ds2end
 
 echo Downloading Moonshell from Supercard server
 start /wait wget http://down.supercard.cn/download/dstwo/plugin/moonshl2_for_DSTWO.zip
-start /wait 7za x *.zip -oPut_This_In_SD_card\ -y
+start /wait 7za x *.zip -oPut_This_In_SD_card\ -y >>fh.log
 frec *.zip
 
 :ds2end
@@ -388,7 +412,8 @@ IF "%ak2yn%" == "n" goto start
 
 echo Downloading Latest AKAIO Kernel
 start /wait wget http://filetrip.net/h7853-AKAIO.html
-start /wait unrar x *.rar Put_This_In_SD_Card
+echo Unzipping files
+start /wait unrar x *.rar Put_This_In_SD_Card >>fh.log
 frec *.rar
 echo Download Moonshell?
 echo (y/n)
@@ -402,16 +427,16 @@ echo Please wait, this may take a while.
 frec *.zip 2> nul
 start /wait wget http://mdxonline.dyndns.org/201002161705_moonshell210stable.zip
 set za=%cd%\7za.exe
-start /wait %za% x 201002161705_moonshell210stable.zip
+%za% x 201002161705_moonshell210stable.zip >>fh.log
 cd 201002161705_moonshell210stable
 set moondir=%cd%
-start /wait %za% a -tzip mshl.zip moonshl2.nds "moonshl2"
+%za% a -tzip mshl.zip moonshl2.nds "moonshl2" >>fh.log
 cd..
-move %moondir%\mshl.zip %cd%
+move %moondir%\mshl.zip %cd% >>fh.log
 start /wait 7za x mshl.zip -oPut_This_In_SD_Card
 rmdir 201002161705_moonshell210stable /S /Q
 start /wait wget http://flashcart-helper.googlecode.com/svn/data/misc/moonshl2.ini
-copy moonshl2.ini %cd%\Put_This_In_SD_card\moonshl2\moonshl2.ini
+copy moonshl2.ini %cd%\Put_This_In_SD_card\moonshl2\moonshl2.ini >>fh.log
 frec moonshl2.ini
 
 :end
@@ -466,6 +491,7 @@ set wooddir=%cd%
 cd ..
 move "%wooddir%\wood.zip" "%cd%" >>fh.log
 7za x wood.zip -oPut_This_In_SD_Card >>fh.log
+
 rmdir "%wooddir%" /s /q
 pause
 ::frec *.7z
@@ -499,7 +525,7 @@ set /p ysme=
 IF "%ysme%" == "n" goto tt
 echo Downloading RetroGameFan's DSTT Updates (YSmenu)
 start /wait wget http://filetrip.net/h25123605-RetroGameFan-Multi-Cart-Update.html
-start /wait 7za x *.7z -y
+start /wait 7za x *.7z -y >>fh.log
 rd "DSONE_DSONEi YSMenu" /s /q
 rd "DSTT_DSTTi TTMenu" /s /q
 rd "Extras" /s /q
@@ -1907,11 +1933,8 @@ echo Which slot do you want to restore?
 echo (The number beside the backup file)
 set /p reslot=
 echo.
-echo Which drive letter is your MicroSD? 
-echo DO NOT ENTER THE COLON (:)
-set /p drvlet=
 echo Are you sure you want to restore? You may loose data.
-echo FlashcartHelper will not frecete/format your card.
+echo FlashcartHelper will not delete/format your card.
 echo If you restore from backup without removing files from your cart
 echo you make get duplicates.
 echo If you want to restore, type "restore" without the quotes.
@@ -1920,22 +1943,23 @@ IF %restorecon% NEQ restore goto start
 IF %restorecon% EQU restore goto restorcont
 exit
 :restorcont
-echo FlashcartHelper will now restore your flashcart with your 
+echo FlashcartHelper will now restore your flashcart's files to 
 echo selected backup.
 echo.
 echo This may take a while
-7za x %bakdrv%:\flashcartbak\%reslot%.flashcarthelperbak.fhbak -o%drvlet%:\
+7za x %bakdrv%:\flashcartbak\%reslot%.flashcarthelperbak.fhbak -oPut_This_In_SD_Card
 rd %drvlet%:\flashcartbak\
 echo Restore Complete
+start explorer.exe %cd%\Put_This_In_SD_card
 pause
 goto start
 
 :rembak
-echo Are you sure you want to frecete all backups?
-echo If you want to frecete all backups, type "frecete" without the quotes.
+echo Are you sure you want to delete all backups?
+echo If you want to frecete all backups, type "Delete" without the quotes.
 set /p frecbak=
-IF %frecbak% NEQ frecete goto start
-IF %frecbak% EQU frecete goto rembakcont
+IF %frecbak% NEQ Delete goto start
+IF %frecbak% EQU Delete goto rembakcont
 goto start
 :rembakcont
 rd %bakdrv%:\flashcartbak\ /s /q
@@ -2000,6 +2024,7 @@ echo Your downloads will be in the "DOWNLOAD_QUEUE" folder
 echo Do not do anything you are unsure of.
 pause
 del fh.dq 2>fh.log
+set validq=
 set df1=
 set df2=
 set df3=
@@ -2081,7 +2106,7 @@ set list=
 cls
 echo.
 echo                                      FlashcartHelper Advance Download list BETA    %currentver%
-echo        [S] Save Current Download Queue [C] Clear Current Download Queue [D] Process Download Queue [E] Exit [I] Download Saved Download Queue
+echo        [S] Save Current Download Queue [C] Clear Current Download Queue [D] Process Download Queue [E] Exit [I]Import Saved Queue
 echo.
 echo -------Utitlities-------            -------MenuDO-------                        -----DSi/3DS Fixes-----
 echo %u1%[U1] DS-Scene Rom Tool             %m1%[M1]MenuDO AceKard              %df1%[DF1]DSonei mini DSi1.43 3DS3.0.0-6
@@ -2118,13 +2143,14 @@ echo                                                                    %gd17%[G
 echo                                                                    %gd18%[GD18]DS-Scene Rom Tool Guide
 echo                                                                    %gd19%[GD19]Menudo Guide
 set /p list=
+if /i "%list%" EQU "s" goto savequeue
 if /i "%list%" EQU "u1" goto dlu1
 if /i "%list%" EQU "u2" goto dlu2
 if /i "%list%" EQU "u3" goto dlu3
 if /i "%list%" EQU "u4" goto dlu4
 if /i "%list%" EQU "d" goto dlque
 if /i "%list%" EQU "c" goto clque
-if /i "%list%" EQU "i" goto dsque
+if /i "%list%" EQU "i" goto imque
 if /i "%list%" EQU "e" goto begin
 if /i "%list%" EQU "m1" goto dlm1
 if /i "%list%" EQU "m2" goto dlm2
@@ -2445,8 +2471,16 @@ echo echo Download complete >>dlque.bat
 echo del fh.dq >>dlque.bat
 echo del wget.exe >>dlque.bat
 echo pause >>dlque.bat
-echo exit >>dlque.bat
+echo exit >>dlque.
+goto queueconfirm
 cls
+:savequeue
+cls
+echo Save download queue?
+echo (y/n)
+set /p savq=
+if /i "%savq%" NEQ "y" goto dbegin
+set savequeue=1
 :queueconfirm
 echo Please confirm your download queue.
 echo.
@@ -2532,6 +2566,7 @@ set /p queueyn=
 if /i "%queueyn%" EQU "y" goto downst
 goto dbegin
 :downst
+if "%savequeue%" EQU "1" goto savqueue
 pause
 if /i "%u1%" EQU "*" echo http://filetrip.net/h35132042-RetroGameFan-DS-Scene-Rom-Tool-.html >>fh.dq
 if /i "%u2%" EQU "*" echo http://filetrip.net/d6027-Panasonic-SD-FormatterPORTABLE.html >>fh.dq
@@ -2610,80 +2645,91 @@ IF NOT EXIST fh.dq (echo Error 404 Queue Empty && pause && exit)
 goto callqueue
 
 :savqueue
-if /i "%u1%" EQU "*" echo 
-if /i "%u2%" EQU "*" echo
-if /i "%u3%" EQU "*" echo 
-if /i "%u4%" EQU "*" echo 
-if /i "%m1%" EQU "*" echo 
-if /i "%m2%" EQU "*" echo 
-if /i "%m3%" EQU "*" echo 
-if /i "%m4%" EQU "*" echo 
-if /i "%m5%" EQU "*" echo 
-if /i "%m6%" EQU "*" echo 
-if /i "%f1%" EQU "*" echo 
-if /i "%f2%" EQU "*" echo 
-if /i "%f3%" EQU "*" echo 
-if /i "%f4%" EQU "*" echo 
-if /i "%f5%" EQU "*" echo 
-if /i "%f6%" EQU "*" echo 
-if /i "%f7%" EQU "*" echo 
-if /i "%f8%" EQU "*" echo 
-if /i "%f9%" EQU "*" echo 
-if /i "%f10%" EQU "*" echo 
-if /i "%f11%" EQU "*" echo 
-if /i "%f12%" EQU "*" echo 
-if /i "%f13%" EQU "*" echo 
-if /i "%f14%" EQU "*" echo 
-if /i "%f15%" EQU "*" echo 
-if /i "%f16%" EQU "*" echo 
-if /i "%f17%" EQU "*" echo 
-if /i "%f18%" EQU "*" echo 
-if /i "%f19%" EQU "*" echo 
-if /i "%f20%" EQU "*" echo 
-if /i "%f21%" EQU "*" echo 
-if /i "%mc1%" EQU "*" echo 
-if /i "%mc2%" EQU "*" echo 
-if /i "%mc3%" EQU "*" echo 
-if /i "%mc4%" EQU "*" echo 
-if /i "%mc5%" EQU "*" echo 
-if /i "%dp1%" EQU "*" echo 
-if /i "%dp2%" EQU "*" echo 
-if /i "%dp3%" EQU "*" echo 
-if /i "%dp4%" EQU "*" echo 
-if /i "%dp5%" EQU "*" echo 
-if /i "%dp6%" EQU "*" echo 
-if /i "%dp7%" EQU "*" echo 
-if /i "%df1%" EQU "*" echo 
-if /i "%df2%" EQU "*" echo
-if /i "%df3%" EQU "*" echo 
-if /i "%df4%" EQU "*" echo 
-if /i "%df5%" EQU "*" echo 
-if /i "%df6%" EQU "*" echo 
-if /i "%df7%" EQU "*" echo 
-if /i "%df8%" EQU "*" echo 
-if /i "%df9%" EQU "*" echo 
-if /i "%df10%" EQU "*" echo 
-if /i "%df11%" EQU "*" echo 
-if /i "%df12%" EQU "*" echo 
-if /i "%gd1%" EQU "*" echo 
-if /i "%gd2%" EQU "*" echo 
-if /i "%gd3%" EQU "*" echo 
-if /i "%gd4%" EQU "*" echo 
-if /i "%gd5%" EQU "*" echo 
-if /i "%gd6%" EQU "*" echo 
-if /i "%gd7%" EQU "*" echo 
-if /i "%gd8%" EQU "*" echo 
-if /i "%gd9%" EQU "*" echo 
-if /i "%gd10%" EQU "*" echo 
-if /i "%gd11%" EQU "*" echo 
-if /i "%gd12%" EQU "*" echo 
-if /i "%gd13%" EQU "*" echo 
-if /i "%gd14%" EQU "*" echo
-if /i "%gd15%" EQU "*" echo 
-if /i "%gd16%" EQU "*" echo 
-if /i "%gd17%" EQU "*" echo 
-if /i "%gd18%" EQU "*" echo 
-if /i "%gd19%" EQU "*" echo 
+echo set validq=*>>savequeue.bat
+if /i "%u1%" EQU "*" echo set u1=*>>savequeue.bat
+if /i "%u2%" EQU "*" echo set u2=*>>savequeue.bat
+if /i "%u3%" EQU "*" echo set u3=*>>savequeue.bat
+if /i "%u4%" EQU "*" echo set u4=*>>savequeue.bat
+if /i "%m1%" EQU "*" echo set m1=*>>savequeue.bat
+if /i "%m2%" EQU "*" echo set m2=*>>savequeue.bat
+if /i "%m3%" EQU "*" echo set m3=*>>savequeue.bat
+if /i "%m4%" EQU "*" echo set m4=*>>savequeue.bat
+if /i "%m5%" EQU "*" echo set m5=*>>savequeue.bat
+if /i "%m6%" EQU "*" echo set m6=*>>savequeue.bat
+if /i "%f1%" EQU "*" echo set f1=*>>savequeue.bat
+if /i "%f2%" EQU "*" echo set f2=*>>savequeue.bat
+if /i "%f3%" EQU "*" echo set f3=*>>savequeue.bat
+if /i "%f4%" EQU "*" echo set f4=*>>savequeue.bat
+if /i "%f5%" EQU "*" echo set f5=*>>savequeue.bat
+if /i "%f6%" EQU "*" echo set f6=*>>savequeue.bat
+if /i "%f7%" EQU "*" echo set f7=*>>savequeue.bat
+if /i "%f8%" EQU "*" echo set f8=*>>savequeue.bat
+if /i "%f9%" EQU "*" echo set f9=*>>savequeue.bat
+if /i "%f10%" EQU "*" echo set f10=*>>savequeue.bat
+if /i "%f11%" EQU "*" echo set f11=*>>savequeue.bat
+if /i "%f12%" EQU "*" echo set f12=*>>savequeue.bat
+if /i "%f13%" EQU "*" echo set f13=*>>savequeue.bat
+if /i "%f14%" EQU "*" echo set f14=*>>savequeue.bat
+if /i "%f15%" EQU "*" echo set f15=*>>savequeue.bat
+if /i "%f16%" EQU "*" echo set f16=*>>savequeue.bat
+if /i "%f17%" EQU "*" echo set f17=*>>savequeue.bat
+if /i "%f18%" EQU "*" echo set f18=*>>savequeue.bat
+if /i "%f19%" EQU "*" echo set f19=*>>savequeue.bat
+if /i "%f20%" EQU "*" echo set f20=*>>savequeue.bat
+if /i "%f21%" EQU "*" echo set f21=*>>savequeue.bat
+if /i "%mc1%" EQU "*" echo set mc1=*>>savequeue.bat
+if /i "%mc2%" EQU "*" echo set mc2=*>>savequeue.bat
+if /i "%mc3%" EQU "*" echo set mc3=*>>savequeue.bat
+if /i "%mc4%" EQU "*" echo set mc4=*>>savequeue.bat
+if /i "%mc5%" EQU "*" echo set mc5=*>>savequeue.bat
+if /i "%dp1%" EQU "*" echo set dp1=*>>savequeue.bat
+if /i "%dp2%" EQU "*" echo set dp2=*>>savequeue.bat
+if /i "%dp3%" EQU "*" echo set dp3=*>>savequeue.bat
+if /i "%dp4%" EQU "*" echo set dp4=*>>savequeue.bat
+if /i "%dp5%" EQU "*" echo set dp5=*>>savequeue.bat
+if /i "%dp6%" EQU "*" echo set dp6=*>>savequeue.bat
+if /i "%dp7%" EQU "*" echo set dp7=*>>savequeue.bat
+if /i "%df1%" EQU "*" echo set df1=*>>savequeue.bat
+if /i "%df2%" EQU "*" echo set df2=*>>savequeue.bat
+if /i "%df3%" EQU "*" echo set df3=*>>savequeue.bat
+if /i "%df4%" EQU "*" echo set df4=*>>savequeue.bat
+if /i "%df5%" EQU "*" echo set df5=*>>savequeue.bat
+if /i "%df6%" EQU "*" echo set df6=*>>savequeue.bat
+if /i "%df7%" EQU "*" echo set df7=*>>savequeue.bat
+if /i "%df8%" EQU "*" echo set df8=*>>savequeue.bat
+if /i "%df9%" EQU "*" echo set df9=*>>savequeue.bat
+if /i "%df10%" EQU "*" echo set df10=*>>savequeue.bat
+if /i "%df11%" EQU "*" echo set df11=*>>savequeue.bat
+if /i "%df12%" EQU "*" echo set df12=*>>savequeue.bat
+if /i "%gd1%" EQU "*" echo set gd1=*>>savequeue.bat
+if /i "%gd2%" EQU "*" echo set gd2=*>>savequeue.bat
+if /i "%gd3%" EQU "*" echo set gd3=*>>savequeue.bat
+if /i "%gd4%" EQU "*" echo set gd4=*>>savequeue.bat
+if /i "%gd5%" EQU "*" echo set gd5=*>>savequeue.bat
+if /i "%gd6%" EQU "*" echo set gd6=*>>savequeue.bat
+if /i "%gd7%" EQU "*" echo set gd7=*>>savequeue.bat
+if /i "%gd8%" EQU "*" echo set gd8=*>>savequeue.bat
+if /i "%gd9%" EQU "*" echo set gd9=*>>savequeue.bat
+if /i "%gd10%" EQU "*" echo set gd10=*>>savequeue.bat
+if /i "%gd11%" EQU "*" echo set gd11=*>>savequeue.bat
+if /i "%gd12%" EQU "*" echo set gd12=*>>savequeue.bat
+if /i "%gd13%" EQU "*" echo set gd13=*>>savequeue.bat
+if /i "%gd14%" EQU "*" echo set gd14=*>>savequeue.bat
+if /i "%gd15%" EQU "*" echo set gd15=*>>savequeue.bat
+if /i "%gd16%" EQU "*" echo set gd16=*>>savequeue.bat
+if /i "%gd17%" EQU "*" echo set gd17=*>>savequeue.bat
+if /i "%gd18%" EQU "*" echo set gd18=*>>savequeue.bat
+if /i "%gd19%" EQU "*" echo set gd19=*>>savequeue.bat
+::Rename Saveque to savren
+:renamesav
+echo What would you like to name your Saved Queue?
+echo The name cannot contain the characters " > ? < / \ * : ; 
+echo It also cannot be empty space(s)
+set /p savren=
+ren "savequeue.bat" "%savren%.fhq.bat"
+IF NOT EXIST "%savren%.fhq.bat" (echo Queue not saved properly, [Invalid file name?]) ELSE (echo Queue saved sucessfully to %cd%\%savren%.fhq.bat\)
+pause
+exit
 :callqueue
 call dlque.bat
 :clque
@@ -2692,8 +2738,16 @@ echo Clear Current Download Queue?
 echo (y/n)
 set /p clq=
 IF /i "%clq%" EQU "y" (goto dlist) else (goto dbegin)
-goto dbegin
+goto dlist
 
+:imque
+cls
+echo Please drag the queue file (*.fhq.bat) to the FlashcartHelper window
+set /p iqueue=
+call %iqueue%
+if "%validq%" NEQ "*" (echo Invalid queue file) else (echo Queue imported successfully)
+pause
+goto dbegin
 :ds2skin
 start http://wiki.gbatemp.net/wiki/SuperCard_DSTWO_ds2skin_packs
 

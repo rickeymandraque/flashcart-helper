@@ -23,12 +23,12 @@ IF NOT EXIST "%cd%\Trashes\" mkdir Trashes >>fh.log 2>&1
 ::The license is GNU GPL v3.0
 
 ::date of compilation
-set compiledate=1/25/2012
+set compiledate=2/10/2012
 ::file cleanup, invoke frec to delete guide.fhg and any text files
 frec guide.fhg 2> nul
 frec *.txt 2> nul
 ::currentver is version number
-set currentver=0.9 RC6 r13
+set currentver=0.9
 ::Update routine, if fh.bat exists, will go directly to begin. If not, will continue.
 :uptest
 IF EXIST FHup.bat. (
@@ -93,7 +93,7 @@ goto uptest
 echo frec.exe not found
 echo Press any key to download
 pause >nul
-start /wait wget 
+start /wait wget http://flashcart-helper.googlecode.com/files/frec.exe
 goto uptest
 )
 ::required or it will go into an infinite loop.
@@ -106,8 +106,8 @@ goto up
 ::fetches update file, disabled in BAT versions , source
 :up
 ::Fetch Update File
-::wget -q http://flashcart-helper.googlecode.com/files/fhup.bat >nul
-::call fhup.bat
+wget -q http://flashcart-helper.googlecode.com/svn/data/update/fhup.bat 2>nul
+call fhup.bat
 
 ::begin routine
 :begin
@@ -1358,7 +1358,7 @@ goto start
 echo About FlashcartHelper
 echo FlashcartHelper %currentver%
 echo Compiled %compiledate%
-echo By ron975
+echo By Punyman
 echo Press any key for credits
 pause > nul
 
@@ -1379,6 +1379,7 @@ echo Moonlight for Moonshell
 echo BrianTokyo for NDSTokyoTrim
 echo SolidSnake for eNDryptS advanced
 echo A Gay Little Cat Boy for M3 QuadBoot
+echo Xflak for ModMii, ModMii is an excellent code example
 pause
 goto start 
 

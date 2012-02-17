@@ -28,7 +28,7 @@ set compiledate=2/10/2012
 frec guide.fhg 2> nul
 frec *.txt 2> nul
 ::currentver is version number
-set currentver=0.9
+set currentver=1.0-RC1
 ::Update routine, if fh.bat exists, will go directly to begin. If not, will continue.
 :uptest
 IF EXIST FHup.bat. (
@@ -124,7 +124,7 @@ frec *.rar 2> nul
 ::CMDLine
 color F0
 mode con lines=50
-IF "%1" EQU "setup" goto cmdfirm 
+IF "1" EQU "cmd" goto CMDMENU
 ::sets error to 1, if not 1, will return Invalid choice
 :start
 cls
@@ -140,7 +140,7 @@ echo                          Welcome to FlashcartHelper.          v%currentver%
 echo                           What do you wish to do?
 echo                     __________________________________
 color F0
-echo [1]Help me setup my cart/Update Kernel
+echo [1]Flashcart Firmware Setup/Update
 echo.
 echo [2]Format my MicroSD
 echo.
@@ -167,8 +167,6 @@ echo.
 echo [A]About FlashcartHelper
 echo.
 echo [L]Read License
-echo.
-echo [U]Update FlashcartHelper
 echo.
 echo [C]Clear log file
 echo.
@@ -268,6 +266,99 @@ echo [B] Go back
 echo Please input your choice
 ::FC selection
 set /p FC=
+cls
+IF /i "%FC%" == "b" goto start2
+IF "%FC%" == "13" goto clone
+echo Are you sure you want to..
+IF "%FC%" == "1" echo Set up your DSTWO? 
+IF "%FC%" == "2" echo Set up your Acekard 2i
+IF "%FC%" == "3" echo Set up your R4 Revolution
+IF "%FC%" == "4" echo Set up your DSTT
+IF "%FC%" == "5" echo Set up your R4i Gold
+IF "%FC%" == "6" echo Set up your R4i DSN
+IF "%FC%" == "7" echo Set up your CycloDS
+IF "%FC%" == "8" echo Set up your CycloDSi
+IF "%FC%" == "9" echo Set up your iSmartMM
+IF "%FC%" == "10" echo Set up your EZ Flash 5
+IF "%FC%" == "11" echo Set up your EZ Flash 5i
+IF "%FC%" == "12" echo Set up your M3 Real/M3 Simply/M3i Zero
+IF "%FC%" == "14" echo Set up your DSOne
+IF "%FC%" == "15" echo Set up your DSOne SDHC
+IF "%FC%" == "16" echo Set up your DSOnei
+IF "%FC%" == "17" echo Set up your iSmartPP
+IF "%FC%" == "18" echo Set up your EDGE
+IF "%FC%" == "19" echo Set up your iEDGE
+echo (y/n)
+set /p FCyn=
+IF /i "%FCyn%" NEQ "y" goto begin
+set FCSETUP=y
+echo Do you want to download MenuDO (ClouDS) for your cart?
+echo (y/n)
+set /p mdyn=
+IF /i "%mdyn%" NEQ "y" goto FCmshl
+set FCMENUDO=y
+IF "%FC%" == "1" set menuchs=5
+IF "%FC%" == "2" set menuchs=1
+IF "%FC%" == "3" set menuchs=2
+IF "%FC%" == "4" set menuchs=3
+IF "%FC%" == "5" set menuchs=2
+IF "%FC%" == "6" set menuchs=2
+IF "%FC%" == "7" set menuchs=5
+IF "%FC%" == "8" set menuchs=5
+IF "%FC%" == "9" set menuchs=5
+IF "%FC%" == "10" set menuchs=5
+IF "%FC%" == "11" set menuchs=5
+IF "%FC%" == "12" set menuchs=5
+IF "%FC%" == "14" set menuchs=6
+IF "%FC%" == "15" set menuchs=6
+IF "%FC%" == "16" set menuchs=6
+IF "%FC%" == "17" set menuchs=5
+IF "%FC%" == "18" set menuchs=5
+IF "%FC%" == "19" set menuchs=5
+:FCmshl 
+echo Do you want to download Moonshell?
+echo (y/n)
+set /p mshlyn=
+IF /i "%mshlyn%" EQU "y" set FCMSHL=y
+IF "%FC%" == "1" (goto ds2plugyn) else (goto FCCONFIRM)
+goto FCCONFIRM
+:ds2plugyn
+echo Download Plugins?
+echo (y/n)
+set /p ds2plug=
+echo Is your DSTWO flashed? (Choose no if you have not used your DSTwo before yet)
+echo (y/n)
+set /p ds2boot=
+:dstwoboot
+cls
+echo Your DSTwo is flashed, correct?
+echo (y/n)
+set /p sure=
+IF /i "%sure%" NEQ "y" goto setup
+:FCCONFIRM
+echo FlashcartHelper will
+IF "%FC%" == "1" echo Set up your DSTWO
+IF "%FC%" == "2" echo Set up your Acekard 2i
+IF "%FC%" == "3" echo Set up your R4 Revolution
+IF "%FC%" == "4" echo Set up your DSTT
+IF "%FC%" == "5" echo Set up your R4i Gold
+IF "%FC%" == "6" echo Set up your R4i DSN
+IF "%FC%" == "7" echo Set up your CycloDS
+IF "%FC%" == "8" echo Set up your CycloDSi
+IF "%FC%" == "9" echo Set up your iSmartMM
+IF "%FC%" == "10" echo Set up your EZ Flash 5
+IF "%FC%" == "11" echo Set up your EZ Flash 5i
+IF "%FC%" == "12" echo Set up your M3 Real/M3 Simply/M3i Zero
+IF "%FC%" == "14" echo Set up your DSOne
+IF "%FC%" == "15" echo Set up your DSOne SDHC
+IF "%FC%" == "16" echo Set up your DSOnei
+IF "%FC%" == "17" echo Set up your iSmartPP
+IF "%FC%" == "18" echo Set up your EDGE
+IF "%FC%" == "19" echo Set up your iEDGE
+IF /i "%FCMENUDO%" EQU "y" echo Install Menudo
+IF /i "%FCMSHL%" EQU "y" echo Install MoonShell
+pause
+:FCgoto
 IF "%FC%" == "1" goto ds2 
 IF "%FC%" == "2" goto ak2
 IF "%FC%" == "3" goto r4
@@ -280,9 +371,6 @@ IF "%FC%" == "9" goto mm
 IF "%FC%" == "10" goto ez5
 IF "%FC%" == "11" goto ez5i
 IF "%FC%" == "12" goto m3
-IF "%FC%" == "13" goto clone
-IF "%FC%" == "B" goto start2
-IF "%FC%" == "b" goto start2
 IF "%FC%" == "14" goto ds1
 IF "%FC%" == "15" goto ds1sdhc
 IF "%FC%" == "16" goto ds1i
@@ -313,11 +401,6 @@ IF "%2" == "edge" goto edge
 IF "%2" == "iedge" goto iedge
 :ds2
 cls
-echo You chose DSTWO
-echo Is this correct?
-echo (y/n)
-set /p ds2yn=
-IF "%ds2yn%" == "n" goto start
 echo Downloading latest EOS kernel and firmware
 start /wait wget http://filetrip.net/h35130066-Supercard-DSTWO-EOS.html
 echo Downloading DSTwo setup guide
@@ -330,26 +413,12 @@ frec *.rar
 frec *.7z
 frec *.zip
 cls
-echo Is your DSTWO flashed? (Choose no if you have not used your DSTwo before yet)
-echo (y/n)
-set /p ds2boot=
-IF "%ds2boot%" == "y" goto dstwoboot
-IF "%ds2boot%" == "n" goto plug
-:dstwoboot
-cls
-echo Your DSTwo is flashed, correct?
-echo (y/n)
-set /p sure=
-IF "%sure%" == "n" goto plug
-frec "%cd%\Put_This_In_SD_Card\ds2boot.dat"
+
 
 :plug
 cls
-echo Download Plugins? (Yes is highly recommended)
-echo (y/n)
-set /p ds2plug=
-IF "%ds2plug%" == "n" goto ds2end
-
+echo Downloading Plugins
+IF /i "%ds2plug%" NEQ "y" goto ds2end
 echo Downloading NDSGBA and game_config.txt
 echo Please wait, this may take a while..
 start /wait wget http://filetrip.net/d11694-SuperCard-DSTWO-GBA-EMU-Plug-in-1-21.html
@@ -382,17 +451,14 @@ frec *.zip
 echo Downloading DSTWO Skin installer, Please wait
 start /wait wget http://filetrip.net/h25125220-DSTwo-Skin-Installer.html
 start /wait 7za x *.zip -oPut_This_In_SD_card\ -y >>fh.log
-echo Download Moonshell? (Yes is recommended)
-echo (y/n)
-set /p mshlplug=
-IF /i "%mshlplug%" == "n" goto ds2end
-
+IF /i "%FCMSHL%" NEQ "y" goto ds2end
 echo Downloading Moonshell from Supercard server
 start /wait wget http://down.supercard.cn/download/dstwo/plugin/moonshl2_for_DSTWO.zip
 start /wait 7za x *.zip -oPut_This_In_SD_card\ -y >>fh.log
 frec *.zip
 
 :ds2end
+IF /i "%sure%" EQU "y" frec "%cd%\Put_This_In_SD_Card\ds2boot.dat"
 cls
 echo A guide will now pop up
 echo Please drag eveything in the folder that will pop up to the root of your MicroSD card. Follow the guide for further instructions
@@ -404,41 +470,22 @@ exit
 
 :ak2
 cls
-echo You chose Acekard 2i/2.1
-echo Is this correct?
-echo (y/n)
-set /p ak2yn=
-IF "%ak2yn%" == "n" goto start
 
 echo Downloading Latest AKAIO Kernel
 start /wait wget http://filetrip.net/h7853-AKAIO.html
 echo Unzipping files
 start /wait unrar x *.rar Put_This_In_SD_Card >>fh.log
 frec *.rar
-echo Download Moonshell?
-echo (y/n)
-set /p mshl=
-IF "%mshl%" == "n" goto end
-IF "%mshl%" == "y" goto mshl
+IF /i "%fcmshl%" EQU "y" goto mshl
+goto end
 
 :mshl
 echo Downloading MoonShell
 echo Please wait, this may take a while.
 frec *.zip 2> nul
-start /wait wget http://mdxonline.dyndns.org/201002161705_moonshell210stable.zip
-set za=%cd%\7za.exe
-%za% x 201002161705_moonshell210stable.zip >>fh.log
-cd 201002161705_moonshell210stable
-set moondir=%cd%
-%za% a -tzip mshl.zip moonshl2.nds "moonshl2" >>fh.log
-cd..
-move %moondir%\mshl.zip %cd% >>fh.log
-start /wait 7za x mshl.zip -oPut_This_In_SD_Card
-rmdir 201002161705_moonshell210stable /S /Q
-start /wait wget http://flashcart-helper.googlecode.com/svn/data/misc/moonshl2.ini
-copy moonshl2.ini %cd%\Put_This_In_SD_card\moonshl2\moonshl2.ini >>fh.log
-frec moonshl2.ini
-
+start /wait wget http://filetrip.net/d27227-MoonShell-2-10-Stable-%28ZIP-package%29.html
+start /wait 7za x *.zip -oPut_This_In_SD_Card
+IF /i "%FCMENUDO%" EQU "y" (goto menudo) else (goto end)
 :end
 ::depending on FC selection, will dl appropriate guide from server
 IF "%FC%" == "2" wget http://flashcart-helper.googlecode.com/svn/data/guides/ak2.guide.txt
@@ -468,16 +515,11 @@ pause
 frec guide.txt 2> nul
 ren *.guide.txt guide.fhg 2> nul
 start notepad %cd%\guide.fhg
-start explorer.exe %cd%\Put_This_In_SD_card
-goto :eof
+start explorer.exe "%cd%\Put_This_In_SD_card"
+exit
 
 :r4
 cls
-echo You chose R4 Revolution
-echo Is this correct?
-echo (y/n)
-set /p r4yn=
-IF "%r4yn%" == "n" goto start
 echo Downloading latest Wood R4
 start /wait wget http://filetrip.net/h25123666-Wood-R4.html
 7za x *.7z >>fh.log
@@ -495,20 +537,10 @@ move "%wooddir%\wood.zip" "%cd%" >>fh.log
 rmdir "%wooddir%" /s /q
 pause
 ::frec *.7z
-echo Download Moonshell?
-echo (y/n)
-set /p mshl=
-IF "%mshl%" == "n" goto end
-IF "%mshl%" == "y" goto mshl
-
+IF /i "%fcmshl%" EQU "y" goto mshl
+goto end
 :tt
 cls
-echo You chose DSTT(i)
-echo Is this correct?
-echo (y/n)
-set /p ttyn=
-IF "%ttyn%" == "n" goto start
-
 
 echo Do you want YSMenu or TTMenu?
 echo [1] YSmenu (Loads roms faster and Recommended)
@@ -565,32 +597,20 @@ frec usrcheat.dat
 rd Put_This_In_SD_Card /s /q
 ren "DSTT_DSTTi TTmenu" "Put_This_In_SD_Card"
 frec *.zip
-echo Download Moonshell?
-echo (y/n)
-set /p mshl=
-IF "%mshl%" == "n" goto end
-IF "%mshl%" == "y" goto mshl
+IF /i "%fcmshl%" EQU "y" goto mshl
+goto end
 
 :R4i
 cls
-echo You chose R4i Gold (r4ids.cn)
-echo Is this correct?
-echo (y/n)
 set /p r4iyn=
 IF "%r4iyn%" == "n" goto start
 start /wait wget http://filetrip.net/h35130127-Wood-R4-for-R4i-Gold-%28R4iDS%29.html
 start /wait unrar x *.rar Put_This_In_SD_card\
-echo Download Moonshell?
-echo (y/n)
-set /p mshl=
-IF "%mshl%" == "n" goto end
-IF "%mshl%" == "y" goto mshl
+IF /i "%fcmshl%" EQU "y" goto mshl
+goto end
 
 :r4dsn
 cls
-echo You chose R4iDSN (r4idsn.com)
-echo Is this correct?
-echo (y/n)
 set /p r4dyn=
 IF "%r4dyn%" == "n" goto start
 echo Downloading latest Wood R4iDSN
@@ -601,33 +621,21 @@ set wooddir=%cd%
 cd %workdir%
 rmdir "%cd%\Put_This_In_SD_Card\" /S /Q 2> nul
 ren "%wooddir%" "Put_This_In_SD_Card"
-echo Download Moonshell?
-echo (y/n)
-set /p mshl=
-IF "%mshl%" == "n" goto end
-IF "%mshl%" == "y" goto mshl
+IF /i "%fcmshl%" EQU "y" goto mshl
+goto end
 
 :cyclo
 cls
-echo You chose CycloDS Evo
-echo Is this correct?
-echo (y/n)
 set /p cyclo=
 IF "%cyclo%" == "n" goto start
 echo Downloading Latest STABLE Evolution firmware
 start /wait wget http://filetrip.net/h35130821-CycloDS-Evolution-Firmware-Stable.html
 start /wait 7za e *.zip -oPut_This_In_SD_card
-echo Download Moonshell?
-echo (y/n)
-set /p mshl=
-IF "%mshl%" == "n" goto end
-IF "%mshl%" == "y" goto mshl
+IF /i "%fcmshl%" EQU "y" goto mshl
+goto end
 
 :iEVO
 cls
-echo You chose CycloDS iEVO
-echo Is this correct?
-echo (y/n)
 set /p iEVO=
 IF "%iEVO%" == "n" goto start
 echo Downloading latest STABLE iEvoloution Firmware
@@ -697,16 +705,8 @@ IF "%checkboot%" == "n" goto bootstrapper
 
 :imshl
 cls
-echo Download Moonshell?
-echo (y/n)
-set /p imshl=
-IF "%imshl%" == "n" goto end
-start /wait wget http://filetrip.net/h35131285-CycloDS-iEvolution-Moonshell.html
-start /wait unrar x *.rar Put_This_In_SD_Card
-echo You can access Moonshell from the "Media" icon from the main CycloDS iEVO menu
-pause
+IF /i "%fcmshl%" EQU "y" goto mshl
 goto end
-exit
 
 :format
 mkdir formatter 2> nul
@@ -726,18 +726,8 @@ start sdformatter.exe
 cd ..
 goto start
 
-:update 
-start /wait wget http://flashcart-helper.googlecode.com/files/FHupdater.bat
-call FHupdater.bat
-
 :mm
 cls
-echo You chose iSmartMM
-echo Is this correct?
-echo (y/n)
-set /p imm=
-IF "%imm%" == "n" goto start
-echo Downloading latest iSmartMM kernel
 frec *.zip 2> nul
 start /wait wget http://filetrip.net/h35132061-iSmart-MM-kernel-update.html
 start /wait 7za x *.zip -oPut_This_In_SD_Card
@@ -770,31 +760,15 @@ goto end
 
 :ez5
 cls
-echo You chose EZ Flash 5
-echo If you meant EZ Flash 5i, please go back and select the EZ5i option.
-echo Is this correct?
-echo (y/n)
-set /p ez5=
-IF "%ez5%" == "n" goto start
 echo Downloading latest EZ5 kernel
 start /wait wget http://filetrip.net/h25124137-EZ5-Kernel.html
 start /wait 7za x *.zip -oPut_This_In_SD_Card
 echo You need atleast 1 .NDS file to load your EZ Flash 5
-echo Download Moonshell?
-echo (y/n)
-set /p mshez5=
-IF "%mshez5%" == "y" goto mshl
-IF "%mshez5%" == "n" goto end
+IF /i "%fcmshl%" EQU "y" goto mshl
 goto end
 
 :ez5i
 cls
-echo You chose EZ Flash 5i
-echo If you meant EZ Flash 5, please go back and select the EZ5 option.
-echo Is this correct?
-echo (y/n)
-set /p ez5i=
-IF "%ez5i%" == "n" goto start
 echo Downloading latest EZ5i kernel
 start /wait wget http://filetrip.net/h25124710-EZ5i-Kernel.html
 start /wait unrar x *.rar Put_This_In_SD_Card
@@ -802,54 +776,29 @@ echo If you have not yet updated your EZ5i to v101, please run ez5firmwreUP_V101
 echo If your cart says "No need to update" you do not need to update to v101.
 echo You need atleast 1 .NDS file to load your EZ Flash 5
 frec %cd%\Put_This_In_SD_Card\ez5firmwreUP_V103.nds 2> nul
-echo Download Moonshell?
-echo (y/n)
-set /p mshez5i=
-IF "%mshez5i%" == "y" goto mshl
-IF "%mshez5i%" == "n" goto end
+IF /i "%fcmshl%" EQU "y" goto mshl
+goto end
 exit
 
 :m3
 cls
-echo You chose M3 Real/M3 Simply/M3i Zero
-echo This will not work with the M3i Zero gmp-z003
-echo Is this correct?
-echo (y/n)
-set /p m3=
-IF "%m3%" == "n" goto start
 echo Downloading latest M3 Quad-Boot
 start /wait wget http://filetrip.net/h25123141-The-M3-Quad-Boot.html
 start /wait 7za x *.7z -oPut_This_In_SD_Card
-echo Download Moonshell?
-echo (y/n)
-set /p m3msh=
-IF "%m3msh%" == "y" goto mshl
-IF "%m3msh%" == "n" goto end
+IF /i "%fcmshl%" EQU "y" goto mshl
+goto end
 
 :edge
 cls
-echo You chose EDGE
-echo Is this correct?
-echo (y/n)
-set /p edge=
-IF "%edge%" == "n" goto start
 echo Downloading latest EDGE OS
 start /wait wget http://filetrip.net/h35129830-EDGE-OS.html
 start /wait 7za x *.zip -oPut_This_In_SD_Card
 ren Put_This_In_SD_Card\IEDGE.dat EDGE.dat
-echo Download Moonshell?
-echo (y/n)
-set /p edgemsh=
-IF "%edgemsh%" == "y" goto mshl
-IF "%edgemsh%" == "n" goto end
+IF /i "%fcmshl%" EQU "y" goto mshl
+goto end
 
 :iedge
 cls
-echo You chose iEDGE
-echo Is this correct?
-echo (y/n)
-set /p iedge=
-IF "%iedge%" == "n" goto start
 echo Downloading latest iEDGE OS
 start /wait wget http://filetrip.net/h35129832-iEDGE-OS.html
 start /wait 7za x *.zip -oPut_This_In_SD_card
@@ -864,11 +813,7 @@ echo Downloading iEDGE Boot Update
 start /wait wget http://filetrip.net/d26407-BootStrap-File-for-iEDGE-4.html
 start /wait 7za x *.zip -oPut_This_In_SD_Card
 :iedgea
-echo Download Moonshell?
-echo (y/n)
-set /p iemshl=
-IF "%iemshl%" == "y" goto mshl
-IF "%iemshl%" == "n" goto end
+IF /i "%fcmshl%" EQU "y" goto mshl
 goto end
 :clone
 cls
@@ -953,11 +898,8 @@ start /wait wget http://filetrip.net/h35132218-RetroGameFan-DAT-Update.html
 start /wait unrar x *.rar  Put_This_In_SD_Card\TTMenu -y
 frec *.zip
 frec *.rar
-echo Download Moonshell?
-echo (y/n)
-set /p gmshl=
-IF "%gmshl%" == "n" goto end
-IF "%gmshl%" == "y" goto mshl
+IF /i "%fcmshl%" EQU "y" goto mshl
+goto end
 
 :g2
 echo You chose Group 2
@@ -978,11 +920,8 @@ start /wait unrar x *.rar  Put_This_In_SD_Card\TTMenu -y
 ren Put_This_In_SD_card\TTmenu.dat R4.dat
 frec *.zip
 frec *.rar
-echo Download Moonshell?
-echo (y/n)
-set /p g2mshl=
-IF "%g2mshl%" == "n" goto end
-IF "%g2mshl%" == "y" goto mshl
+IF /i "%fcmshl%" EQU "y" goto mshl
+goto end
 
 :g3
 echo You chose Group 3
@@ -1003,11 +942,8 @@ start /wait unrar x *.rar  Put_This_In_SD_Card\TTMenu -y
 ren Put_This_In_SD_card\TTmenu.dat iLL.iL
 frec *.zip
 frec *.rar
-echo Download Moonshell?
-echo (y/n)
-set /p g3mshl=
-IF "%g3mshl%" == "n" goto end
-IF "%g3mshl%" == "y" goto mshl
+IF /i "%fcmshl%" EQU "y" goto mshl
+goto end
 
 :g4
 echo You chose Group 4
@@ -1029,11 +965,8 @@ copy Put_This_In_SD_card\TTmenu.dat Put_This_In_SD_card\iLL.iL
 ren Put_This_In_SD_card\TTmenu.dat R4i.TP
 frec *.zip
 frec *.rar
-echo Download Moonshell?
-echo (y/n)
-set /p g4mshl=
-IF "%g4mshl%" == "n" goto end
-IF "%g4mshl%" == "y" goto mshl
+IF /i "%fcmshl%" EQU "y" goto mshl
+goto end
 
 :g5
 echo You chose Group 5
@@ -1054,11 +987,8 @@ start /wait unrar x *.rar  Put_This_In_SD_Card\TTMenu -y
 copy Put_This_In_SD_card\TTmenu.dat Put_This_In_SD_card\R4i.dat
 frec *.zip
 frec *.rar
-echo Download Moonshell?
-echo (y/n)
-set /p g5mshl=
-IF "%g5mshl%" == "n" goto end
-IF "%g5mshl%" == "y" goto mshl
+IF /i "%fcmshl%" EQU "y" goto mshl
+goto end
 
 :g6
 echo You chose Group 6
@@ -1079,11 +1009,8 @@ start /wait unrar x *.rar  Put_This_In_SD_Card\TTMenu -y
 ren Put_This_In_SD_card\TTmenu.dat R4i.TP
 frec *.zip
 frec *.rar
-echo Download Moonshell?
-echo (y/n)
-set /p g6mshl=
-IF "%g6mshl%" == "n" goto end
-IF "%g6mshl%" == "y" goto mshl
+IF /i "%fcmshl%" EQU "y" goto mshl
+goto end
 
 :g7
 echo You chose Group 7
@@ -1104,11 +1031,8 @@ start /wait unrar x *.rar  Put_This_In_SD_Card\TTMenu -y
 ren Put_This_In_SD_card\TTmenu.dat R4KING
 frec *.zip
 frec *.rar
-echo Download Moonshell?
-echo (y/n)
-set /p g7mshl=
-IF "%g7mshl%" == "n" goto end
-IF "%g7mshl%" == "y" goto mshl
+IF /i "%fcmshl%" EQU "y" goto mshl
+goto end
 
 :g8
 echo You chose Group 8
@@ -1128,12 +1052,9 @@ start /wait wget http://filetrip.net/h35132218-RetroGameFan-DAT-Update.html
 start /wait unrar x *.rar  Put_This_In_SD_Card\TTMenu -y
 frec *.zip
 frec *.rar
-echo Download Moonshell?
-echo (y/n)
-set /p g8mshl=
-IF "%g8mshl%" == "n" goto end
-IF "%g8mshl%" == "y" goto mshl
-exit
+IF /i "%fcmshl%" EQU "y" goto mshl
+goto end
+
 
 :g9
 echo Group 9
@@ -1214,19 +1135,11 @@ start /wait wget http://goo.gl/Fx22Q
 start /wait 7za *.zip -oPut_This_In_SD_Card -y
 goto 9ms
 :9ms
-echo Download Moonshell?
-echo (y/n)
-set /p mshl=
-IF "%mshl%" == "n" goto end
-IF "%mshl%" == "y" goto mshl
+IF /i "%fcmshl%" EQU "y" goto mshl
+goto end
 :ds1
 ::DSone
 cls 
-echo You chose Supercard DSOne (Original)
-echo Is this correct?
-echo (y/n)
-set /p ds1=
-IF "%ds1%" == "n" goto start
 start /wait wget http://down.supercard.sc/download/evolution/DSONE_Evolution_V1.0_eng_sp6_20110427.zip
 start /wait 7za x *.zip
 rd Put_This_In_SD_Card /s /q
@@ -1235,11 +1148,6 @@ goto sctt
 :ds1i
 ::DSonei
 cls 
-echo You chose Supercard DSOnei (All DSonei Carts)
-echo Is this correct?
-echo (y/n)
-set /p ds1i=
-IF "%ds1i%" == "n" goto start
 start /wait wget http://down.supercard.sc/download/evolution/DSONE_mini_SDHC_Evolution_V1.0_eng_sp6_20110427.zip
 start /wait 7za x *.zip
 rd Put_This_In_SD_Card /s /q
@@ -1249,11 +1157,6 @@ goto ds1iflash
 :ds1sdhc
 ::DSone SDHC
 cls 
-echo You chose Supercard DSOne SDHC 
-echo Is this correct?
-echo (y/n)
-set /p ds1sdhc=
-IF "%ds1sdhc%" == "n" goto start
 rd Put_This_In_SD_Card /s /q
 start /wait wget http://down.supercard.sc/download/evolution/DSONE_SDHC_Evolution_V1.0_eng_sp6_20110427.zip
 start /wait 7za x *.zip
@@ -1290,11 +1193,7 @@ goto ds1mshl
 start /wait wget http://flashcart-helper.googlecode.com/svn/data/guides/ds1.guide.txt
 goto ds1mshl
 :ds1mshl
-echo Download Moonshell?
-echo (y/n)
-set /p mshl=
-IF "%mshl%" == "n" goto end
-IF "%mshl%" == "y" goto mshl
+IF /i "%fcmshl%" EQU "y" goto mshl
 goto end
 
 :ds1iflash
@@ -1321,20 +1220,13 @@ exit
 
 :ispp
 cls
-echo You chose iSmart Premuim
-echo Is this correct? (y/n)
-set /p ismartp=
-IF "%ismartp%" == "n" goto start
 echo Downloading iSmart Premuim Kernel Latest
 start /wait wget http://filetrip.net/h35131650-iSmart-Premium-kernel.html
 start /wait 7za x *.zip -oPut_This_In_SD_Card
 frec *.zip 2> nul
 frec *.rar 2> nul
-echo Download Moonshell?
-echo (y/n)
-set /p ipmshl=
-IF "%ipmshl%" == "n" goto end
-IF "%ipmshl%" == "y" goto mshl
+IF /i "%fcmshl%" EQU "y" goto mshl
+goto end
 
 :hb
 mode con lines=10
@@ -1783,21 +1675,29 @@ echo [1] Acekard 2i/2.1
 echo [2] R4 Revoloution
 echo [3] DSTT
 echo [4] Goto MENUdo download page (Manual Install)
-echo You can run MENUdo in any other flashcart, but their will be no ROMLoading.
-echo If the above options do not load roms for you, on that flashcart,
-echo Try the generic install. It may just load roms for your cart, maybe, maybe not.
 echo [5] Generic flashcart (No ROMLoading!)
+echo [6] DSOnei
+::Checks for FC Menudo install
+IF /i "%FCMENUDO%" EQU "y" goto menufc
+:menudosel
 set /p menuchs=
-
 IF "%menuchs%" == "1" goto mak2
 IF "%menuchs%" == "2" goto mr4
 IF "%menuchs%" == "3" goto mtt
 IF "%menuchs%" == "4" goto mweb
 IF "%menuchs%" == "5" goto mgen
+IF "%menuchs%" == "6" goto mds1
+:menufc
+IF "%menuchs%" == "1" goto mak2
+IF "%menuchs%" == "2" goto mr4
+IF "%menuchs%" == "3" goto mtt
+IF "%menuchs%" == "4" goto mweb
+IF "%menuchs%" == "5" goto mgen
+IF "%menuchs%" == "6" goto mds1
 :mak2
 echo Installing MENUdo for Acekard 2i/2.1
 start /wait wget http://menudo.yolasite.com/resources/menudo-files/localizations/12311/acekard.zip
-start /wait 7za x acekard.zip
+start /wait 7za x acekard.zip -aos
 rd Put_This_In_SD_Card
 ren acekard Put_This_In_SD_Card
 rd Put_This_In_SD_Card\__aio /s /q
@@ -1812,7 +1712,7 @@ goto menuend
 echo Install MENUdo for R4 Revoloution 
 start /wait wget http://menudo.yolasite.com/resources/menudo-files/localizations/12311/r4.zip
 start /wait wget http://filetrip.net/h25123666-Wood-R4.html
-start /wait 7za x *.7z
+start /wait 7za x *.7z -aos
 set za="%cd%"\7za.exe
 cd "Wood_R4_v*.*"
 set wooddir=%cd%
@@ -1838,7 +1738,7 @@ goto menuend
 :mtt
 echo Installing MENUdo for DSTT
 start /wait wget http://menudo.yolasite.com/resources/menudo-files/localizations/12311/dstt.zip
-start /wait 7za x dstt.zip
+start /wait 7za x dstt.zip -aos
 rd Put_This_In_SD_Card
 ren dstt Put_This_In_SD_Card
 rd Put_This_In_SD_Card\TTMENU /s /q
@@ -1856,13 +1756,25 @@ goto start
 echo Installing MENUdo
 echo This will load Homebrew as long as your cart supports auto-DLDI. 
 start /wait wget http://menudo.yolasite.com/resources/menudo-files/localizations/12311/generic.zip
-start /wait 7za x generic.zip
+start /wait 7za x generic.zip -aos
 rd Put_This_In_SD_Card
 ren generic Put_This_In_SD_Card
 frec Put_This_In_SD_Card\*.dat
 frec Put_This_In_SD_Card\akmenu4.nds
 goto menuend
+
+:mds1
+echo Installing MENUdo for DSOne
+start /wait wget http://menudo.yolasite.com/resources/menudo-files/localizations/12311/dsonei.zip
+start /wait 7za x dsonei.zip -aos
+rd Put_This_In_SD_Card
+ren acekard Put_This_In_SD_Card
+rd Put_This_In_SD_Card\__aio /s /q
+frec Put_This_In_SD_Card\akaio.nds
+frec Put_This_In_SD_Card\akmenu4.nds
+goto menuend
 :menuend
+IF /i "%FCMENUDO%" EQU "y" goto end
 echo MenuDO Installed successfully.
 start /wait wget http://flashcart-helper.googlecode.com/svn/data/guides/menudo.guide.txt
 ren *.guide.txt guide.fhg
@@ -2757,3 +2669,7 @@ start /wait flashcarthelper.exe -d
 echo FlashcartHelper decomplied successfully. Source has been saved
 pause
 goto begin
+
+:CMDMENU
+::This is the Command line options
+IF "%2" EQU "firm" goto cmdfirm

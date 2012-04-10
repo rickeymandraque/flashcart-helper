@@ -9,7 +9,7 @@
         End If
         AddHandler dstwodl.DownloadProgressChanged, AddressOf dstwodl_ProgressChanged
         AddHandler dstwodl.DownloadFileCompleted, AddressOf dstwodl_DownloadCompleted
-        dstwodl.DownloadFileAsync(New Uri("http://filetrip.net/h7853-AKAIO.html"), Flashcartmenu.ExtPath + "/temp/akaio.rar")
+        dstwodl.DownloadFileAsync(New Uri("http://filetrip.net/h35130066-Supercard-DSTWO-EOS.html"), Flashcartmenu.ExtPath + "/temp/akaio.rar")
         Label1.Text = "Downloading EOS"
     End Sub
     Private Sub dstwodl_ProgressChanged(ByVal sender As Object, ByVal e As System.Net.DownloadProgressChangedEventArgs) 'Download Progress
@@ -26,6 +26,7 @@
         dstwodl.CancelAsync()
         DSTWOFirmExt()
         Me.Hide()
+        DSTWOPlugSel.Show()
     End Sub
 
 
@@ -36,4 +37,54 @@
         akaio.ExtractArchive(Flashcartmenu.ExtPath)
         Progress.Value = Progress.Maximum
     End Sub
+
+    Private Sub DSTWOFlashcartEnd()
+        If Flashcartmenu.CheckBox1.Checked = True Then
+            Me.Hide() 'Calling Moonshell Plugin download form
+        Else
+            MsgBox("Finished" & vbNewLine & "An Explorer window will open" & vbNewLine & "Please drag all the files to your MicroSD")
+            Process.Start("explorer.exe", Flashcartmenu.ExtPath) 'Open Explorer Window
+            My.Computer.FileSystem.DeleteDirectory(Flashcartmenu.ExtPath + "/temp/", FileIO.DeleteDirectoryOption.DeleteAllContents) 'File Cleanup
+            FHMenu.Show()
+        End If
+    End Sub
+
 End Class
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'NEVAR GONNA GIVE YOU UP
+'NEVAR GONNA LET YOU DOWN
+'NEVAR GONNA TURN AROUND AND FORGET YOU

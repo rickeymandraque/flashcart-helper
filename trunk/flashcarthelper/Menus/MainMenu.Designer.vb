@@ -65,6 +65,7 @@ Partial Class FHMenu
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.ExitAppBtn)
         Me.Controls.Add(Me.SetUpFlashcartBtn)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Name = "FHMenu"
         Me.Text = "FlashcartHelper"
         Me.ResumeLayout(False)

@@ -31,7 +31,8 @@ Partial Class Flashcartmenu
         Me.AKtip = New System.Windows.Forms.ToolTip(Me.components)
         Me.R4tip = New System.Windows.Forms.ToolTip(Me.components)
         Me.FlashcartBox = New System.Windows.Forms.PictureBox()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.DS2btn = New System.Windows.Forms.Button()
+        Me.DS2tip = New System.Windows.Forms.ToolTip(Me.components)
         CType(Me.FlashcartBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -97,27 +98,31 @@ Partial Class Flashcartmenu
         Me.FlashcartBox.TabIndex = 5
         Me.FlashcartBox.TabStop = False
         '
-        'Button1
+        'DS2btn
         '
-        Me.Button1.Location = New System.Drawing.Point(12, 176)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(348, 64)
-        Me.Button1.TabIndex = 6
-        Me.Button1.Text = "DSTWO"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.DS2btn.Location = New System.Drawing.Point(12, 176)
+        Me.DS2btn.Name = "DS2btn"
+        Me.DS2btn.Size = New System.Drawing.Size(348, 64)
+        Me.DS2btn.TabIndex = 6
+        Me.DS2btn.Text = "DSTWO"
+        Me.DS2btn.UseVisualStyleBackColor = True
+        '
+        'DS2tip
+        '
         '
         'Flashcartmenu
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(598, 559)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.DS2btn)
         Me.Controls.Add(Me.FlashcartBox)
         Me.Controls.Add(Me.R4Btn)
         Me.Controls.Add(Me.Path)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.CheckBox1)
         Me.Controls.Add(Me.AKBtn)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Name = "Flashcartmenu"
         Me.Text = "FlashcartHelper"
         CType(Me.FlashcartBox, System.ComponentModel.ISupportInitialize).EndInit()
@@ -133,5 +138,6 @@ Partial Class Flashcartmenu
     Friend WithEvents AKtip As System.Windows.Forms.ToolTip
     Friend WithEvents R4tip As System.Windows.Forms.ToolTip
     Friend WithEvents FlashcartBox As System.Windows.Forms.PictureBox
-    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents DS2btn As System.Windows.Forms.Button
+    Friend WithEvents DS2tip As System.Windows.Forms.ToolTip
 End Class

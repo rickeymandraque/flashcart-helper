@@ -1,10 +1,27 @@
-﻿Public Class DSTWOPLUG
+﻿#Region "LICENSE"
+'  This file is part of FlashcartHelper.
+'
+'  FlashcartHelper is free software: you can redistribute it and/or modify
+'  it under the terms of the GNU General Public License as published by
+'  the Free Software Foundation, either version 3 of the License, or
+'  (at your option) any later version.
+
+'  FlashcartHelper is distributed in the hope that it will be useful,
+'  but WITHOUT ANY WARRANTY; without even the implied warranty of
+'  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+'  GNU General Public License for more details.
+'
+'  You should have received a copy of the GNU General Public License
+'  along with FlashcartHelper.  If not, see <http://www.gnu.org/licenses/>.
+#End Region
+Public Class DSTWOPLUG
     Dim DS2Shared As New DSTWoShared
     Dim SharedC As New SharedClass
     Dim dstwodl As New System.Net.WebClient
 
     Private Sub DSTWOPLUG_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        If DSTWOPlugSel.NDSGBA.Checked=True then
+        'Checks which checkboxes are checked in DSTWOPlugSel
+        If DSTWOPlugSel.NDSGBA.Checked = True Then
             NDSGBADL()
         End If
         If DSTWOPlugSel.CATSFC.Checked = True Then
@@ -29,6 +46,7 @@
 
         End If
     End Sub
+#Region "NDSGBA" 'Code block downloads and extracts NDSGBA
     Public Sub NDSGBADL()
         AddHandler dstwodl.DownloadProgressChanged, AddressOf NDSGBAdl_ProgressChanged
         AddHandler dstwodl.DownloadFileCompleted, AddressOf NDSGBAdl_DownloadCompleted
@@ -51,5 +69,6 @@
         ndsgba.ExtractArchive(Flashcartmenu.ExtPath)
         My.Computer.FileSystem.MoveFile(Flashcartmenu.ExtPath + "/temp/game_config.txt", Flashcartmenu.ExtPath + "/NDSGBA/game_config.txt")
     End Sub
+#End Region
 
 End Class

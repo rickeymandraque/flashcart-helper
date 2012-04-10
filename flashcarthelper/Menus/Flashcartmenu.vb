@@ -14,6 +14,7 @@
 '  along with FlashcartHelper.  If not, see <http://www.gnu.org/licenses/>.
 
 Public Class Flashcartmenu
+    Public PlugYesNo 'for DSTWO
     Public ExtPath As String
     Dim ExtPathDialog As New System.Windows.Forms.FolderBrowserDialog
     Private Sub Flashcartmenu_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -27,6 +28,7 @@ Public Class Flashcartmenu
         Path.Text = ExtPath
         AKtip.SetToolTip(AKBtn, "Download AKAIO for the Acekard 2.1, Acekard RPG, or Acekard 2i")
         R4tip.SetToolTip(R4Btn, "Download Wood R4 for the original R4 Revolution")
+        DS2tip.SetToolTip(DS2btn, "Download EOS for the Supercard DSTWO")
     End Sub
 
     Private Sub Ak_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AKBtn.Click 'AKAIO
@@ -71,14 +73,18 @@ Public Class Flashcartmenu
         FlashcartBox.Refresh()
     End Sub
 
-    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+    Private Sub DSTWO_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DS2btn.Click
         Dim YesNo
         YesNo = MsgBox(Prompt:="Download the firmware for the DSTWO?", Title:="Confirm", Buttons:=vbYesNo)
         If YesNo = vbYes Then
-            Dim PlugYesNo
-            PlugYesNo= MsgBox(Prompt:="Download Plugins?",Title:="Download Plugins",Buttons:=vbYesNo)
             Me.Hide()
             DSTWODL.Show()
         End If
+    End Sub
+
+    Private Sub DS2tip_Popup(ByVal sender As System.Object, ByVal e As System.Windows.Forms.PopupEventArgs) Handles DS2tip.Popup
+        FlashcartBox.Load("http://flashcarthelper.punyman.com/images/8/8c/DSTWO.jpg")
+        FlashcartBox.SizeMode = PictureBoxSizeMode.StretchImage
+        FlashcartBox.Refresh()
     End Sub
 End Class

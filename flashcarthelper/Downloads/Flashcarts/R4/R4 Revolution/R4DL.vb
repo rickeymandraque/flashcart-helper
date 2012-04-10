@@ -53,8 +53,8 @@ Public Class R4DL
         WoodRenScript.Arguments = Flashcartmenu.ExtPath
         WoodRenScript.WindowStyle = ProcessWindowStyle.Hidden
         Process.Start(WoodRenScript).WaitForExit() 'BAT script renames WoodR4 Directory to Code-Friendly "woodr4"
-        My.Computer.FileSystem.MoveFile(Flashcartmenu.ExtPath + "/woodr4/_DS_MENU.DAT", Flashcartmenu.ExtPath + "/_DS_MENU.DAT")
-        My.Computer.FileSystem.MoveDirectory(Flashcartmenu.ExtPath + "/woodr4/__rpg/", Flashcartmenu.ExtPath + "/__rpg")
+        My.Computer.FileSystem.MoveFile(Flashcartmenu.ExtPath + "/woodr4/_DS_MENU.DAT", Flashcartmenu.ExtPath + "/_DS_MENU.DAT", True)
+        My.Computer.FileSystem.MoveDirectory(Flashcartmenu.ExtPath + "/woodr4/__rpg/", Flashcartmenu.ExtPath + "/__rpg", True)
         My.Computer.FileSystem.DeleteDirectory(Flashcartmenu.ExtPath + "/woodr4/", FileIO.DeleteDirectoryOption.DeleteAllContents)
     End Sub
 End Class

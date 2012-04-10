@@ -30,7 +30,7 @@ Partial Class Menu1
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(94, 11)
+        Me.Label1.Location = New System.Drawing.Point(102, 11)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(81, 13)
         Me.Label1.TabIndex = 0
@@ -39,7 +39,7 @@ Partial Class Menu1
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(104, 41)
+        Me.Label2.Location = New System.Drawing.Point(117, 41)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(51, 13)
         Me.Label2.TabIndex = 1
@@ -61,6 +61,7 @@ Partial Class Menu1
         Me.Controls.Add(Me.Progress)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Name = "Menu1"
         Me.Text = "FlashcartHelper"
         Me.ResumeLayout(False)

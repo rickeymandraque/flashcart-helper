@@ -108,10 +108,23 @@
     <Compile Include="Downloads\Flashcarts\R4\R4 Revolution\R4DL.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Downloads\Flashcarts\Supercard\DSTWO\DSTWOShared.vb" />
     <Compile Include="Downloads\Flashcarts\Supercard\DSTWO\DSTWODL.Designer.vb">
       <DependentUpon>DSTWODL.vb</DependentUpon>
     </Compile>
     <Compile Include="Downloads\Flashcarts\Supercard\DSTWO\DSTWODL.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Downloads\Flashcarts\Supercard\DSTWO\Form1.Designer.vb">
+      <DependentUpon>PlugSelect.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Downloads\Flashcarts\Supercard\DSTWO\PlugSelect.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Downloads\Flashcarts\Supercard\DSTWO\PlugDL.Designer.vb">
+      <DependentUpon>PlugDL.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Downloads\Flashcarts\Supercard\DSTWO\PlugDL.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Downloads\Moonshell\Mshldl.Designer.vb">
@@ -170,6 +183,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Downloads\Flashcarts\Supercard\DSTWO\DSTWODL.resx">
       <DependentUpon>DSTWODL.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Downloads\Flashcarts\Supercard\DSTWO\PlugDL.resx">
+      <DependentUpon>PlugDL.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Downloads\Flashcarts\Supercard\DSTWO\PlugSelect.resx">
+      <DependentUpon>PlugSelect.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Downloads\Moonshell\Mshldl.resx">
       <DependentUpon>Mshldl.vb</DependentUpon>

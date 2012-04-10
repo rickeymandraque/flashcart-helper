@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class AK2DL
+Partial Class DSTWOPLUG
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -22,9 +22,16 @@ Partial Class AK2DL
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.Label1 = New System.Windows.Forms.Label()
         Me.Progress = New System.Windows.Forms.ProgressBar()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
+        '
+        'Progress
+        '
+        Me.Progress.Location = New System.Drawing.Point(20, 209)
+        Me.Progress.Name = "Progress"
+        Me.Progress.Size = New System.Drawing.Size(244, 20)
+        Me.Progress.TabIndex = 3
         '
         'Label1
         '
@@ -32,31 +39,24 @@ Partial Class AK2DL
         Me.Label1.Location = New System.Drawing.Point(22, 18)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(240, 13)
-        Me.Label1.TabIndex = 0
+        Me.Label1.TabIndex = 2
         Me.Label1.Text = "Please wait while FlashcartHelper downloads files"
         '
-        'Progress
-        '
-        Me.Progress.Location = New System.Drawing.Point(20, 209)
-        Me.Progress.Name = "Progress"
-        Me.Progress.Size = New System.Drawing.Size(244, 20)
-        Me.Progress.TabIndex = 1
-        '
-        'AK2DL
+        'DSTWOPLUG
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.SystemColors.Control
         Me.ClientSize = New System.Drawing.Size(284, 264)
         Me.Controls.Add(Me.Progress)
         Me.Controls.Add(Me.Label1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
-        Me.Name = "AK2DL"
-        Me.Text = "FlashcarHelper Acekard"
+        Me.MaximizeBox = False
+        Me.Name = "DSTWOPLUG"
+        Me.Text = "FlashcartHelper DSTWO"
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents Progress As System.Windows.Forms.ProgressBar
+    Friend WithEvents Label1 As System.Windows.Forms.Label
 End Class

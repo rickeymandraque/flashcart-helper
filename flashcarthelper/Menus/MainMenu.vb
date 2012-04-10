@@ -1,4 +1,5 @@
-﻿'  This file is part of FlashcartHelper.
+﻿#Region "LICENSE"
+'  This file is part of FlashcartHelper.
 '
 '  FlashcartHelper is free software: you can redistribute it and/or modify
 '  it under the terms of the GNU General Public License as published by
@@ -12,6 +13,7 @@
 '
 '  You should have received a copy of the GNU General Public License
 '  along with FlashcartHelper.  If not, see <http://www.gnu.org/licenses/>.
+#End Region
 
 Public Class FHMenu
 

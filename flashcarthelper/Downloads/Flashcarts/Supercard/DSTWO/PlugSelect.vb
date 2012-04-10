@@ -1,9 +1,31 @@
-﻿Public Class DSTWOPlugSel
+﻿'=============
+'DSTWO Plugin Selection UI
+'Checkboxes are cross-referenced in Class DSTWOPLUG
+'To determine which plugins are downloaded
+'============
+#Region "LICENSE"
+'  This file is part of FlashcartHelper.
+'
+'  FlashcartHelper is free software: you can redistribute it and/or modify
+'  it under the terms of the GNU General Public License as published by
+'  the Free Software Foundation, either version 3 of the License, or
+'  (at your option) any later version.
+
+'  FlashcartHelper is distributed in the hope that it will be useful,
+'  but WITHOUT ANY WARRANTY; without even the implied warranty of
+'  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+'  GNU General Public License for more details.
+'
+'  You should have received a copy of the GNU General Public License
+'  along with FlashcartHelper.  If not, see <http://www.gnu.org/licenses/>.
+#End Region
+Public Class DSTWOPlugSel
 
     Private Sub DSTWOPlugSel_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        If Flashcartmenu.CheckBox1.Checked = True Then
+        If Flashcartmenu.CheckBox1.Checked = True Then 'Auto checks Moonshell box if user checks it at Flashcartmenu
             MoonShell.Checked = True
         End If
+        'Tootips for boxes
         NDSGBATip.SetToolTip(NDSGBA, "NDSGBA is the DSTWO GBA emulator")
         CATSFCTip.SetToolTip(CATSFC, "CATSFC is the DSTWO SNES emulator")
         MoonShellTip.SetToolTip(MoonShell, "MoonShell 2 is a multimedia application for the Nintendo DS")
@@ -21,6 +43,7 @@
     End Sub
 
     Private Sub SelectAll_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SelectAll.Click
+        'Checks all when button is pressed
         NDSGBA.Checked = True
         CATSFC.Checked = True
         MoonShell.Checked = True
@@ -32,6 +55,7 @@
     End Sub
 
     Private Sub SelectNone_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SelectNone.Click
+        'Unchecks all if pressed
         NDSGBA.Checked = False
         CATSFC.Checked = False
         MoonShell.Checked = False

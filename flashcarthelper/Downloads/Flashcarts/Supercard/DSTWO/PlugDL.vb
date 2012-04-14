@@ -29,27 +29,33 @@ Public Class DSTWOPLUG
             Else
                 If DSTWOPlugSel.MAME4ALL.Checked = True Then
                     MAME4ALLDL()
+                Else
+                    If DSTWOPlugSel.MoonShell.Checked = True Then
+                        'MoonShellDL()
+                    Else
+                        If DSTWOPlugSel.DS2x86.Checked = True Then
+                            'DS2x86DL()
+                        Else
+                            If DSTWOPlugSel.iPlayer.Checked = True Then
+                                'iPlayerDL()
+                            Else
+                                If DSTWOPlugSel.iReader.Checked = True Then
+                                    'iReaderDL()
+                                Else
+                                    If DSTWOPlugSel.Slot2.Checked = True Then
+
+                                        'Slot2dl()
+                                    Else
+                                    DS2Shared.DSTWOEnd()
+                                    End If
+                                End If
+                            End If
+                        End If
+                    End If
                 End If
             End If
         End If
-       
-        
-        '     If DSTWOPlugSel.MoonShell.Checked = True Then
-
-        '    End If
-        '   If DSTWOPlugSel.DS2x86.Checked = True Then
-
-        '   End If
-        '    If DSTWOPlugSel.iPlayer.Checked = True Then
-
-        '    End If
-        '   If DSTWOPlugSel.iReader.Checked = True Then
-
-        '    End If
-        '    If DSTWOPlugSel.Slot2.Checked = True Then
-        '
-        '    End If
-        '  DS2Shared.DSTWOEnd()
+        '  
     End Sub
 #Region "NDSGBA" 'Code block downloads and extracts NDSGBA
     Private Sub NDSGBADL()
@@ -83,6 +89,29 @@ Public Class DSTWOPLUG
         Else
             If DSTWOPlugSel.MAME4ALL.Checked = True Then
                 MAME4ALLDL()
+            Else
+                If DSTWOPlugSel.MoonShell.Checked = True Then
+                    'MoonShellDL()
+                Else
+                    If DSTWOPlugSel.DS2x86.Checked = True Then
+                        'DS2x86DL()
+                    Else
+                        If DSTWOPlugSel.iPlayer.Checked = True Then
+                            'iPlayerDL()
+                        Else
+                            If DSTWOPlugSel.iReader.Checked = True Then
+                                'iReaderDL()
+                            Else
+                                If DSTWOPlugSel.Slot2.Checked = True Then
+
+                                    'Slot2dl()
+                                Else
+                                    DS2Shared.DSTWOEnd()
+                                End If
+                            End If
+                        End If
+                    End If
+                End If
             End If
         End If
     End Sub
@@ -116,6 +145,29 @@ Public Class DSTWOPLUG
         My.Computer.FileSystem.DeleteFile(Flashcartmenu.ExtPath + "/installation.txt")
         If DSTWOPlugSel.MAME4ALL.Checked = True Then
             MAME4ALLDL()
+        Else
+            If DSTWOPlugSel.MoonShell.Checked = True Then
+                'MoonShellDL()
+            Else
+                If DSTWOPlugSel.DS2x86.Checked = True Then
+                    'DS2x86DL()
+                Else
+                    If DSTWOPlugSel.iPlayer.Checked = True Then
+                        'iPlayerDL()
+                    Else
+                        If DSTWOPlugSel.iReader.Checked = True Then
+                            'iReaderDL()
+                        Else
+                            If DSTWOPlugSel.Slot2.Checked = True Then
+
+                                'Slot2dl()
+                            Else
+                                DS2Shared.DSTWOEnd()
+                            End If
+                        End If
+                    End If
+                End If
+            End If
         End If
     End Sub
 #End Region
@@ -145,6 +197,28 @@ Public Class DSTWOPLUG
         My.Computer.FileSystem.MoveDirectory(Flashcartmenu.ExtPath + "/Mame4AllDsTwo_V10/_dstwoplug/", Flashcartmenu.ExtPath + "/_dstwoplug/", True)
         My.Computer.FileSystem.MoveDirectory(Flashcartmenu.ExtPath + "/Mame4AllDsTwo_V10/MAME/", Flashcartmenu.ExtPath + "/MAME/", True)
         My.Computer.FileSystem.DeleteDirectory("/Mame4AllDsTwo_V10/", FileIO.DeleteDirectoryOption.DeleteAllContents)
+        If DSTWOPlugSel.MoonShell.Checked = True Then
+            'MoonShellDL()
+        Else
+            If DSTWOPlugSel.DS2x86.Checked = True Then
+                'DS2x86DL()
+            Else
+                If DSTWOPlugSel.iPlayer.Checked = True Then
+                    'iPlayerDL()
+                Else
+                    If DSTWOPlugSel.iReader.Checked = True Then
+                        'iReaderDL()
+                    Else
+                        If DSTWOPlugSel.Slot2.Checked = True Then
+
+                            'Slot2dl()
+                        Else
+                            DS2Shared.DSTWOEnd()
+                        End If
+                    End If
+                End If
+            End If
+        End If
     End Sub
 #End Region
 

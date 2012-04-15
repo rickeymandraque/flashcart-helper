@@ -22,6 +22,16 @@ Public Class DSTWoShared
         MsgBox("Finished" & vbNewLine & "An Explorer window will open" & vbNewLine & "Please drag all the files to your MicroSD")
         Process.Start("explorer.exe", Flashcartmenu.ExtPath) 'Open Explorer Window
         My.Computer.FileSystem.DeleteDirectory(Flashcartmenu.ExtPath + "/temp/", FileIO.DeleteDirectoryOption.DeleteAllContents) 'File Cleanup
+        If My.Settings.DSTWOIsFlashed = False Then
+            IsFlashedDialog.ShowDialog()
+        Else
+            IsFlashedDialog.IsFlashed = True
+        End If
+        If IsFlashedDialog.IsFlashed = True Then
+            If My.Computer.FileSystem.FileExists(Flashcartmenu.ExtPath + "/ds2boot.dat") Then
+                My.Computer.FileSystem.DeleteFile(Flashcartmenu.ExtPath + "/ds2boot.dat")
+            End If
+        End If
         DSTWOPLUG.Hide()
         FHMenu.Show()
     End Sub

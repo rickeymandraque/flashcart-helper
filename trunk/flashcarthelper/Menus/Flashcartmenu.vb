@@ -51,12 +51,8 @@ Public Class Flashcartmenu
         End If
     End Sub
     Private Sub DSTWO_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DS2btn.Click
-        Dim YesNo
-        YesNo = MsgBox(Prompt:="Download the firmware for the DSTWO?", Title:="Confirm", Buttons:=vbYesNo)
-        If YesNo = vbYes Then
-            Me.Hide()
-            DSTWODL.Show()
-        End If
+        Me.Hide()
+        DSWOMenu.Show()
     End Sub
 #End Region
     Private Sub ChoosePath_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
@@ -91,4 +87,9 @@ Public Class Flashcartmenu
         FlashcartBox.Refresh()
     End Sub
 #End Region
+
+    Private Sub Backbtn_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Backbtn.Click
+        Me.Hide()
+        FHMenu.Show()
+    End Sub
 End Class

@@ -33,6 +33,7 @@ Partial Class Flashcartmenu
         Me.FlashcartBox = New System.Windows.Forms.PictureBox()
         Me.DS2btn = New System.Windows.Forms.Button()
         Me.DS2tip = New System.Windows.Forms.ToolTip(Me.components)
+        Me.Backbtn = New System.Windows.Forms.Button()
         CType(Me.FlashcartBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -57,7 +58,7 @@ Partial Class Flashcartmenu
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(139, 524)
+        Me.Button2.Location = New System.Drawing.Point(143, 525)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(133, 23)
         Me.Button2.TabIndex = 2
@@ -70,9 +71,9 @@ Partial Class Flashcartmenu
         Me.Path.Enabled = False
         Me.Path.ForeColor = System.Drawing.SystemColors.InfoText
         Me.Path.HideSelection = False
-        Me.Path.Location = New System.Drawing.Point(279, 526)
+        Me.Path.Location = New System.Drawing.Point(282, 526)
         Me.Path.Name = "Path"
-        Me.Path.Size = New System.Drawing.Size(307, 20)
+        Me.Path.Size = New System.Drawing.Size(304, 20)
         Me.Path.TabIndex = 3
         '
         'R4Btn
@@ -110,11 +111,21 @@ Partial Class Flashcartmenu
         'DS2tip
         '
         '
+        'Backbtn
+        '
+        Me.Backbtn.Location = New System.Drawing.Point(12, 7)
+        Me.Backbtn.Name = "Backbtn"
+        Me.Backbtn.Size = New System.Drawing.Size(75, 23)
+        Me.Backbtn.TabIndex = 7
+        Me.Backbtn.Text = "Back"
+        Me.Backbtn.UseVisualStyleBackColor = True
+        '
         'Flashcartmenu
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(598, 559)
+        Me.Controls.Add(Me.Backbtn)
         Me.Controls.Add(Me.DS2btn)
         Me.Controls.Add(Me.FlashcartBox)
         Me.Controls.Add(Me.R4Btn)
@@ -140,4 +151,5 @@ Partial Class Flashcartmenu
     Friend WithEvents FlashcartBox As System.Windows.Forms.PictureBox
     Friend WithEvents DS2btn As System.Windows.Forms.Button
     Friend WithEvents DS2tip As System.Windows.Forms.ToolTip
+    Friend WithEvents Backbtn As System.Windows.Forms.Button
 End Class

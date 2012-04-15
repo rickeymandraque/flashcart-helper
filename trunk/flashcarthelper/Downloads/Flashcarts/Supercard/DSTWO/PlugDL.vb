@@ -46,7 +46,11 @@ Public Class DSTWOPLUG
 
                                         'Slot2dl()
                                     Else
-                                    DS2Shared.DSTWOEnd()
+                                        If DSTWOPlugSel.SkinInst.Checked = True Then
+                                            'DS2Skin
+                                        Else
+                                            DS2Shared.DSTWOEnd()
+                                        End If
                                     End If
                                 End If
                             End If
@@ -107,7 +111,11 @@ Public Class DSTWOPLUG
 
                                     'Slot2dl()
                                 Else
-                                    DS2Shared.DSTWOEnd()
+                                    If DSTWOPlugSel.SkinInst.Checked = True Then
+                                        'DS2Skin
+                                    Else
+                                        DS2Shared.DSTWOEnd()
+                                    End If
                                 End If
                             End If
                         End If
@@ -163,7 +171,11 @@ Public Class DSTWOPLUG
 
                                 'Slot2dl()
                             Else
-                                DS2Shared.DSTWOEnd()
+                                If DSTWOPlugSel.SkinInst.Checked = True Then
+                                    'DS2Skin
+                                Else
+                                    DS2Shared.DSTWOEnd()
+                                End If
                             End If
                         End If
                     End If
@@ -214,7 +226,11 @@ Public Class DSTWOPLUG
 
                             'Slot2dl()
                         Else
-                            DS2Shared.DSTWOEnd()
+                            If DSTWOPlugSel.SkinInst.Checked = True Then
+                                'DS2Skin
+                            Else
+                                DS2Shared.DSTWOEnd()
+                            End If
                         End If
                     End If
                 End If
@@ -254,7 +270,11 @@ Public Class DSTWOPLUG
 
                         'Slot2dl()
                     Else
-                        DS2Shared.DSTWOEnd()
+                        If DSTWOPlugSel.SkinInst.Checked = True Then
+                            'DS2Skin
+                        Else
+                            DS2Shared.DSTWOEnd()
+                        End If
                     End If
                 End If
             End If
@@ -301,7 +321,11 @@ Public Class DSTWOPLUG
 
                     'Slot2dl()
                 Else
-                    DS2Shared.DSTWOEnd()
+                    If DSTWOPlugSel.SkinInst.Checked = True Then
+                        'DS2Skin
+                    Else
+                        DS2Shared.DSTWOEnd()
+                    End If
                 End If
             End If
         End If

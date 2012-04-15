@@ -52,6 +52,7 @@ Public Class DSTWOPlugSel
         iPlayer.Checked = True
         iReader.Checked = True
         Slot2.Checked = True
+        SkinInst.Checked = True
     End Sub
 
     Private Sub SelectNone_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SelectNone.Click
@@ -64,5 +65,6 @@ Public Class DSTWOPlugSel
         iPlayer.Checked = False
         iReader.Checked = False
         Slot2.Checked = False
+        SkinInst.Checked = True
     End Sub
 End Class

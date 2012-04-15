@@ -116,8 +116,20 @@
     <Compile Include="Downloads\Flashcarts\Supercard\DSTWO\DSTWODL.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Downloads\Flashcarts\Supercard\DSTWO\DSWOMenu.Designer.vb">
+      <DependentUpon>DSWOMenu.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Downloads\Flashcarts\Supercard\DSTWO\DSWOMenu.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Downloads\Flashcarts\Supercard\DSTWO\Form1.Designer.vb">
       <DependentUpon>PlugSelect.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Downloads\Flashcarts\Supercard\DSTWO\IsFlashedDialog.Designer.vb">
+      <DependentUpon>IsFlashedDialog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Downloads\Flashcarts\Supercard\DSTWO\IsFlashedDialog.vb">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Downloads\Flashcarts\Supercard\DSTWO\PlugSelect.vb">
       <SubType>Form</SubType>
@@ -184,6 +196,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Downloads\Flashcarts\Supercard\DSTWO\DSTWODL.resx">
       <DependentUpon>DSTWODL.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Downloads\Flashcarts\Supercard\DSTWO\DSWOMenu.resx">
+      <DependentUpon>DSWOMenu.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Downloads\Flashcarts\Supercard\DSTWO\IsFlashedDialog.resx">
+      <DependentUpon>IsFlashedDialog.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Downloads\Flashcarts\Supercard\DSTWO\PlugDL.resx">
       <DependentUpon>PlugDL.vb</DependentUpon>

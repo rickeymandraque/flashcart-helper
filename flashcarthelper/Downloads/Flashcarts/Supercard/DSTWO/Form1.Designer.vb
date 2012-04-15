@@ -42,6 +42,8 @@ Partial Class DSTWOPlugSel
         Me.ConfBtn = New System.Windows.Forms.Button()
         Me.SelectAll = New System.Windows.Forms.Button()
         Me.SelectNone = New System.Windows.Forms.Button()
+        Me.SkinInst = New System.Windows.Forms.CheckBox()
+        Me.SkinInstTip = New System.Windows.Forms.ToolTip(Me.components)
         Me.SuspendLayout()
         '
         'NDSGBA
@@ -57,7 +59,7 @@ Partial Class DSTWOPlugSel
         'DS2x86
         '
         Me.DS2x86.AutoSize = True
-        Me.DS2x86.Location = New System.Drawing.Point(98, 23)
+        Me.DS2x86.Location = New System.Drawing.Point(143, 23)
         Me.DS2x86.Name = "DS2x86"
         Me.DS2x86.Size = New System.Drawing.Size(64, 17)
         Me.DS2x86.TabIndex = 1
@@ -77,7 +79,7 @@ Partial Class DSTWOPlugSel
         'iReader
         '
         Me.iReader.AutoSize = True
-        Me.iReader.Location = New System.Drawing.Point(98, 69)
+        Me.iReader.Location = New System.Drawing.Point(143, 69)
         Me.iReader.Name = "iReader"
         Me.iReader.Size = New System.Drawing.Size(63, 17)
         Me.iReader.TabIndex = 3
@@ -107,7 +109,7 @@ Partial Class DSTWOPlugSel
         'iPlayer
         '
         Me.iPlayer.AutoSize = True
-        Me.iPlayer.Location = New System.Drawing.Point(98, 46)
+        Me.iPlayer.Location = New System.Drawing.Point(143, 46)
         Me.iPlayer.Name = "iPlayer"
         Me.iPlayer.Size = New System.Drawing.Size(57, 17)
         Me.iPlayer.TabIndex = 6
@@ -117,7 +119,7 @@ Partial Class DSTWOPlugSel
         'Slot2
         '
         Me.Slot2.AutoSize = True
-        Me.Slot2.Location = New System.Drawing.Point(98, 92)
+        Me.Slot2.Location = New System.Drawing.Point(143, 92)
         Me.Slot2.Name = "Slot2"
         Me.Slot2.Size = New System.Drawing.Size(63, 17)
         Me.Slot2.TabIndex = 7
@@ -158,36 +160,48 @@ Partial Class DSTWOPlugSel
         '
         'ConfBtn
         '
-        Me.ConfBtn.Location = New System.Drawing.Point(11, 165)
+        Me.ConfBtn.Location = New System.Drawing.Point(11, 175)
         Me.ConfBtn.Name = "ConfBtn"
-        Me.ConfBtn.Size = New System.Drawing.Size(162, 32)
+        Me.ConfBtn.Size = New System.Drawing.Size(236, 32)
         Me.ConfBtn.TabIndex = 8
         Me.ConfBtn.Text = "Confirm"
         Me.ConfBtn.UseVisualStyleBackColor = True
         '
         'SelectAll
         '
-        Me.SelectAll.Location = New System.Drawing.Point(11, 136)
+        Me.SelectAll.Location = New System.Drawing.Point(11, 144)
         Me.SelectAll.Name = "SelectAll"
-        Me.SelectAll.Size = New System.Drawing.Size(76, 23)
+        Me.SelectAll.Size = New System.Drawing.Size(110, 23)
         Me.SelectAll.TabIndex = 9
         Me.SelectAll.Text = "Select All"
         Me.SelectAll.UseVisualStyleBackColor = True
         '
         'SelectNone
         '
-        Me.SelectNone.Location = New System.Drawing.Point(93, 136)
+        Me.SelectNone.Location = New System.Drawing.Point(143, 144)
         Me.SelectNone.Name = "SelectNone"
-        Me.SelectNone.Size = New System.Drawing.Size(76, 23)
+        Me.SelectNone.Size = New System.Drawing.Size(104, 23)
         Me.SelectNone.TabIndex = 10
         Me.SelectNone.Text = "Select None"
         Me.SelectNone.UseVisualStyleBackColor = True
+        '
+        'SkinInst
+        '
+        Me.SkinInst.AutoSize = True
+        Me.SkinInst.Location = New System.Drawing.Point(11, 116)
+        Me.SkinInst.Name = "SkinInst"
+        Me.SkinInst.Size = New System.Drawing.Size(110, 17)
+        Me.SkinInst.TabIndex = 11
+        Me.SkinInst.Text = "DS2 Skin Installer"
+        Me.SkinInst.UseMnemonic = False
+        Me.SkinInst.UseVisualStyleBackColor = True
         '
         'DSTWOPlugSel
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(184, 209)
+        Me.ClientSize = New System.Drawing.Size(259, 218)
+        Me.Controls.Add(Me.SkinInst)
         Me.Controls.Add(Me.SelectNone)
         Me.Controls.Add(Me.SelectAll)
         Me.Controls.Add(Me.ConfBtn)
@@ -225,4 +239,6 @@ Partial Class DSTWOPlugSel
     Friend WithEvents ConfBtn As System.Windows.Forms.Button
     Friend WithEvents SelectAll As System.Windows.Forms.Button
     Friend WithEvents SelectNone As System.Windows.Forms.Button
+    Friend WithEvents SkinInst As System.Windows.Forms.CheckBox
+    Friend WithEvents SkinInstTip As System.Windows.Forms.ToolTip
 End Class

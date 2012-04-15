@@ -31,13 +31,13 @@ Public Class DSTWOPLUG
                     MAME4ALLDL()
                 Else
                     If DSTWOPlugSel.MoonShell.Checked = True Then
-                        'MoonShellDL()
+                        MoonShellDL()
                     Else
                         If DSTWOPlugSel.DS2x86.Checked = True Then
-                            'DS2x86DL()
+                            DS2x86DL()
                         Else
                             If DSTWOPlugSel.iPlayer.Checked = True Then
-                                'iPlayerDL()
+                                iPlayerDL()
                             Else
                                 If DSTWOPlugSel.iReader.Checked = True Then
                                     'iReaderDL()
@@ -57,6 +57,7 @@ Public Class DSTWOPLUG
         End If
         '  
     End Sub
+#Region "Plugin Downloads"
 #Region "NDSGBA" 'Code block downloads and extracts NDSGBA
     Private Sub NDSGBADL()
         Dim ndsgbawc As New System.Net.WebClient
@@ -91,13 +92,13 @@ Public Class DSTWOPLUG
                 MAME4ALLDL()
             Else
                 If DSTWOPlugSel.MoonShell.Checked = True Then
-                    'MoonShellDL()
+                    MoonShellDL()
                 Else
                     If DSTWOPlugSel.DS2x86.Checked = True Then
-                        'DS2x86DL()
+                        DS2x86DL()
                     Else
                         If DSTWOPlugSel.iPlayer.Checked = True Then
-                            'iPlayerDL()
+                            iPlayerDL()
                         Else
                             If DSTWOPlugSel.iReader.Checked = True Then
                                 'iReaderDL()
@@ -147,13 +148,13 @@ Public Class DSTWOPLUG
             MAME4ALLDL()
         Else
             If DSTWOPlugSel.MoonShell.Checked = True Then
-                'MoonShellDL()
+                MoonShellDL()
             Else
                 If DSTWOPlugSel.DS2x86.Checked = True Then
-                    'DS2x86DL()
+                    DS2x86DL()
                 Else
                     If DSTWOPlugSel.iPlayer.Checked = True Then
-                        'iPlayerDL()
+                        iPlayerDL()
                     Else
                         If DSTWOPlugSel.iReader.Checked = True Then
                             'iReaderDL()
@@ -196,12 +197,12 @@ Public Class DSTWOPLUG
         My.Computer.FileSystem.MoveFile(Flashcartmenu.ExtPath + "/Mame4AllDsTwo_V10/FAQ.txt", Flashcartmenu.ExtPath + "/MAME4ALL_FAQ.txt", True)
         My.Computer.FileSystem.MoveDirectory(Flashcartmenu.ExtPath + "/Mame4AllDsTwo_V10/_dstwoplug/", Flashcartmenu.ExtPath + "/_dstwoplug/", True)
         My.Computer.FileSystem.MoveDirectory(Flashcartmenu.ExtPath + "/Mame4AllDsTwo_V10/MAME/", Flashcartmenu.ExtPath + "/MAME/", True)
-        My.Computer.FileSystem.DeleteDirectory("/Mame4AllDsTwo_V10/", FileIO.DeleteDirectoryOption.DeleteAllContents)
+        My.Computer.FileSystem.DeleteDirectory(Flashcartmenu.ExtPath + "/Mame4AllDsTwo_V10/", FileIO.DeleteDirectoryOption.DeleteAllContents)
         If DSTWOPlugSel.MoonShell.Checked = True Then
-            'MoonShellDL()
+            MoonShellDL()
         Else
             If DSTWOPlugSel.DS2x86.Checked = True Then
-                'DS2x86DL()
+                DS2x86DL()
             Else
                 If DSTWOPlugSel.iPlayer.Checked = True Then
                     'iPlayerDL()
@@ -221,5 +222,124 @@ Public Class DSTWOPLUG
         End If
     End Sub
 #End Region
+#Region "Moonshell"
+    Private Sub MoonShellDL()
+        Dim mshlwc As New System.Net.WebClient
+        AddHandler mshlwc.DownloadProgressChanged, AddressOf Mshldl_ProgressChanged
+        AddHandler mshlwc.DownloadFileCompleted, AddressOf mshldl_DownloadCompleted
+        mshlwc.DownloadFileAsync(New Uri("http://down.supercard.cn/download/dstwo/plugin/moonshl2_for_DSTWO.zip"), Flashcartmenu.ExtPath + "/temp/mshl2.zip")
+    End Sub
+    Private Sub Mshldl_ProgressChanged(ByVal sender As Object, ByVal e As System.Net.DownloadProgressChangedEventArgs) 'Download Progress
+        Dim bytesIn As Double = Double.Parse(e.BytesReceived.ToString())
+        Dim totalBytes As Double = Double.Parse(e.TotalBytesToReceive.ToString())
+        Dim percentage As Double = bytesIn / totalBytes * 100
+
+        Progress.Value = Int32.Parse(Math.Truncate(percentage).ToString())
+        Label1.Text = "Downloading MoonShell " + Progress.Value.ToString + "%"
+        Label1.Refresh()
+    End Sub
+    Private Sub mshldl_DownloadCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.AsyncCompletedEventArgs)
+        Dim mshlext As New SevenZip.SevenZipExtractor(Flashcartmenu.ExtPath + "/temp/mshl2.zip")
+        mshlext.ExtractArchive(Flashcartmenu.ExtPath)
+        If DSTWOPlugSel.DS2x86.Checked = True Then
+            DS2x86DL()
+        Else
+            If DSTWOPlugSel.iPlayer.Checked = True Then
+                iPlayerDL()
+            Else
+                If DSTWOPlugSel.iReader.Checked = True Then
+                    'iReaderDL()
+                Else
+                    If DSTWOPlugSel.Slot2.Checked = True Then
+
+                        'Slot2dl()
+                    Else
+                        DS2Shared.DSTWOEnd()
+                    End If
+                End If
+            End If
+        End If
+    End Sub
+
+#End Region
+#Region "DS2x86"
+    Private Sub DS2x86DL()
+        Dim ds86wc As New System.Net.WebClient
+        AddHandler ds86wc.DownloadProgressChanged, AddressOf ds86wc_ProgressChanged
+        AddHandler ds86wc.DownloadFileCompleted, AddressOf ds86wc_DownloadCompleted
+        ds86wc.DownloadFileAsync(New Uri("http://filetrip.net/h35131061-DS2x86.html"), Flashcartmenu.ExtPath + "/temp/ds286.7z")
+    End Sub
+    Private Sub ds86wc_ProgressChanged(ByVal sender As Object, ByVal e As System.Net.DownloadProgressChangedEventArgs) 'Download Progress
+        Dim bytesIn As Double = Double.Parse(e.BytesReceived.ToString())
+        Dim totalBytes As Double = Double.Parse(e.TotalBytesToReceive.ToString())
+        Dim percentage As Double = bytesIn / totalBytes * 100
+
+        Progress.Value = Int32.Parse(Math.Truncate(percentage).ToString())
+        Label1.Text = "Downloading DS2x86 " + Progress.Value.ToString + "%"
+        Label1.Refresh()
+    End Sub
+    Private Sub ds86wc_DownloadCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.AsyncCompletedEventArgs)
+        Dim ds86depend As New System.Net.WebClient
+        ds86depend.DownloadFile("http://flashcarthelper.punyman.com/ApplicationDependencies/4DOS.COM", Flashcartmenu.ExtPath + "/temp/4DOS.com")
+        Dim ds286 As New SevenZip.SevenZipExtractor(Flashcartmenu.ExtPath + "/temp/ds286.7z")
+        ds286.ExtractArchive(Flashcartmenu.ExtPath)
+        My.Computer.FileSystem.MoveFile(Flashcartmenu.ExtPath + "/ds2x86.bmp", Flashcartmenu.ExtPath + "/_dstwoplug/ds2x86.bmp", True)
+        My.Computer.FileSystem.MoveFile(Flashcartmenu.ExtPath + "/ds2x86.ini", Flashcartmenu.ExtPath + "/_dstwoplug/ds2x86.ini", True)
+        My.Computer.FileSystem.MoveFile(Flashcartmenu.ExtPath + "/ds2x86.plg", Flashcartmenu.ExtPath + "/_dstwoplug/ds2x86.plg", True)
+        My.Computer.FileSystem.CreateDirectory(Flashcartmenu.ExtPath + "/data/")
+        My.Computer.FileSystem.CreateDirectory(Flashcartmenu.ExtPath + "/data/dsx86/")
+        My.Computer.FileSystem.MoveFile(Flashcartmenu.ExtPath + "/temp/4DOS.com", Flashcartmenu.ExtPath + "/data/dsx86/4DOS.com", True)
+        ds86depend.DownloadFile("http://dsx86.patrickaalto.com/DSx86.ini", Flashcartmenu.ExtPath + "/data/dsx86/DSx86.ini")
+
+        If DSTWOPlugSel.iPlayer.Checked = True Then
+            iPlayerDL()
+        Else
+            If DSTWOPlugSel.iReader.Checked = True Then
+                'iReaderDL()
+            Else
+                If DSTWOPlugSel.Slot2.Checked = True Then
+
+                    'Slot2dl()
+                Else
+                    DS2Shared.DSTWOEnd()
+                End If
+            End If
+        End If
+    End Sub
+#End Region
+#Region "iPlayer"
+    Private Sub iPlayerDL()
+        Dim iplayerwc As New System.Net.WebClient
+        AddHandler iplayerwc.DownloadProgressChanged, AddressOf iplayerwc_ProgressChanged
+        AddHandler iplayerwc.DownloadFileCompleted, AddressOf iplayerwc_DownloadCompleted
+        iplayerwc.DownloadFileAsync(New Uri("http://filetrip.net/h35130740-Supercard-DSTWO-iPlayer-Plugin.html"), Flashcartmenu.ExtPath + "/temp/iplayer.zip")
+    End Sub
+    Private Sub iplayerwc_ProgressChanged(ByVal sender As Object, ByVal e As System.Net.DownloadProgressChangedEventArgs) 'Download Progress
+        Dim bytesIn As Double = Double.Parse(e.BytesReceived.ToString())
+        Dim totalBytes As Double = Double.Parse(e.TotalBytesToReceive.ToString())
+        Dim percentage As Double = bytesIn / totalBytes * 100
+
+        Progress.Value = Int32.Parse(Math.Truncate(percentage).ToString())
+        Label1.Text = "Downloading iPlayer " + Progress.Value.ToString + "%"
+        Label1.Refresh()
+    End Sub
+    Private Sub iplayerwc_DownloadCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.AsyncCompletedEventArgs)
+        Dim iplayerext As New SevenZip.SevenZipExtractor(Flashcartmenu.ExtPath + "/temp/iplayer.zip")
+        iplayerext.ExtractArchive(Flashcartmenu.ExtPath)
+        If DSTWOPlugSel.iReader.Checked = True Then
+            'iReaderDL()
+        Else
+            If DSTWOPlugSel.Slot2.Checked = True Then
+
+                'Slot2dl()
+            Else
+                DS2Shared.DSTWOEnd()
+            End If
+        End If
+
+    End Sub
+#End Region
+
+#End Region ''Plugin Download''
 
 End Class

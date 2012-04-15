@@ -54,17 +54,6 @@ Public Class DSTWODL
         Progress.Value = Progress.Maximum
     End Sub
 
-    Private Sub DSTWOFlashcartEnd()
-        If Flashcartmenu.CheckBox1.Checked = True Then
-            Me.Hide() 'Calling Moonshell Plugin download form
-        Else
-            MsgBox("Finished" & vbNewLine & "An Explorer window will open" & vbNewLine & "Please drag all the files to your MicroSD")
-            Process.Start("explorer.exe", Flashcartmenu.ExtPath) 'Open Explorer Window
-            My.Computer.FileSystem.DeleteDirectory(Flashcartmenu.ExtPath + "/temp/", FileIO.DeleteDirectoryOption.DeleteAllContents) 'File Cleanup
-            FHMenu.Show()
-        End If
-    End Sub
-
 End Class
 
 

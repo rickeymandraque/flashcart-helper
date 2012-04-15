@@ -49,6 +49,7 @@ Partial Class DSTWODL
         Me.ClientSize = New System.Drawing.Size(284, 264)
         Me.Controls.Add(Me.Progress)
         Me.Controls.Add(Me.Label1)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Name = "DSTWODL"
         Me.Text = "FlashcartHelper DSTWO"
         Me.ResumeLayout(False)

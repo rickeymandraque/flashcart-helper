@@ -15,7 +15,7 @@
 '  along with FlashcartHelper.  If not, see <http://www.gnu.org/licenses/>.
 #End Region
 Public Class DSTWOPLUG
-    Dim DS2Shared As New DSTWoShared
+    Dim DS2Shared As New DSTWOEnd
     Dim SharedC As New SharedClass
 
 

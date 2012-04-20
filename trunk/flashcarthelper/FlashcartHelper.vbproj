@@ -109,7 +109,7 @@
     <Compile Include="Downloads\Flashcarts\R4\R4 Revolution\R4DL.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Downloads\Flashcarts\Supercard\DSTWO\DSTWOShared.vb" />
+    <Compile Include="Downloads\Flashcarts\Supercard\DSTWO\DSTWOEnd.vb" />
     <Compile Include="Downloads\Flashcarts\Supercard\DSTWO\DSTWODL.Designer.vb">
       <DependentUpon>DSTWODL.vb</DependentUpon>
     </Compile>

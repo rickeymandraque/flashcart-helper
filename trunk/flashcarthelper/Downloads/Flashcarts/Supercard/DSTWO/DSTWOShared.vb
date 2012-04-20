@@ -17,10 +17,8 @@
 '  You should have received a copy of the GNU General Public License
 '  along with FlashcartHelper.  If not, see <http://www.gnu.org/licenses/>.
 #End Region
-Public Class DSTWoShared
+Public Class DSTWOShared
     Public Sub DSTWOEnd() 'DSTWO end routine
-        MsgBox("Finished" & vbNewLine & "An Explorer window will open" & vbNewLine & "Please drag all the files to your MicroSD")
-        Process.Start("explorer.exe", Flashcartmenu.ExtPath) 'Open Explorer Window
         My.Computer.FileSystem.DeleteDirectory(Flashcartmenu.ExtPath + "/temp/", FileIO.DeleteDirectoryOption.DeleteAllContents) 'File Cleanup
         If My.Settings.DSTWOIsFlashed = False Then
             IsFlashedDialog.ShowDialog()
@@ -32,6 +30,8 @@ Public Class DSTWoShared
                 My.Computer.FileSystem.DeleteFile(Flashcartmenu.ExtPath + "/ds2boot.dat")
             End If
         End If
+        MsgBox("Finished" & vbNewLine & "An Explorer window will open" & vbNewLine & "Please drag all the files to your MicroSD")
+        Process.Start("explorer.exe", Flashcartmenu.ExtPath) 'Open Explorer Window
         DSTWOPLUG.Hide()
         FHMenu.Show()
     End Sub

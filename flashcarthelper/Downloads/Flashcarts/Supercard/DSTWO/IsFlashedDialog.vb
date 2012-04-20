@@ -14,6 +14,7 @@
         If CheckBox1.Checked = True Then
             My.Settings.DSTWOIsFlashed = True
             My.Settings.Save()
+
         End If
         Me.Hide()
     End Sub

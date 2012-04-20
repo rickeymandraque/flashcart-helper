@@ -1,5 +1,5 @@
 ﻿'===================
-'This is the DSTWO Shared subs
+'This is the DSTWO end sub
 '===================
 #Region "LICENSE"
 '  This file is part of FlashcartHelper.
@@ -17,7 +17,7 @@
 '  You should have received a copy of the GNU General Public License
 '  along with FlashcartHelper.  If not, see <http://www.gnu.org/licenses/>.
 #End Region
-Public Class DSTWOShared
+Public Class DSTWOEnd
     Public Sub DSTWOEnd() 'DSTWO end routine
         My.Computer.FileSystem.DeleteDirectory(Flashcartmenu.ExtPath + "/temp/", FileIO.DeleteDirectoryOption.DeleteAllContents) 'File Cleanup
         If My.Settings.DSTWOIsFlashed = False Then

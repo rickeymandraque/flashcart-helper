@@ -18,7 +18,7 @@ Public Class DSTWOPLUG
     Dim DS2Shared As New DSTWOEnd
     Dim SharedC As New SharedClass
 
-
+#Region "DSTWOPlugLoad"
     Private Sub DSTWOPLUG_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         'Checks which checkboxes are checked in DSTWOPlugSel
         If DSTWOPlugSel.NDSGBA.Checked = True Then
@@ -61,6 +61,7 @@ Public Class DSTWOPLUG
         End If
         '  
     End Sub
+#End Region
 #Region "Plugin Downloads"
 #Region "NDSGBA" 'Code block downloads and extracts NDSGBA
     Private Sub NDSGBADL()
@@ -105,14 +106,14 @@ Public Class DSTWOPLUG
                             iPlayerDL()
                         Else
                             If DSTWOPlugSel.iReader.Checked = True Then
-                                'iReaderDL()
+                                iReaderDL()
                             Else
                                 If DSTWOPlugSel.Slot2.Checked = True Then
 
-                                    'Slot2dl()
+                                    Slot2Dl()
                                 Else
                                     If DSTWOPlugSel.SkinInst.Checked = True Then
-                                        'DS2Skin
+                                        DS2Skin()
                                     Else
                                         DS2Shared.DSTWOEnd()
                                     End If
@@ -165,14 +166,14 @@ Public Class DSTWOPLUG
                         iPlayerDL()
                     Else
                         If DSTWOPlugSel.iReader.Checked = True Then
-                            'iReaderDL()
+                            iReaderDL()
                         Else
                             If DSTWOPlugSel.Slot2.Checked = True Then
 
-                                'Slot2dl()
+                                Slot2Dl()
                             Else
                                 If DSTWOPlugSel.SkinInst.Checked = True Then
-                                    'DS2Skin
+                                    DS2Skin()
                                 Else
                                     DS2Shared.DSTWOEnd()
                                 End If
@@ -217,17 +218,17 @@ Public Class DSTWOPLUG
                 DS2x86DL()
             Else
                 If DSTWOPlugSel.iPlayer.Checked = True Then
-                    'iPlayerDL()
+                    iPlayerDL()
                 Else
                     If DSTWOPlugSel.iReader.Checked = True Then
-                        'iReaderDL()
+                        iReaderDL()
                     Else
                         If DSTWOPlugSel.Slot2.Checked = True Then
 
-                            'Slot2dl()
+                            Slot2Dl()
                         Else
                             If DSTWOPlugSel.SkinInst.Checked = True Then
-                                'DS2Skin
+                                DS2Skin()
                             Else
                                 DS2Shared.DSTWOEnd()
                             End If
@@ -264,14 +265,14 @@ Public Class DSTWOPLUG
                 iPlayerDL()
             Else
                 If DSTWOPlugSel.iReader.Checked = True Then
-                    'iReaderDL()
+                    iReaderDL()
                 Else
                     If DSTWOPlugSel.Slot2.Checked = True Then
 
-                        'Slot2dl()
+                        Slot2Dl()
                     Else
                         If DSTWOPlugSel.SkinInst.Checked = True Then
-                            'DS2Skin
+                            DS2Skin()
                         Else
                             DS2Shared.DSTWOEnd()
                         End If
@@ -315,14 +316,14 @@ Public Class DSTWOPLUG
             iPlayerDL()
         Else
             If DSTWOPlugSel.iReader.Checked = True Then
-                'iReaderDL()
+                iReaderDL()
             Else
                 If DSTWOPlugSel.Slot2.Checked = True Then
 
-                    'Slot2dl()
+                    Slot2Dl()
                 Else
                     If DSTWOPlugSel.SkinInst.Checked = True Then
-                        'DS2Skin
+                        DS2Skin()
                     Else
                         DS2Shared.DSTWOEnd()
                     End If
@@ -351,11 +352,47 @@ Public Class DSTWOPLUG
         Dim iplayerext As New SevenZip.SevenZipExtractor(Flashcartmenu.ExtPath + "/temp/iplayer.zip")
         iplayerext.ExtractArchive(Flashcartmenu.ExtPath)
         If DSTWOPlugSel.iReader.Checked = True Then
-            'iReaderDL()
+            iReaderDL()
         Else
             If DSTWOPlugSel.Slot2.Checked = True Then
 
-                'Slot2dl()
+                Slot2Dl()
+            Else
+                If DSTWOPlugSel.SkinInst.Checked = True Then
+                    DS2Skin()
+                Else
+                    DS2Shared.DSTWOEnd()
+                End If
+            End If
+        End If
+
+    End Sub
+#End Region
+#Region "iReader"
+    Private Sub iReaderDL()
+        Dim ireaderwc As New System.Net.WebClient
+        AddHandler ireaderwc.DownloadProgressChanged, AddressOf ireaderwc_ProgressChanged
+        AddHandler ireaderwc.DownloadFileCompleted, AddressOf ireaderwc_DownloadCompleted
+        ireaderwc.DownloadFileAsync(New Uri("http://filetrip.net/h35130143-DSTwo-iReader.html"), Flashcartmenu.ExtPath + "/temp/ireader.zip")
+    End Sub
+    Private Sub ireaderwc_ProgressChanged(ByVal sender As Object, ByVal e As System.Net.DownloadProgressChangedEventArgs) 'Download Progress
+        Dim bytesIn As Double = Double.Parse(e.BytesReceived.ToString())
+        Dim totalBytes As Double = Double.Parse(e.TotalBytesToReceive.ToString())
+        Dim percentage As Double = bytesIn / totalBytes * 100
+
+        Progress.Value = Int32.Parse(Math.Truncate(percentage).ToString())
+        Label1.Text = "Downloading iReader " + Progress.Value.ToString + "%"
+        Label1.Refresh()
+    End Sub
+    Private Sub ireaderwc_DownloadCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.AsyncCompletedEventArgs)
+        Dim ireaderext As New SevenZip.SevenZipExtractor(Flashcartmenu.ExtPath + "/temp/ireader.zip")
+        ireaderext.ExtractArchive(Flashcartmenu.ExtPath)
+        If DSTWOPlugSel.Slot2.Checked = True Then
+
+            Slot2Dl()
+        Else
+            If DSTWOPlugSel.SkinInst.Checked = True Then
+                DS2Skin()
             Else
                 DS2Shared.DSTWOEnd()
             End If
@@ -363,7 +400,56 @@ Public Class DSTWOPLUG
 
     End Sub
 #End Region
+#Region "SLOT-2"
+    Private Sub Slot2Dl()
+        Dim Slot2wc As New System.Net.WebClient
+        AddHandler Slot2wc.DownloadProgressChanged, AddressOf Slot2wc_ProgressChanged
+        AddHandler Slot2wc.DownloadFileCompleted, AddressOf Slot2wc_DownloadCompleted
+        Slot2wc.DownloadFileAsync(New Uri("http://filetrip.net/d28118-DSTWO-Slot-2-Loaders-1-0.html"), Flashcartmenu.ExtPath + "/temp/slot2.zip")
+    End Sub
+    Private Sub Slot2wc_ProgressChanged(ByVal sender As Object, ByVal e As System.Net.DownloadProgressChangedEventArgs) 'Download Progress
+        Dim bytesIn As Double = Double.Parse(e.BytesReceived.ToString())
+        Dim totalBytes As Double = Double.Parse(e.TotalBytesToReceive.ToString())
+        Dim percentage As Double = bytesIn / totalBytes * 100
 
+        Progress.Value = Int32.Parse(Math.Truncate(percentage).ToString())
+        Label1.Text = "Downloading iReader " + Progress.Value.ToString + "%"
+        Label1.Refresh()
+    End Sub
+    Private Sub Slot2wc_DownloadCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.AsyncCompletedEventArgs)
+        Dim Slot2ext As New SevenZip.SevenZipExtractor(Flashcartmenu.ExtPath + "/temp/slot2.zip")
+        Slot2ext.ExtractArchive(Flashcartmenu.ExtPath)
+        If DSTWOPlugSel.SkinInst.Checked = True Then
+            DS2Skin()
+        Else
+            DS2Shared.DSTWOEnd()
+        End If
+
+    End Sub
+#End Region
+#Region "DS2 Skin"
+    Private Sub DS2Skin()
+        Dim skinwc As New System.Net.WebClient
+        AddHandler skinwc.DownloadProgressChanged, AddressOf skinwc_ProgressChanged
+        AddHandler skinwc.DownloadFileCompleted, AddressOf skinwc_DownloadCompleted
+        skinwc.DownloadFileAsync(New Uri("http://filetrip.net/h25125220-DSTwo-Skin-Installer.html"), Flashcartmenu.ExtPath + "/temp/skin.zip")
+    End Sub
+    Private Sub skinwc_ProgressChanged(ByVal sender As Object, ByVal e As System.Net.DownloadProgressChangedEventArgs) 'Download Progress
+        Dim bytesIn As Double = Double.Parse(e.BytesReceived.ToString())
+        Dim totalBytes As Double = Double.Parse(e.TotalBytesToReceive.ToString())
+        Dim percentage As Double = bytesIn / totalBytes * 100
+
+        Progress.Value = Int32.Parse(Math.Truncate(percentage).ToString())
+        Label1.Text = "Downloading iReader " + Progress.Value.ToString + "%"
+        Label1.Refresh()
+    End Sub
+    Private Sub skinwc_DownloadCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.AsyncCompletedEventArgs)
+        Dim skinext As New SevenZip.SevenZipExtractor(Flashcartmenu.ExtPath + "/temp/skin.zip")
+        skinext.ExtractArchive(Flashcartmenu.ExtPath)
+        DS2Shared.DSTWOEnd()
+
+    End Sub
+#End Region
 #End Region ''Plugin Download''
 
 End Class

@@ -28,6 +28,7 @@ Partial Class FHMenu
         Me.SetUpFlashcartTip = New System.Windows.Forms.ToolTip(Me.components)
         Me.AppExitTip = New System.Windows.Forms.ToolTip(Me.components)
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.Settingsbtn = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'SetUpFlashcartBtn
@@ -57,11 +58,21 @@ Partial Class FHMenu
         Me.Label1.TabIndex = 2
         Me.Label1.Text = "Label1"
         '
+        'Settingsbtn
+        '
+        Me.Settingsbtn.Location = New System.Drawing.Point(12, 325)
+        Me.Settingsbtn.Name = "Settingsbtn"
+        Me.Settingsbtn.Size = New System.Drawing.Size(233, 51)
+        Me.Settingsbtn.TabIndex = 3
+        Me.Settingsbtn.Text = "Settings.."
+        Me.Settingsbtn.UseVisualStyleBackColor = True
+        '
         'FHMenu
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(905, 445)
+        Me.Controls.Add(Me.Settingsbtn)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.ExitAppBtn)
         Me.Controls.Add(Me.SetUpFlashcartBtn)
@@ -77,4 +88,5 @@ Partial Class FHMenu
     Friend WithEvents SetUpFlashcartTip As System.Windows.Forms.ToolTip
     Friend WithEvents AppExitTip As System.Windows.Forms.ToolTip
     Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents Settingsbtn As System.Windows.Forms.Button
 End Class

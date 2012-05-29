@@ -32,4 +32,8 @@ Public Class FHMenu
         AppExitTip.SetToolTip(ExitAppBtn, "Exit FlashcartHelper")
     End Sub
 
+    Private Sub Settingsbtn_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Settingsbtn.Click
+        Me.Hide()
+        Settings.Show()
+    End Sub
 End Class

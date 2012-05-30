@@ -17,7 +17,6 @@
 Public Class Flashcartmenu
     Public PlugYesNo 'for DSTWO
     Public ExtPath As String
-    Dim ExtPathDialog As New System.Windows.Forms.FolderBrowserDialog
     Private Sub Flashcartmenu_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         If My.Settings.PreferredExtPath = Nothing Then 'Sets default download path
             ExtPathDialog.SelectedPath = My.Computer.FileSystem.SpecialDirectories.Desktop + "\FlashcartHelper"

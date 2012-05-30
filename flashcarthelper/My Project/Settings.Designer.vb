@@ -77,6 +77,18 @@ Namespace My
                 Me("DSTWOIsFlashed") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property PreferredCheatExtPath() As String
+            Get
+                Return CType(Me("PreferredCheatExtPath"),String)
+            End Get
+            Set
+                Me("PreferredCheatExtPath") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

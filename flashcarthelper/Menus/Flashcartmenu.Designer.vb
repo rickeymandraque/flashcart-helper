@@ -34,6 +34,7 @@ Partial Class Flashcartmenu
         Me.DS2btn = New System.Windows.Forms.Button()
         Me.DS2tip = New System.Windows.Forms.ToolTip(Me.components)
         Me.Backbtn = New System.Windows.Forms.Button()
+        Me.ExtPathDialog = New System.Windows.Forms.FolderBrowserDialog()
         CType(Me.FlashcartBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -152,4 +153,5 @@ Partial Class Flashcartmenu
     Friend WithEvents DS2btn As System.Windows.Forms.Button
     Friend WithEvents DS2tip As System.Windows.Forms.ToolTip
     Friend WithEvents Backbtn As System.Windows.Forms.Button
+    Friend WithEvents ExtPathDialog As System.Windows.Forms.FolderBrowserDialog
 End Class

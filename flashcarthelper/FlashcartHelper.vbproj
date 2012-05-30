@@ -96,6 +96,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationEvents.vb" />
+    <Compile Include="Downloads\CheatDB\Cheatmenu.Designer.vb">
+      <DependentUpon>Cheatmenu.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Downloads\CheatDB\Cheatmenu.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Downloads\CheatDB\CheatDown.Designer.vb">
+      <DependentUpon>CheatDown.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Downloads\CheatDB\CheatDown.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Downloads\CheatDB\CheatSharedvb.vb" />
     <Compile Include="Downloads\Flashcarts\Acekard\AK2DL.Designer.vb">
       <DependentUpon>AK2DL.vb</DependentUpon>
     </Compile>
@@ -159,10 +172,10 @@
       <DependentUpon>Menu1.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Menus\MainMenu.Designer.vb">
-      <DependentUpon>MainMenu.vb</DependentUpon>
+    <Compile Include="Menus\FHMenu.Designer.vb">
+      <DependentUpon>FHMenu.vb</DependentUpon>
     </Compile>
-    <Compile Include="Menus\MainMenu.vb">
+    <Compile Include="Menus\FHMenu.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Menus\Flashcartmenu.Designer.vb">
@@ -194,6 +207,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Downloads\CheatDB\Cheatmenu.resx">
+      <DependentUpon>Cheatmenu.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Downloads\CheatDB\CheatDown.resx">
+      <DependentUpon>CheatDown.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Downloads\Flashcarts\Acekard\AK2DL.resx">
       <DependentUpon>AK2DL.vb</DependentUpon>
     </EmbeddedResource>
@@ -224,8 +243,8 @@
     <EmbeddedResource Include="OnLoad\Menu1.resx">
       <DependentUpon>Menu1.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Menus\MainMenu.resx">
-      <DependentUpon>MainMenu.vb</DependentUpon>
+    <EmbeddedResource Include="Menus\FHMenu.resx">
+      <DependentUpon>FHMenu.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Menus\Flashcartmenu.resx">
       <DependentUpon>Flashcartmenu.vb</DependentUpon>
@@ -273,6 +292,9 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Downloads\Flashcarts\DSTTi\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

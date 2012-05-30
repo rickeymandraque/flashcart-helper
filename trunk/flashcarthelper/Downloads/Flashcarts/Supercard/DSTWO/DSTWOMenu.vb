@@ -1,4 +1,4 @@
-﻿Public Class DSWOMenu
+﻿Public Class DSTWOMenu
 
     Private Sub FirmButtonClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FirmInst.Click
         Dim YesNo

@@ -42,14 +42,16 @@ Partial Class CheatDown
         Me.Progress.Size = New System.Drawing.Size(244, 20)
         Me.Progress.TabIndex = 2
         '
-        'USRCHT
+        'CheatDown
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(284, 264)
         Me.Controls.Add(Me.Progress)
         Me.Controls.Add(Me.Label1)
-        Me.Name = "USRCHT"
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.MaximizeBox = False
+        Me.Name = "CheatDown"
         Me.Text = "FlashcartHelper"
         Me.ResumeLayout(False)
         Me.PerformLayout()

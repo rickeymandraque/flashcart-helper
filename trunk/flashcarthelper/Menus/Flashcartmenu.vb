@@ -51,7 +51,7 @@ Public Class Flashcartmenu
     End Sub
     Private Sub DSTWO_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DS2btn.Click
         Me.Hide()
-        DSWOMenu.Show()
+        DSTWOMenu.Show()
     End Sub
 #End Region
     Private Sub ChoosePath_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click

@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class DSWOMenu
+Partial Class DSTWOMenu
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -58,7 +58,7 @@ Partial Class DSWOMenu
         Me.Backbtn.Text = "Back"
         Me.Backbtn.UseVisualStyleBackColor = True
         '
-        'DSWOMenu
+        'DSTWOMenu
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -66,8 +66,9 @@ Partial Class DSWOMenu
         Me.Controls.Add(Me.Backbtn)
         Me.Controls.Add(Me.Plugins)
         Me.Controls.Add(Me.FirmInst)
-        Me.Name = "DSWOMenu"
-        Me.Text = "DSWOMenu"
+        Me.MaximizeBox = False
+        Me.Name = "DSTWOMenu"
+        Me.Text = "FlashcartHelper DSTWO"
         Me.ResumeLayout(False)
 
     End Sub

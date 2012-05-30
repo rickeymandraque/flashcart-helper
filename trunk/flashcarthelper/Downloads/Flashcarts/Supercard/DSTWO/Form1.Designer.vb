@@ -214,6 +214,7 @@ Partial Class DSTWOPlugSel
         Me.Controls.Add(Me.DS2x86)
         Me.Controls.Add(Me.NDSGBA)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.MaximizeBox = False
         Me.Name = "DSTWOPlugSel"
         Me.Text = "Select Plugins"
         Me.ResumeLayout(False)

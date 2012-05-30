@@ -4,8 +4,8 @@ Public Class Cheatmenu
     Public ExtPath As String
     Public CheatType As String
     Private Sub Cheatmenu_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        If My.Settings.PreferredExtPath = Nothing Then 'Sets default download path
-            ExtPathDialog.SelectedPath = My.Computer.FileSystem.SpecialDirectories.Desktop + "\FlashcartHelper"
+        If My.Settings.PreferredCheatExtPath = Nothing Then 'Sets default download path
+            ExtPathDialog.SelectedPath = My.Computer.FileSystem.SpecialDirectories.Desktop + "\FlashcartHelper\Cheats\"
         Else
             ExtPathDialog.SelectedPath = My.Settings.PreferredExtPath
         End If
@@ -56,4 +56,7 @@ Public Class Cheatmenu
         CheatDown.Show()
     End Sub
 
+    Private Sub ChnglogBtn_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChnglogBtn.Click
+        CMPCheatChangeLog.ShowDialog()
+    End Sub
 End Class

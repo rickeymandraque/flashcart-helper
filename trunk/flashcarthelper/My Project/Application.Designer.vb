@@ -34,8 +34,8 @@ Namespace My
         Protected Overrides Sub OnCreateMainForm()
             Me.MainForm = Global.Flashcarthelper.Menu1
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
+
+        <Global.System.Diagnostics.DebuggerStepThroughAttribute()> _
         Protected Overrides Sub OnCreateSplashScreen()
             Me.SplashScreen = Global.Flashcarthelper.SplashScreen1
         End Sub

@@ -79,6 +79,7 @@ Partial Class IsFlashedDialog
         Me.Controls.Add(Me.Yes)
         Me.Controls.Add(Me.Label1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.MaximizeBox = False
         Me.Name = "IsFlashedDialog"
         Me.Text = "FlashcartHelper"
         Me.ResumeLayout(False)

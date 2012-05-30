@@ -50,6 +50,7 @@ Partial Class R4DL
         Me.Controls.Add(Me.Progress)
         Me.Controls.Add(Me.Label1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.MaximizeBox = False
         Me.Name = "R4DL"
         Me.Text = "FlashcartHelper R4"
         Me.ResumeLayout(False)

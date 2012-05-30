@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class AK2DL
+Partial Class CMPCheatChangeLog
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -22,42 +22,46 @@ Partial Class AK2DL
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.rtf = New System.Windows.Forms.RichTextBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.Progress = New System.Windows.Forms.ProgressBar()
         Me.SuspendLayout()
+        '
+        'rtf
+        '
+        Me.rtf.AcceptsTab = True
+        Me.rtf.AutoWordSelection = True
+        Me.rtf.Location = New System.Drawing.Point(12, 12)
+        Me.rtf.Name = "rtf"
+        Me.rtf.ReadOnly = True
+        Me.rtf.Size = New System.Drawing.Size(575, 418)
+        Me.rtf.TabIndex = 2
+        Me.rtf.Text = ""
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(22, 18)
+        Me.Label1.Location = New System.Drawing.Point(12, 443)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(240, 13)
-        Me.Label1.TabIndex = 0
-        Me.Label1.Text = "Please wait while FlashcartHelper downloads files"
+        Me.Label1.Size = New System.Drawing.Size(369, 13)
+        Me.Label1.TabIndex = 3
+        Me.Label1.Text = "CMP Cheat DB credits to Code Masters Project and the DS-Scene Rom Tool"
         '
-        'Progress
-        '
-        Me.Progress.Location = New System.Drawing.Point(20, 209)
-        Me.Progress.Name = "Progress"
-        Me.Progress.Size = New System.Drawing.Size(244, 20)
-        Me.Progress.TabIndex = 1
-        '
-        'AK2DL
+        'CMPCheatChangeLog
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.SystemColors.Control
-        Me.ClientSize = New System.Drawing.Size(284, 264)
-        Me.Controls.Add(Me.Progress)
+        Me.ClientSize = New System.Drawing.Size(596, 465)
         Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.rtf)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
-        Me.Name = "AK2DL"
-        Me.Text = "FlashcarHelper Acekard"
+        Me.Name = "CMPCheatChangeLog"
+        Me.Text = "FlashcartHelper "
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
+    Public WithEvents rtf As System.Windows.Forms.RichTextBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents Progress As System.Windows.Forms.ProgressBar
+
 End Class

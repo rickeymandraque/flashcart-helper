@@ -29,6 +29,7 @@ Partial Class Cheatmenu
         Me.savebtn = New System.Windows.Forms.Button()
         Me.ExtPathDialog = New System.Windows.Forms.FolderBrowserDialog()
         Me.Button4 = New System.Windows.Forms.Button()
+        Me.ChnglogBtn = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'Button1
@@ -86,19 +87,31 @@ Partial Class Cheatmenu
         Me.Button4.Text = "Back"
         Me.Button4.UseVisualStyleBackColor = True
         '
+        'ChnglogBtn
+        '
+        Me.ChnglogBtn.Location = New System.Drawing.Point(18, 176)
+        Me.ChnglogBtn.Name = "ChnglogBtn"
+        Me.ChnglogBtn.Size = New System.Drawing.Size(249, 22)
+        Me.ChnglogBtn.TabIndex = 6
+        Me.ChnglogBtn.Text = "View Cheat DB Changelog"
+        Me.ChnglogBtn.UseVisualStyleBackColor = True
+        '
         'Cheatmenu
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(284, 264)
+        Me.Controls.Add(Me.ChnglogBtn)
         Me.Controls.Add(Me.Button4)
         Me.Controls.Add(Me.savebtn)
         Me.Controls.Add(Me.Path)
         Me.Controls.Add(Me.Button3)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.Button1)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
+        Me.MaximizeBox = False
         Me.Name = "Cheatmenu"
-        Me.Text = "Cheatmenu"
+        Me.Text = "FlashcartHelper"
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -110,4 +123,5 @@ Partial Class Cheatmenu
     Friend WithEvents savebtn As System.Windows.Forms.Button
     Friend WithEvents ExtPathDialog As System.Windows.Forms.FolderBrowserDialog
     Friend WithEvents Button4 As System.Windows.Forms.Button
+    Friend WithEvents ChnglogBtn As System.Windows.Forms.Button
 End Class

@@ -17,7 +17,6 @@
 Public Class AK2DL
     Dim SharedC As New SharedClass
     Dim akaiodl As New System.Net.WebClient
-    Public cd = Application.StartupPath
     Public Flashcart = "Acekard2"
 
     Private Sub Acekard_Download(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Shown

@@ -53,6 +53,10 @@ Public Class Flashcartmenu
         Me.Hide()
         DSTWOMenu.Show()
     End Sub
+    Private Sub DSTT_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+        DSTTDL.Show()
+        Me.Hide()
+    End Sub
 #End Region
     Private Sub ChoosePath_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
 
@@ -91,4 +95,6 @@ Public Class Flashcartmenu
         Me.Hide()
         FHMenu.Show()
     End Sub
+
+
 End Class

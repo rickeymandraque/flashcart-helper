@@ -126,6 +126,12 @@
     <Compile Include="Downloads\Flashcarts\Acekard\AK2DL.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Downloads\Flashcarts\DSTT\DSTT.Designer.vb">
+      <DependentUpon>DSTT.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Downloads\Flashcarts\DSTT\DSTT.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Downloads\Flashcarts\SharedClass.vb" />
     <Compile Include="Downloads\Flashcarts\R4\R4 Revolution\R4DL.Designer.vb">
       <DependentUpon>R4DL.vb</DependentUpon>
@@ -230,6 +236,9 @@
     <EmbeddedResource Include="Downloads\Flashcarts\Acekard\AK2DL.resx">
       <DependentUpon>AK2DL.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Downloads\Flashcarts\DSTT\DSTT.resx">
+      <DependentUpon>DSTT.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Downloads\Flashcarts\R4\R4 Revolution\R4DL.resx">
       <DependentUpon>R4DL.vb</DependentUpon>
     </EmbeddedResource>
@@ -308,9 +317,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Downloads\Flashcarts\DSTTi\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

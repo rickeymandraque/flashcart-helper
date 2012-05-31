@@ -35,6 +35,7 @@ Partial Class Flashcartmenu
         Me.DS2tip = New System.Windows.Forms.ToolTip(Me.components)
         Me.Backbtn = New System.Windows.Forms.Button()
         Me.ExtPathDialog = New System.Windows.Forms.FolderBrowserDialog()
+        Me.Button1 = New System.Windows.Forms.Button()
         CType(Me.FlashcartBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -121,11 +122,21 @@ Partial Class Flashcartmenu
         Me.Backbtn.Text = "Back"
         Me.Backbtn.UseVisualStyleBackColor = True
         '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(12, 246)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(348, 64)
+        Me.Button1.TabIndex = 8
+        Me.Button1.Text = "DSTT/DSTTi"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
         'Flashcartmenu
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(598, 559)
+        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.Backbtn)
         Me.Controls.Add(Me.DS2btn)
         Me.Controls.Add(Me.FlashcartBox)
@@ -154,4 +165,5 @@ Partial Class Flashcartmenu
     Friend WithEvents DS2tip As System.Windows.Forms.ToolTip
     Friend WithEvents Backbtn As System.Windows.Forms.Button
     Friend WithEvents ExtPathDialog As System.Windows.Forms.FolderBrowserDialog
+    Friend WithEvents Button1 As System.Windows.Forms.Button
 End Class

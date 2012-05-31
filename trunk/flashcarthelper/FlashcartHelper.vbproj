@@ -126,10 +126,28 @@
     <Compile Include="Downloads\Flashcarts\Acekard\AK2DL.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Downloads\Flashcarts\CycloDS\CycloDS Evo\CycloDS.Designer.vb">
+      <DependentUpon>CycloDS.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Downloads\Flashcarts\CycloDS\CycloDS Evo\CycloDS.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Downloads\Flashcarts\DSTT\DSTT.Designer.vb">
       <DependentUpon>DSTT.vb</DependentUpon>
     </Compile>
     <Compile Include="Downloads\Flashcarts\DSTT\DSTT.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Downloads\Flashcarts\R4\R4i Gold\R4iGold.Designer.vb">
+      <DependentUpon>R4iGold.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Downloads\Flashcarts\R4\R4i Gold\R4iGold.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Downloads\Flashcarts\R4\R4iDSN\DSNDL.Designer.vb">
+      <DependentUpon>DSNDL.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Downloads\Flashcarts\R4\R4iDSN\DSNDL.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Downloads\Flashcarts\SharedClass.vb" />
@@ -236,11 +254,20 @@
     <EmbeddedResource Include="Downloads\Flashcarts\Acekard\AK2DL.resx">
       <DependentUpon>AK2DL.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Downloads\Flashcarts\CycloDS\CycloDS Evo\CycloDS.resx">
+      <DependentUpon>CycloDS.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Downloads\Flashcarts\DSTT\DSTT.resx">
       <DependentUpon>DSTT.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Downloads\Flashcarts\R4\R4 Revolution\R4DL.resx">
       <DependentUpon>R4DL.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Downloads\Flashcarts\R4\R4i Gold\R4iGold.resx">
+      <DependentUpon>R4iGold.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Downloads\Flashcarts\R4\R4iDSN\DSNDL.resx">
+      <DependentUpon>DSNDL.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Downloads\Flashcarts\Supercard\DSTWO\DSTWODL.resx">
       <DependentUpon>DSTWODL.vb</DependentUpon>
@@ -317,7 +344,9 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Downloads\Flashcarts\CycloDS\CycloDS iEvo\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

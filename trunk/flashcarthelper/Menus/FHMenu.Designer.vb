@@ -29,7 +29,7 @@ Partial Class FHMenu
         Me.AppExitTip = New System.Windows.Forms.ToolTip(Me.components)
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Settingsbtn = New System.Windows.Forms.Button()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Cheatbtn = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'SetUpFlashcartBtn
@@ -68,21 +68,21 @@ Partial Class FHMenu
         Me.Settingsbtn.Text = "Settings.."
         Me.Settingsbtn.UseVisualStyleBackColor = True
         '
-        'Button1
+        'Cheatbtn
         '
-        Me.Button1.Location = New System.Drawing.Point(12, 69)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(233, 51)
-        Me.Button1.TabIndex = 4
-        Me.Button1.Text = "Download Cheat DB"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.Cheatbtn.Location = New System.Drawing.Point(12, 69)
+        Me.Cheatbtn.Name = "Cheatbtn"
+        Me.Cheatbtn.Size = New System.Drawing.Size(233, 51)
+        Me.Cheatbtn.TabIndex = 4
+        Me.Cheatbtn.Text = "Download Cheat DB"
+        Me.Cheatbtn.UseVisualStyleBackColor = True
         '
         'FHMenu
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(905, 445)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.Cheatbtn)
         Me.Controls.Add(Me.Settingsbtn)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.ExitAppBtn)
@@ -90,6 +90,7 @@ Partial Class FHMenu
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
         Me.Name = "FHMenu"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "FlashcartHelper"
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -101,5 +102,5 @@ Partial Class FHMenu
     Friend WithEvents AppExitTip As System.Windows.Forms.ToolTip
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents Settingsbtn As System.Windows.Forms.Button
-    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents Cheatbtn As System.Windows.Forms.Button
 End Class

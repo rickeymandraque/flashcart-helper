@@ -35,7 +35,14 @@ Partial Class Flashcartmenu
         Me.DS2tip = New System.Windows.Forms.ToolTip(Me.components)
         Me.Backbtn = New System.Windows.Forms.Button()
         Me.ExtPathDialog = New System.Windows.Forms.FolderBrowserDialog()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.dsttbtn = New System.Windows.Forms.Button()
+        Me.r4igoldbtn = New System.Windows.Forms.Button()
+        Me.dsnbtn = New System.Windows.Forms.Button()
+        Me.cyclobtn = New System.Windows.Forms.Button()
+        Me.DSTTtip = New System.Windows.Forms.ToolTip(Me.components)
+        Me.r4igoldtip = New System.Windows.Forms.ToolTip(Me.components)
+        Me.r4idsntip = New System.Windows.Forms.ToolTip(Me.components)
+        Me.cyclodstip = New System.Windows.Forms.ToolTip(Me.components)
         CType(Me.FlashcartBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -43,7 +50,7 @@ Partial Class Flashcartmenu
         '
         Me.AKBtn.Location = New System.Drawing.Point(12, 36)
         Me.AKBtn.Name = "AKBtn"
-        Me.AKBtn.Size = New System.Drawing.Size(348, 64)
+        Me.AKBtn.Size = New System.Drawing.Size(348, 40)
         Me.AKBtn.TabIndex = 0
         Me.AKBtn.Text = "Acekard"
         Me.AKBtn.UseVisualStyleBackColor = True
@@ -80,9 +87,9 @@ Partial Class Flashcartmenu
         '
         'R4Btn
         '
-        Me.R4Btn.Location = New System.Drawing.Point(12, 106)
+        Me.R4Btn.Location = New System.Drawing.Point(12, 88)
         Me.R4Btn.Name = "R4Btn"
-        Me.R4Btn.Size = New System.Drawing.Size(348, 64)
+        Me.R4Btn.Size = New System.Drawing.Size(348, 40)
         Me.R4Btn.TabIndex = 4
         Me.R4Btn.Text = "R4"
         Me.R4Btn.UseVisualStyleBackColor = True
@@ -103,9 +110,9 @@ Partial Class Flashcartmenu
         '
         'DS2btn
         '
-        Me.DS2btn.Location = New System.Drawing.Point(12, 176)
+        Me.DS2btn.Location = New System.Drawing.Point(12, 140)
         Me.DS2btn.Name = "DS2btn"
-        Me.DS2btn.Size = New System.Drawing.Size(348, 64)
+        Me.DS2btn.Size = New System.Drawing.Size(348, 40)
         Me.DS2btn.TabIndex = 6
         Me.DS2btn.Text = "DSTWO"
         Me.DS2btn.UseVisualStyleBackColor = True
@@ -122,21 +129,51 @@ Partial Class Flashcartmenu
         Me.Backbtn.Text = "Back"
         Me.Backbtn.UseVisualStyleBackColor = True
         '
-        'Button1
+        'dsttbtn
         '
-        Me.Button1.Location = New System.Drawing.Point(12, 246)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(348, 64)
-        Me.Button1.TabIndex = 8
-        Me.Button1.Text = "DSTT/DSTTi"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.dsttbtn.Location = New System.Drawing.Point(12, 192)
+        Me.dsttbtn.Name = "dsttbtn"
+        Me.dsttbtn.Size = New System.Drawing.Size(348, 40)
+        Me.dsttbtn.TabIndex = 8
+        Me.dsttbtn.Text = "DSTT/DSTTi"
+        Me.dsttbtn.UseVisualStyleBackColor = True
+        '
+        'r4igoldbtn
+        '
+        Me.r4igoldbtn.Location = New System.Drawing.Point(12, 244)
+        Me.r4igoldbtn.Name = "r4igoldbtn"
+        Me.r4igoldbtn.Size = New System.Drawing.Size(348, 40)
+        Me.r4igoldbtn.TabIndex = 9
+        Me.r4igoldbtn.Text = "R4i Gold"
+        Me.r4igoldbtn.UseVisualStyleBackColor = True
+        '
+        'dsnbtn
+        '
+        Me.dsnbtn.Location = New System.Drawing.Point(12, 296)
+        Me.dsnbtn.Name = "dsnbtn"
+        Me.dsnbtn.Size = New System.Drawing.Size(348, 40)
+        Me.dsnbtn.TabIndex = 10
+        Me.dsnbtn.Text = "R4iDSN"
+        Me.dsnbtn.UseVisualStyleBackColor = True
+        '
+        'cyclobtn
+        '
+        Me.cyclobtn.Location = New System.Drawing.Point(12, 348)
+        Me.cyclobtn.Name = "cyclobtn"
+        Me.cyclobtn.Size = New System.Drawing.Size(348, 40)
+        Me.cyclobtn.TabIndex = 11
+        Me.cyclobtn.Text = "CycloDS"
+        Me.cyclobtn.UseVisualStyleBackColor = True
         '
         'Flashcartmenu
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(598, 559)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.cyclobtn)
+        Me.Controls.Add(Me.dsnbtn)
+        Me.Controls.Add(Me.r4igoldbtn)
+        Me.Controls.Add(Me.dsttbtn)
         Me.Controls.Add(Me.Backbtn)
         Me.Controls.Add(Me.DS2btn)
         Me.Controls.Add(Me.FlashcartBox)
@@ -165,5 +202,12 @@ Partial Class Flashcartmenu
     Friend WithEvents DS2tip As System.Windows.Forms.ToolTip
     Friend WithEvents Backbtn As System.Windows.Forms.Button
     Friend WithEvents ExtPathDialog As System.Windows.Forms.FolderBrowserDialog
-    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents dsttbtn As System.Windows.Forms.Button
+    Friend WithEvents r4igoldbtn As System.Windows.Forms.Button
+    Friend WithEvents dsnbtn As System.Windows.Forms.Button
+    Friend WithEvents cyclobtn As System.Windows.Forms.Button
+    Friend WithEvents DSTTtip As System.Windows.Forms.ToolTip
+    Friend WithEvents r4igoldtip As System.Windows.Forms.ToolTip
+    Friend WithEvents r4idsntip As System.Windows.Forms.ToolTip
+    Friend WithEvents cyclodstip As System.Windows.Forms.ToolTip
 End Class

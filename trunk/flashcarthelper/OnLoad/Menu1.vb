@@ -23,7 +23,7 @@
 Public Class Menu1
     Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Shown
         UpdateChecker()
-
+        PingChecker()
         FHMenu.Show()
         Me.Hide()
     End Sub
@@ -35,20 +35,35 @@ Public Class Menu1
         If My.Computer.FileSystem.FileExists(Application.StartupPath + "/version.txt") Then
             My.Computer.FileSystem.DeleteFile(Application.StartupPath + "/version.txt")
         End If
-        My.Computer.Network.DownloadFile("http://flashcarthelper.punyman.com/ApplicationDependencies/version.txt", Application.StartupPath + "/version.txt")
-        NewVer = My.Computer.FileSystem.ReadAllText(Application.StartupPath + "/version.txt")
-        If CurrentVer < NewVer Then
-            'MsgBox("New Version Availible")
-            'If My.Computer.FileSystem.FileExists(Application.StartupPath + "/FlashcartHelper.exe.old") Then
-            'My.Computer.FileSystem.DeleteFile(Application.StartupPath + "/FlashcartHelper.exe.old")
-            'End If
-            'My.Computer.FileSystem.RenameFile(Application.StartupPath + "/FlashcartHelper.exe", "FlashcartHelper.exe.old")
-            'My.Computer.Network.DownloadFile("http://BlahBlahBlah.blah.blah/fh/dl", Application.StartupPath + "/FlashcartHelper.exe", "", "", True, 500, False)
-        End If
-
+        Try
+            If My.Computer.Network.Ping("www.flashcarthelper.punyman.com") = True Then
+                My.Computer.Network.DownloadFile("http://flashcarthelper.punyman.com/ApplicationDependencies/version.txt", Application.StartupPath + "/version.txt")
+                NewVer = My.Computer.FileSystem.ReadAllText(Application.StartupPath + "/version.txt")
+                If CurrentVer < NewVer Then
+                    'MsgBox("New Version Availible")
+                    'If My.Computer.FileSystem.FileExists(Application.StartupPath + "/FlashcartHelper.exe.old") Then
+                    'My.Computer.FileSystem.DeleteFile(Application.StartupPath + "/FlashcartHelper.exe.old")
+                    'End If
+                    'My.Computer.FileSystem.RenameFile(Application.StartupPath + "/FlashcartHelper.exe", "FlashcartHelper.exe.old")
+                    'My.Computer.Network.DownloadFile("http://BlahBlahBlah.blah.blah/fh/dl", Application.StartupPath + "/FlashcartHelper.exe", "", "", True, 500, False)
+                End If
+            End If
+        Catch PingException As Exception
+            MsgBox("Version Check Failed")
+        End Try
         My.Computer.FileSystem.DeleteFile(Application.StartupPath + "/version.txt")
     End Sub
 
+    Public Sub PingChecker()
+        If My.Computer.Network.Ping("www.filetrip.net", 500) = False Then
+            Dim FileTripPing As New MsgBoxResult
+            FileTripPing = MsgBox("Connection to FileTrip.net unavailible, continue?", Title:="FileTrip.net is unavailible", Buttons:=vbYesNo)
+            If FileTripPing = vbNo Then
+                Application.ExitThread()
+                Application.Exit()
+            End If
+        End If
+    End Sub
 End Class
 
 

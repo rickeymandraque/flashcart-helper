@@ -30,6 +30,9 @@ Public Class Flashcartmenu
         AKtip.SetToolTip(AKBtn, "Download AKAIO for the Acekard 2.1, Acekard RPG, or Acekard 2i")
         R4tip.SetToolTip(R4Btn, "Download Wood R4 for the original R4 Revolution")
         DS2tip.SetToolTip(DS2btn, "Download EOS for the Supercard DSTWO")
+        cyclodstip.SetToolTip(cyclobtn, "Download the firmware for the CycloDS Evolution")
+        r4igoldtip.SetToolTip(r4igoldbtn, "Download Wood R4 for the R4i Gold")
+        r4idsntip.SetToolTip(dsnbtn, "Download Wood R4 for the R4iDSN")
     End Sub
 #Region "Flashcart Buttons"
     Private Sub Ak_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AKBtn.Click 'AKAIO
@@ -53,8 +56,20 @@ Public Class Flashcartmenu
         Me.Hide()
         DSTWOMenu.Show()
     End Sub
-    Private Sub DSTT_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+    Private Sub DSTT_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles dsttbtn.Click
         DSTTDL.Show()
+        Me.Hide()
+    End Sub
+    Private Sub R4iGold_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles r4igoldbtn.Click
+        R4iGoldDL.Show()
+        Me.Hide()
+    End Sub
+    Private Sub cyclobtn_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cyclobtn.Click
+        CycloDL.Show()
+        Me.Hide()
+    End Sub
+    Private Sub dsnbtn_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles dsnbtn.Click
+        DSNDL.Show()
         Me.Hide()
     End Sub
 #End Region
@@ -95,6 +110,5 @@ Public Class Flashcartmenu
         Me.Hide()
         FHMenu.Show()
     End Sub
-
 
 End Class

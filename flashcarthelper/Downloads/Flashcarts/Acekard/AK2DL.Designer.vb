@@ -53,7 +53,7 @@ Partial Class AK2DL
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
         Me.Name = "AK2DL"
-        Me.Text = "FlashcarHelper Acekard"
+        Me.Text = "FlashcartHelper Acekard"
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

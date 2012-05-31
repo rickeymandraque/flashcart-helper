@@ -17,7 +17,7 @@
 Public Class DSTTDL
     Dim SharedC As New SharedClass
     Dim dsttdl As New System.Net.WebClient
-    Public Flashcart = "Acekard2"
+    Public Flashcart = "DSTT"
 
     Private Sub DSTT_Download(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Shown
         SharedC.CheckDirStruct()

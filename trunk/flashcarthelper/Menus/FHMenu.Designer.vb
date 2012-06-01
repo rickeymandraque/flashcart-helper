@@ -60,6 +60,8 @@ Partial Class FHMenu
         Me.InstallEDGECheatsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.InstallCycloDSCheatsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.InstallPluginsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SettingsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ShowIsDSTWOFlashedMessageToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -263,7 +265,7 @@ Partial Class FHMenu
         '
         'OtherToolStripMenuItem
         '
-        Me.OtherToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CheatDBToolStripMenuItem})
+        Me.OtherToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CheatDBToolStripMenuItem, Me.SettingsToolStripMenuItem})
         Me.OtherToolStripMenuItem.Name = "OtherToolStripMenuItem"
         Me.OtherToolStripMenuItem.Size = New System.Drawing.Size(49, 20)
         Me.OtherToolStripMenuItem.Text = "Other"
@@ -298,6 +300,21 @@ Partial Class FHMenu
         Me.InstallPluginsToolStripMenuItem.Name = "InstallPluginsToolStripMenuItem"
         Me.InstallPluginsToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.InstallPluginsToolStripMenuItem.Text = "Install Plugins"
+        '
+        'SettingsToolStripMenuItem
+        '
+        Me.SettingsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ShowIsDSTWOFlashedMessageToolStripMenuItem})
+        Me.SettingsToolStripMenuItem.Name = "SettingsToolStripMenuItem"
+        Me.SettingsToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.SettingsToolStripMenuItem.Text = "Settings"
+        '
+        'ShowIsDSTWOFlashedMessageToolStripMenuItem
+        '
+        Me.ShowIsDSTWOFlashedMessageToolStripMenuItem.Checked = True
+        Me.ShowIsDSTWOFlashedMessageToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.ShowIsDSTWOFlashedMessageToolStripMenuItem.Name = "ShowIsDSTWOFlashedMessageToolStripMenuItem"
+        Me.ShowIsDSTWOFlashedMessageToolStripMenuItem.Size = New System.Drawing.Size(260, 22)
+        Me.ShowIsDSTWOFlashedMessageToolStripMenuItem.Text = "Show ""Is DSTWO Flashed Message"""
         '
         'FHMenu
         '
@@ -359,4 +376,6 @@ Partial Class FHMenu
     Friend WithEvents InstallEDGECheatsToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents InstallCycloDSCheatsToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents InstallPluginsToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents SettingsToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ShowIsDSTWOFlashedMessageToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 End Class

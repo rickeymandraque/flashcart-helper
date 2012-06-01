@@ -99,6 +99,12 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutBox1.Designer.vb">
+      <DependentUpon>AboutBox1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="AboutBox1.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="Downloads\CheatDB\Cheatmenu.Designer.vb">
       <DependentUpon>Cheatmenu.vb</DependentUpon>
@@ -242,6 +248,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="AboutBox1.resx">
+      <DependentUpon>AboutBox1.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Downloads\CheatDB\Cheatmenu.resx">
       <DependentUpon>Cheatmenu.vb</DependentUpon>
     </EmbeddedResource>

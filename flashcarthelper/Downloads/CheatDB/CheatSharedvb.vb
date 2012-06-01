@@ -57,12 +57,16 @@
         End If
         '======End Folder is not empty checks======
         '======Start Directory Structure tests======
-        If Not My.Computer.FileSystem.DirectoryExists(Cheatmenu.ExtPath) Then 'Creates FileStructure if not exist
-            My.Computer.FileSystem.CreateDirectory(Cheatmenu.ExtPath)
-        End If
-        If Not My.Computer.FileSystem.DirectoryExists(Cheatmenu.ExtPath + "/temp/") Then
-            My.Computer.FileSystem.CreateDirectory(Cheatmenu.ExtPath + "/temp/")
-        End If
+        Try
+            If Not My.Computer.FileSystem.DirectoryExists(Cheatmenu.ExtPath) Then 'Creates FileStructure if not exist
+                My.Computer.FileSystem.CreateDirectory(Cheatmenu.ExtPath)
+            End If
+            If Not My.Computer.FileSystem.DirectoryExists(Cheatmenu.ExtPath + "/temp/") Then
+                My.Computer.FileSystem.CreateDirectory(Cheatmenu.ExtPath + "/temp/")
+            End If
+        Catch ex As Exception
+            Cheatmenu.ExtPath = My.Computer.FileSystem.SpecialDirectories.Desktop + "\FlashcartHelper\"
+        End Try
         '======End======
     End Sub
     Public Function IfEmpty(ByVal MyPath As String) As Boolean 'Checks for files in Cheatmenu.ExtPath

@@ -30,7 +30,7 @@
         If InvalidPath = False Then
             If Not IfEmpty(Cheatmenu.ExtPath) Or IsFolderEmpty(Cheatmenu.ExtPath) = False Then
                 Dim FilesExistDelete
-                FilesExistDelete = MsgBox(Prompt:="There are files/folders in this directory" + vbNewLine + "Do you want to delete these files/folders?", Title:="Confirm", Buttons:=vbYesNo)
+                FilesExistDelete = MsgBox(Prompt:="There are files/folders in chosen directory" + vbNewLine + Cheatmenu.ExtPath + vbNewLine + "Do you want to delete these files/folders?", Title:="Confirm", Buttons:=vbYesNo)
                 If FilesExistDelete = vbNo Then
                     Dim MessyInstall
                     MessyInstall = MsgBox(Prompt:="Do you want to try to continue with files/folders in the directory?", Title:="Confirm", Buttons:=vbYesNo)
@@ -65,7 +65,7 @@
                 My.Computer.FileSystem.CreateDirectory(Cheatmenu.ExtPath + "/temp/")
             End If
         Catch ex As Exception
-            Cheatmenu.ExtPath = My.Computer.FileSystem.SpecialDirectories.Desktop + "\FlashcartHelper\"
+            Cheatmenu.ExtPath = My.Computer.FileSystem.SpecialDirectories.Desktop + "\FlashcartHelper\Cheats"
         End Try
         '======End======
     End Sub

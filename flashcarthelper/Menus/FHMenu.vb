@@ -53,7 +53,7 @@ Public Class FHMenu
         If My.Settings.PreferredExtPath = Nothing Then
             Flashcartmenu.ExtPath = My.Computer.FileSystem.SpecialDirectories.Desktop + "\FlashcartHelper\"
         Else
-            Flashcartmenu.ExtPath = My.Settings.PreferredCheatExtPath
+            Flashcartmenu.ExtPath = My.Settings.PreferredExtPath
         End If
         Me.Hide()
         AK2DL.Show()
@@ -62,7 +62,7 @@ Public Class FHMenu
         If My.Settings.PreferredExtPath = Nothing Then
             Flashcartmenu.ExtPath = My.Computer.FileSystem.SpecialDirectories.Desktop + "\FlashcartHelper\"
         Else
-            Flashcartmenu.ExtPath = My.Settings.PreferredCheatExtPath
+            Flashcartmenu.ExtPath = My.Settings.PreferredExtPath
         End If
         Me.Hide()
         R4DL.Show()
@@ -72,7 +72,7 @@ Public Class FHMenu
         If My.Settings.PreferredExtPath = Nothing Then
             Flashcartmenu.ExtPath = My.Computer.FileSystem.SpecialDirectories.Desktop + "\FlashcartHelper\"
         Else
-            Flashcartmenu.ExtPath = My.Settings.PreferredCheatExtPath
+            Flashcartmenu.ExtPath = My.Settings.PreferredExtPath
         End If
         Me.Hide()
         R4iGoldDL.Show()
@@ -82,7 +82,7 @@ Public Class FHMenu
         If My.Settings.PreferredExtPath = Nothing Then
             Flashcartmenu.ExtPath = My.Computer.FileSystem.SpecialDirectories.Desktop + "\FlashcartHelper\"
         Else
-            Flashcartmenu.ExtPath = My.Settings.PreferredCheatExtPath
+            Flashcartmenu.ExtPath = My.Settings.PreferredExtPath
         End If
         Me.Hide()
         DSNDL.Show()
@@ -92,7 +92,7 @@ Public Class FHMenu
         If My.Settings.PreferredExtPath = Nothing Then
             Flashcartmenu.ExtPath = My.Computer.FileSystem.SpecialDirectories.Desktop + "\FlashcartHelper\"
         Else
-            Flashcartmenu.ExtPath = My.Settings.PreferredCheatExtPath
+            Flashcartmenu.ExtPath = My.Settings.PreferredExtPath
         End If
         Me.Hide()
         DSTTDL.Show()
@@ -103,7 +103,7 @@ Public Class FHMenu
         If My.Settings.PreferredExtPath = Nothing Then
             Flashcartmenu.ExtPath = My.Computer.FileSystem.SpecialDirectories.Desktop + "\FlashcartHelper\"
         Else
-            Flashcartmenu.ExtPath = My.Settings.PreferredCheatExtPath
+            Flashcartmenu.ExtPath = My.Settings.PreferredExtPath
         End If
         Me.Hide()
         DSTWODL.Show()
@@ -113,7 +113,7 @@ Public Class FHMenu
         If My.Settings.PreferredExtPath = Nothing Then
             Flashcartmenu.ExtPath = My.Computer.FileSystem.SpecialDirectories.Desktop + "\FlashcartHelper\"
         Else
-            Flashcartmenu.ExtPath = My.Settings.PreferredCheatExtPath
+            Flashcartmenu.ExtPath = My.Settings.PreferredExtPath
         End If
         Me.Hide()
         DSTWOPlugSel.Show()
@@ -123,7 +123,7 @@ Public Class FHMenu
         If My.Settings.PreferredExtPath = Nothing Then
             Flashcartmenu.ExtPath = My.Computer.FileSystem.SpecialDirectories.Desktop + "\FlashcartHelper\"
         Else
-            Flashcartmenu.ExtPath = My.Settings.PreferredCheatExtPath
+            Flashcartmenu.ExtPath = My.Settings.PreferredExtPath
         End If
         Me.Hide()
         CycloDL.Show()
@@ -181,5 +181,5 @@ Public Class FHMenu
 #End Region
 
  
- 
+
 End Class

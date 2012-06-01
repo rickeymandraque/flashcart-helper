@@ -47,4 +47,125 @@ Public Class FHMenu
     Private Sub Label1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Label1.Click
         MsgBox("Never gonna give you up" + vbNewLine + "Never gonna let you down" + vbNewLine + "Never gonna run around and desert you" + vbNewLine + "Never gonna make you cry" + vbNewLine + "Never gonna say goodbye" + vbNewLine + "Never gonna tell a lie and hurt you", Title:="You've got Rickrolled!")
     End Sub
+
+#Region "Menubar"
+    Private Sub InstallAKAIOToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles InstallAKAIOToolStripMenuItem.Click
+        If My.Settings.PreferredExtPath = Nothing Then
+            Flashcartmenu.ExtPath = My.Computer.FileSystem.SpecialDirectories.Desktop + "\FlashcartHelper\"
+        Else
+            Flashcartmenu.ExtPath = My.Settings.PreferredCheatExtPath
+        End If
+        Me.Hide()
+        AK2DL.Show()
+    End Sub
+#End Region
+
+    Private Sub InstallWoodR4ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles InstallWoodR4ToolStripMenuItem.Click
+        If My.Settings.PreferredExtPath = Nothing Then
+            Flashcartmenu.ExtPath = My.Computer.FileSystem.SpecialDirectories.Desktop + "\FlashcartHelper\"
+        Else
+            Flashcartmenu.ExtPath = My.Settings.PreferredCheatExtPath
+        End If
+        Me.Hide()
+        R4DL.Show()
+    End Sub
+
+    Private Sub InstallWoodR4iGoldToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles InstallWoodR4iGoldToolStripMenuItem.Click
+        If My.Settings.PreferredExtPath = Nothing Then
+            Flashcartmenu.ExtPath = My.Computer.FileSystem.SpecialDirectories.Desktop + "\FlashcartHelper\"
+        Else
+            Flashcartmenu.ExtPath = My.Settings.PreferredCheatExtPath
+        End If
+        Me.Hide()
+        R4iGoldDL.Show()
+    End Sub
+
+    Private Sub InstallWoodR4iDSNToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles InstallWoodR4iDSNToolStripMenuItem.Click
+        If My.Settings.PreferredExtPath = Nothing Then
+            Flashcartmenu.ExtPath = My.Computer.FileSystem.SpecialDirectories.Desktop + "\FlashcartHelper\"
+        Else
+            Flashcartmenu.ExtPath = My.Settings.PreferredCheatExtPath
+        End If
+        Me.Hide()
+        DSNDL.Show()
+    End Sub
+
+    Private Sub InstallRetroGameFansUpdatesToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles InstallRetroGameFansUpdatesToolStripMenuItem.Click
+        If My.Settings.PreferredExtPath = Nothing Then
+            Flashcartmenu.ExtPath = My.Computer.FileSystem.SpecialDirectories.Desktop + "\FlashcartHelper\"
+        Else
+            Flashcartmenu.ExtPath = My.Settings.PreferredCheatExtPath
+        End If
+        Me.Hide()
+        DSTTDL.Show()
+    End Sub
+
+
+    Private Sub InstallEOSToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles InstallEOSToolStripMenuItem.Click
+        If My.Settings.PreferredExtPath = Nothing Then
+            Flashcartmenu.ExtPath = My.Computer.FileSystem.SpecialDirectories.Desktop + "\FlashcartHelper\"
+        Else
+            Flashcartmenu.ExtPath = My.Settings.PreferredCheatExtPath
+        End If
+        Me.Hide()
+        DSTWODL.Show()
+    End Sub
+
+    Private Sub InstallPluginsToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles InstallPluginsToolStripMenuItem.Click
+        If My.Settings.PreferredExtPath = Nothing Then
+            Flashcartmenu.ExtPath = My.Computer.FileSystem.SpecialDirectories.Desktop + "\FlashcartHelper\"
+        Else
+            Flashcartmenu.ExtPath = My.Settings.PreferredCheatExtPath
+        End If
+        Me.Hide()
+        DSTWOPlugSel.Show()
+    End Sub
+
+    Private Sub InstallFirmToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles InstallFirmToolStripMenuItem.Click
+        If My.Settings.PreferredExtPath = Nothing Then
+            Flashcartmenu.ExtPath = My.Computer.FileSystem.SpecialDirectories.Desktop + "\FlashcartHelper\"
+        Else
+            Flashcartmenu.ExtPath = My.Settings.PreferredCheatExtPath
+        End If
+        Me.Hide()
+        CycloDL.Show()
+    End Sub
+
+    Private Sub ExitToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ExitToolStripMenuItem.Click
+        Application.Exit()
+    End Sub
+
+    Private Sub InstallUsrcheatdatToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles InstallUsrcheatdatToolStripMenuItem.Click
+        If My.Settings.PreferredCheatExtPath = Nothing Then
+            Cheatmenu.ExtPath = My.Computer.FileSystem.SpecialDirectories.Desktop + "\FlashcartHelper\Cheats\"
+        Else
+            Cheatmenu.ExtPath = My.Settings.PreferredCheatExtPath
+        End If
+        Cheatmenu.CheatType = "USRCheat"
+        CheatDown.Show()
+    End Sub
+
+    Private Sub InstallEDGECheatsToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles InstallEDGECheatsToolStripMenuItem.Click
+        If My.Settings.PreferredCheatExtPath = Nothing Then
+            Cheatmenu.ExtPath = My.Computer.FileSystem.SpecialDirectories.Desktop + "\FlashcartHelper\Cheats\"
+        Else
+            Cheatmenu.ExtPath = My.Settings.PreferredCheatExtPath
+        End If
+        Cheatmenu.CheatType = "Edge"
+        CheatDown.Show()
+    End Sub
+
+    Private Sub InstallCycloDSCheatsToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles InstallCycloDSCheatsToolStripMenuItem.Click
+        If My.Settings.PreferredCheatExtPath = Nothing Then
+            Cheatmenu.ExtPath = My.Computer.FileSystem.SpecialDirectories.Desktop + "\FlashcartHelper\Cheats\"
+        Else
+            Cheatmenu.ExtPath = My.Settings.PreferredCheatExtPath
+        End If
+        Cheatmenu.CheatType = "CycloDS"
+        CheatDown.Show()
+    End Sub
+
+    Private Sub AboutFlashcartHelperToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AboutFlashcartHelperToolStripMenuItem.Click
+        AboutBox1.ShowDialog()
+    End Sub
 End Class

@@ -62,6 +62,7 @@ Partial Class FHMenu
         Me.InstallPluginsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SettingsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ShowIsDSTWOFlashedMessageToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ViewCheatDBChangelogToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -272,7 +273,7 @@ Partial Class FHMenu
         '
         'CheatDBToolStripMenuItem
         '
-        Me.CheatDBToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.InstallUsrcheatdatToolStripMenuItem, Me.InstallEDGECheatsToolStripMenuItem, Me.InstallCycloDSCheatsToolStripMenuItem})
+        Me.CheatDBToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.InstallUsrcheatdatToolStripMenuItem, Me.InstallEDGECheatsToolStripMenuItem, Me.InstallCycloDSCheatsToolStripMenuItem, Me.ViewCheatDBChangelogToolStripMenuItem})
         Me.CheatDBToolStripMenuItem.Name = "CheatDBToolStripMenuItem"
         Me.CheatDBToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.CheatDBToolStripMenuItem.Text = "CheatDB"
@@ -315,6 +316,12 @@ Partial Class FHMenu
         Me.ShowIsDSTWOFlashedMessageToolStripMenuItem.Name = "ShowIsDSTWOFlashedMessageToolStripMenuItem"
         Me.ShowIsDSTWOFlashedMessageToolStripMenuItem.Size = New System.Drawing.Size(260, 22)
         Me.ShowIsDSTWOFlashedMessageToolStripMenuItem.Text = "Show ""Is DSTWO Flashed Message"""
+        '
+        'ViewCheatDBChangelogToolStripMenuItem
+        '
+        Me.ViewCheatDBChangelogToolStripMenuItem.Name = "ViewCheatDBChangelogToolStripMenuItem"
+        Me.ViewCheatDBChangelogToolStripMenuItem.Size = New System.Drawing.Size(209, 22)
+        Me.ViewCheatDBChangelogToolStripMenuItem.Text = "View CheatDB Changelog"
         '
         'FHMenu
         '
@@ -378,4 +385,5 @@ Partial Class FHMenu
     Friend WithEvents InstallPluginsToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents SettingsToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ShowIsDSTWOFlashedMessageToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ViewCheatDBChangelogToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 End Class

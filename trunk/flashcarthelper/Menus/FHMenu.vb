@@ -174,9 +174,12 @@ Public Class FHMenu
         Else
             My.Settings.DSTWOIsFlashed = False
         End If
-
+    End Sub
+    Private Sub ViewCheatDBChangelogToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ViewCheatDBChangelogToolStripMenuItem.Click
+        CMPCheatChangeLog.ShowDialog()
     End Sub
 #End Region
 
+ 
  
 End Class

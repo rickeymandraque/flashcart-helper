@@ -29,7 +29,7 @@ Public Class SharedClass
             MsgBox("Finished" & vbNewLine & "An Explorer window will open" & vbNewLine & "Please drag all the files to your MicroSD")
             Process.Start("explorer.exe", Flashcartmenu.ExtPath) 'Open Explorer Window
             My.Computer.FileSystem.DeleteDirectory(Flashcartmenu.ExtPath + "/temp/", FileIO.DeleteDirectoryOption.DeleteAllContents) 'File Cleanup
-            FHMenu.Show()
+            Application.Restart()
         End If
     End Sub
     Public Sub CheckDirStruct()
@@ -62,7 +62,7 @@ Public Class SharedClass
         If InvalidPath = False Then
             If Not IfEmpty(Flashcartmenu.ExtPath) Or IsFolderEmpty(Flashcartmenu.ExtPath) = False Then
                 Dim FilesExistDelete
-                FilesExistDelete = MsgBox(Prompt:="There are files/folders in this directory" + vbNewLine + "Do you want to delete these files/folders?", Title:="Confirm", Buttons:=vbYesNo)
+                FilesExistDelete = MsgBox(Prompt:="There are files/folders in chosen directory" + vbNewLine + Flashcartmenu.ExtPath + vbNewLine + "Do you want to delete these files/folders?", Title:="Confirm", Buttons:=vbYesNo)
                 If FilesExistDelete = vbNo Then
                     Dim MessyInstall
                     MessyInstall = MsgBox(Prompt:="Do you want to try to continue with files/folders in the directory?", Title:="Confirm", Buttons:=vbYesNo)

@@ -55,7 +55,7 @@ Public Class Menu1
     End Sub
 
     Public Sub PingChecker()
-        If My.Computer.Network.Ping("www.filetrip.net", 500) = False Then
+        If My.Computer.Network.Ping("www.filetrip.net", 1000) = False Then
             Dim FileTripPing As New MsgBoxResult
             FileTripPing = MsgBox("Connection to FileTrip.net unavailible, continue?", Title:="FileTrip.net is unavailible", Buttons:=vbYesNo)
             If FileTripPing = vbNo Then

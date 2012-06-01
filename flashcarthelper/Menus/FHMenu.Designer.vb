@@ -30,6 +30,7 @@ Partial Class FHMenu
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Settingsbtn = New System.Windows.Forms.Button()
         Me.Cheatbtn = New System.Windows.Forms.Button()
+        Me.CheatDBTip = New System.Windows.Forms.ToolTip(Me.components)
         Me.SuspendLayout()
         '
         'SetUpFlashcartBtn
@@ -103,4 +104,5 @@ Partial Class FHMenu
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents Settingsbtn As System.Windows.Forms.Button
     Friend WithEvents Cheatbtn As System.Windows.Forms.Button
+    Friend WithEvents CheatDBTip As System.Windows.Forms.ToolTip
 End Class

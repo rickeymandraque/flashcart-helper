@@ -30,6 +30,7 @@ Public Class FHMenu
         Label1.Text = "Version " + My.Application.Info.Version.ToString
         SetUpFlashcartTip.SetToolTip(SetUpFlashcartBtn, "Set up your flashcart")
         AppExitTip.SetToolTip(ExitAppBtn, "Exit FlashcartHelper")
+        CheatDBTip.SetToolTip(Cheatbtn, "Download the latest Cheats for your flashcart")
     End Sub
 
     Private Sub Settingsbtn_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Settingsbtn.Click
@@ -45,9 +46,5 @@ Public Class FHMenu
     'shh..It's a secret
     Private Sub Label1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Label1.Click
         MsgBox("Never gonna give you up" + vbNewLine + "Never gonna let you down" + vbNewLine + "Never gonna run around and desert you" + vbNewLine + "Never gonna make you cry" + vbNewLine + "Never gonna say goodbye" + vbNewLine + "Never gonna tell a lie and hurt you", Title:="You've got Rickrolled!")
-
-
-
-
     End Sub
 End Class

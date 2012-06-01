@@ -58,8 +58,6 @@ Public Class FHMenu
         Me.Hide()
         AK2DL.Show()
     End Sub
-#End Region
-
     Private Sub InstallWoodR4ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles InstallWoodR4ToolStripMenuItem.Click
         If My.Settings.PreferredExtPath = Nothing Then
             Flashcartmenu.ExtPath = My.Computer.FileSystem.SpecialDirectories.Desktop + "\FlashcartHelper\"
@@ -168,4 +166,17 @@ Public Class FHMenu
     Private Sub AboutFlashcartHelperToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AboutFlashcartHelperToolStripMenuItem.Click
         AboutBox1.ShowDialog()
     End Sub
+
+    Private Sub ShowIsDSTWOFlashedMessageToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ShowIsDSTWOFlashedMessageToolStripMenuItem.Click
+        ShowIsDSTWOFlashedMessageToolStripMenuItem.CheckOnClick = True
+        If ShowIsDSTWOFlashedMessageToolStripMenuItem.Checked = False Then
+            My.Settings.DSTWOIsFlashed = True
+        Else
+            My.Settings.DSTWOIsFlashed = False
+        End If
+
+    End Sub
+#End Region
+
+ 
 End Class

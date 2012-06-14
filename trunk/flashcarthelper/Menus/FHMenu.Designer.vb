@@ -65,6 +65,8 @@ Partial Class FHMenu
         Me.ShowIsDSTWOFlashedMessageToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.FirmwareDialog = New System.Windows.Forms.FolderBrowserDialog()
         Me.CheatDialog = New System.Windows.Forms.FolderBrowserDialog()
+        Me.CycloDSIEvolutionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.InstallEvolutionFirmwareToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -158,7 +160,7 @@ Partial Class FHMenu
         '
         Me.AcekardToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.InstallAKAIOToolStripMenuItem})
         Me.AcekardToolStripMenuItem.Name = "AcekardToolStripMenuItem"
-        Me.AcekardToolStripMenuItem.Size = New System.Drawing.Size(127, 22)
+        Me.AcekardToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.AcekardToolStripMenuItem.Text = "Acekard"
         '
         'InstallAKAIOToolStripMenuItem
@@ -171,7 +173,7 @@ Partial Class FHMenu
         '
         Me.R4ToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.R4RevolutionToolStripMenuItem, Me.R4iGoldToolStripMenuItem, Me.R4iDSNToolStripMenuItem})
         Me.R4ToolStripMenuItem.Name = "R4ToolStripMenuItem"
-        Me.R4ToolStripMenuItem.Size = New System.Drawing.Size(127, 22)
+        Me.R4ToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.R4ToolStripMenuItem.Text = "R4"
         '
         'R4RevolutionToolStripMenuItem
@@ -217,7 +219,7 @@ Partial Class FHMenu
         '
         Me.DSTTToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.InstallRetroGameFansUpdatesToolStripMenuItem})
         Me.DSTTToolStripMenuItem.Name = "DSTTToolStripMenuItem"
-        Me.DSTTToolStripMenuItem.Size = New System.Drawing.Size(127, 22)
+        Me.DSTTToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.DSTTToolStripMenuItem.Text = "DSTT"
         '
         'InstallRetroGameFansUpdatesToolStripMenuItem
@@ -230,7 +232,7 @@ Partial Class FHMenu
         '
         Me.DSTWOToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DSTWOToolStripMenuItem1})
         Me.DSTWOToolStripMenuItem.Name = "DSTWOToolStripMenuItem"
-        Me.DSTWOToolStripMenuItem.Size = New System.Drawing.Size(127, 22)
+        Me.DSTWOToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.DSTWOToolStripMenuItem.Text = "Supercard"
         '
         'DSTWOToolStripMenuItem1
@@ -254,16 +256,16 @@ Partial Class FHMenu
         '
         'CycloDSToolStripMenuItem
         '
-        Me.CycloDSToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CycloDSEvolutionToolStripMenuItem})
+        Me.CycloDSToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CycloDSEvolutionToolStripMenuItem, Me.CycloDSIEvolutionToolStripMenuItem})
         Me.CycloDSToolStripMenuItem.Name = "CycloDSToolStripMenuItem"
-        Me.CycloDSToolStripMenuItem.Size = New System.Drawing.Size(127, 22)
+        Me.CycloDSToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.CycloDSToolStripMenuItem.Text = "CycloDS"
         '
         'CycloDSEvolutionToolStripMenuItem
         '
         Me.CycloDSEvolutionToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.InstallFirmToolStripMenuItem})
         Me.CycloDSEvolutionToolStripMenuItem.Name = "CycloDSEvolutionToolStripMenuItem"
-        Me.CycloDSEvolutionToolStripMenuItem.Size = New System.Drawing.Size(171, 22)
+        Me.CycloDSEvolutionToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
         Me.CycloDSEvolutionToolStripMenuItem.Text = "CycloDS Evolution"
         '
         'InstallFirmToolStripMenuItem
@@ -324,6 +326,19 @@ Partial Class FHMenu
         Me.ShowIsDSTWOFlashedMessageToolStripMenuItem.Name = "ShowIsDSTWOFlashedMessageToolStripMenuItem"
         Me.ShowIsDSTWOFlashedMessageToolStripMenuItem.Size = New System.Drawing.Size(260, 22)
         Me.ShowIsDSTWOFlashedMessageToolStripMenuItem.Text = "Show ""Is DSTWO Flashed Message"""
+        '
+        'CycloDSIEvolutionToolStripMenuItem
+        '
+        Me.CycloDSIEvolutionToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.InstallEvolutionFirmwareToolStripMenuItem})
+        Me.CycloDSIEvolutionToolStripMenuItem.Name = "CycloDSIEvolutionToolStripMenuItem"
+        Me.CycloDSIEvolutionToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
+        Me.CycloDSIEvolutionToolStripMenuItem.Text = "CycloDS iEvolution"
+        '
+        'InstallEvolutionFirmwareToolStripMenuItem
+        '
+        Me.InstallEvolutionFirmwareToolStripMenuItem.Name = "InstallEvolutionFirmwareToolStripMenuItem"
+        Me.InstallEvolutionFirmwareToolStripMenuItem.Size = New System.Drawing.Size(210, 22)
+        Me.InstallEvolutionFirmwareToolStripMenuItem.Text = "Install Evolution Firmware"
         '
         'FHMenu
         '
@@ -390,4 +405,6 @@ Partial Class FHMenu
     Friend WithEvents ViewCheatDBChangelogToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents FirmwareDialog As System.Windows.Forms.FolderBrowserDialog
     Friend WithEvents CheatDialog As System.Windows.Forms.FolderBrowserDialog
+    Friend WithEvents CycloDSIEvolutionToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents InstallEvolutionFirmwareToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 End Class

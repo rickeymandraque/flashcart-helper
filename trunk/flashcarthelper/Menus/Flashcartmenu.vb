@@ -72,6 +72,10 @@ Public Class Flashcartmenu
         DSNDL.Show()
         Me.Hide()
     End Sub
+    Private Sub CycloDSi_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CycloDSi.Click
+        iCycloDL.Show()
+        Me.Hide()
+    End Sub
 #End Region
     Private Sub ChoosePath_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
 
@@ -110,5 +114,6 @@ Public Class Flashcartmenu
         Me.Hide()
         FHMenu.Show()
     End Sub
+
 
 End Class

@@ -182,4 +182,13 @@ Public Class FHMenu
 
  
 
+    Private Sub InstallEvolutionFirmwareToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles InstallEvolutionFirmwareToolStripMenuItem.Click
+        If My.Settings.PreferredExtPath = Nothing Then
+            Flashcartmenu.ExtPath = My.Computer.FileSystem.SpecialDirectories.Desktop + "\FlashcartHelper\"
+        Else
+            Flashcartmenu.ExtPath = My.Settings.PreferredExtPath
+        End If
+        Me.Hide()
+        iCycloDL.Show()
+    End Sub
 End Class

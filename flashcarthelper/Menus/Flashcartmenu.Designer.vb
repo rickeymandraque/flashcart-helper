@@ -43,6 +43,7 @@ Partial Class Flashcartmenu
         Me.r4igoldtip = New System.Windows.Forms.ToolTip(Me.components)
         Me.r4idsntip = New System.Windows.Forms.ToolTip(Me.components)
         Me.cyclodstip = New System.Windows.Forms.ToolTip(Me.components)
+        Me.CycloDSi = New System.Windows.Forms.Button()
         CType(Me.FlashcartBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -165,11 +166,21 @@ Partial Class Flashcartmenu
         Me.cyclobtn.Text = "CycloDS"
         Me.cyclobtn.UseVisualStyleBackColor = True
         '
+        'CycloDSi
+        '
+        Me.CycloDSi.Location = New System.Drawing.Point(12, 394)
+        Me.CycloDSi.Name = "CycloDSi"
+        Me.CycloDSi.Size = New System.Drawing.Size(348, 40)
+        Me.CycloDSi.TabIndex = 12
+        Me.CycloDSi.Text = "CycloDS iEVO"
+        Me.CycloDSi.UseVisualStyleBackColor = True
+        '
         'Flashcartmenu
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(598, 559)
+        Me.Controls.Add(Me.CycloDSi)
         Me.Controls.Add(Me.cyclobtn)
         Me.Controls.Add(Me.dsnbtn)
         Me.Controls.Add(Me.r4igoldbtn)
@@ -210,4 +221,5 @@ Partial Class Flashcartmenu
     Friend WithEvents r4igoldtip As System.Windows.Forms.ToolTip
     Friend WithEvents r4idsntip As System.Windows.Forms.ToolTip
     Friend WithEvents cyclodstip As System.Windows.Forms.ToolTip
+    Friend WithEvents CycloDSi As System.Windows.Forms.Button
 End Class

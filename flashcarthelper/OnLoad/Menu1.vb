@@ -51,11 +51,14 @@ Public Class Menu1
         Catch PingException As Exception
             MsgBox("Version Check Failed")
         End Try
-        My.Computer.FileSystem.DeleteFile(Application.StartupPath + "/version.txt")
+        Try
+            My.Computer.FileSystem.DeleteFile(Application.StartupPath + "/version.txt")
+        Catch ex As Exception
+        End Try
     End Sub
 
     Public Sub PingChecker()
-        If My.Computer.Network.Ping("www.filetrip.net", 1000) = False Then
+        If My.Computer.Network.Ping("www.filetrip.net", 1500) = False Then
             Dim FileTripPing As New MsgBoxResult
             FileTripPing = MsgBox("Connection to FileTrip.net unavailible, continue?", Title:="FileTrip.net is unavailible", Buttons:=vbYesNo)
             If FileTripPing = vbNo Then
